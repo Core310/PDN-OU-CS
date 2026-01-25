@@ -10,6 +10,38 @@
 */ // ------------------------------------------------------ //
 
 
+void read_files_in(FILE *matFile, FILE *vecFile, int n_row1, int n_col1, int vec_dim, long int *matrix, long int *vec) {
+    for (int i = 0; i < n_row1 * n_col1; i++) { // where n row by n col
+        // Ignore following chars after long int
+        if (fscanf(matFile, "%ld%*c", &matrix[i]) == 1) {
+            printf("Error reading matrix file at index %d\n", i);
+            break;
+        }
+    }
+
+    // then simply going thru the vector isn't hard
+    for (int i = 0; i < vec_dim; i++) {
+        if (fscanf(vecFile, "%ld%*c", &vec[i]) == 1) {
+            printf("Error reading vector file at index %d\n", i);
+            break;
+        }
+    }
+}
+
+void matrix_vector_multi(int matrix_row, int matrix_col, long int *matrix, long int *vec, long int *result) {
+    for (int i = 0; i < matrix_row; ++i) {
+        long int sum = 0;
+
+        for (int j = 0; j < matrix_col; ++j) {
+            // matrix[i * n_col1 + j]
+            //check document, we can't use a 2d array, so have 2
+            //do weird math
+            sum += matrix[i * matrix_col + j] * vec[j];
+        }
+        result[i] = sum;
+    }
+}
+
 int main (int argc, char *argv[])
 {
     // Catch console errors
@@ -26,26 +58,54 @@ int main (int argc, char *argv[])
     // Get dim of the matrix
     char* p1;
     char* p2;
-    int n_row1 = strtol(argv[2], &p1, 10 );
-    int n_col1 = strtol(argv[3], &p2, 10 );
+    int matrix_row = strtol(argv[2], &p1, 10 );
+    int matrix_col = strtol(argv[3], &p2, 10 );
 
     // Get dim of the vector
     char* p3;
-    int n_row2 = strtol(argv[5], &p3, 10 );
+    int vec_dim = strtol(argv[5], &p3, 10 );
 
     // Get the output file
     FILE *outputFile = fopen(argv[6], "w");
 
 
-    // TODO: Use malloc to allocate memory for the matrices
+    // init matricies + vector +
+    //matrix p easy
+    //vec
+    long int* matrix = (long int*) malloc(matrix_row * matrix_col * sizeof(long int));
+
+    long int* vec = (long int*) malloc(vec_dim * sizeof(long int));
+
+    long int* result = (long int*) malloc(matrix_row * sizeof(long int));
 
     // TODO: Parse the input CSV files
 
+    //we need 2 parse 2 files: vec and matrix files
+    //sadly we can't do this in 1 run
+    read_files_in(matFile, vecFile, matrix_row, matrix_col, vec_dim, matrix, vec);
+
     // TODO: Perform the matrix-vector multiplication
+
+    /*
+     * Hm I want to multiply a 2d vector via 1d
+     * But I don't think I can do [i][j], so need 2 do it manually
+     * then lets just calculate each and regenerate each index via 2 for loops
+     *
+     *
+     */
+    matrix_vector_multi(matrix_row, matrix_col, matrix, vec, result);
 
     // TODO: Write the output CSV file
 
+    //just fprintf right
+    for(int i = 0; i < matrix_row; i++) {
+        fprintf(outputFile, "%ld\n", result[i]);
+    }
+
     // TODO: Free memory
+    free(matrix);
+    free(vec);
+    free(result);
 
     // Cleanup
     fclose (matFile);
