@@ -22,10 +22,10 @@ int main ()
     *                       Linux) means that the program has finished
     *                       successfully.
     */
-    const int minimum_number       =  1;
-    const int maximum_number       = 10;
-    const int close_distance       =  1;
-    const int computers_number     =  5;
+    const int minimum_number       =  0;
+    const int maximum_number       = 5;
+    const int close_distance       =  2;
+    const int computers_number     =  2;
     const int maximum_guesses      = 10;
     const int program_success_code =  0;
    /*
@@ -86,26 +86,26 @@ int main ()
            /*
             * Idiotproof:  they're outside the range, so complain.
             */
-            printf("Hey! That's not between %d and %d!\n",
+            printf("invalid, must be between %d and %d!\n",
                 minimum_number, maximum_number);
         } /* if ((users_number < minimum_number) || ...) */
         else if (users_number == computers_number) {
            /*
             * They're correct, so be amazed.
             */
-            printf("That's amazing!\n");
+            printf("Correct!\n");
         } /* if (users_number == computers_number) */
         else if (abs(users_number - computers_number) <= close_distance) {
            /*
             * They're within close_distance, so say that they're close.
             */
-            printf("Close, but no cigar.\n");
+            printf("users_number - computers_number.\n");
         } /* if (abs(users_number - computers_number) <= ...) */
         else {
            /*
             * They're not even close, so be cruel.
             */
-            printf("Bzzzt! Not even close.\n");
+            printf(" none .\n");
         } /* if (abs(users_number - computers_number) <= ...)...else */
     } /* while ((users_number != computers_number) && ... */
    /*
