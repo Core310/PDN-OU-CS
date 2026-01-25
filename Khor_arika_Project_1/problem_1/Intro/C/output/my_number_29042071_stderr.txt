@@ -1,0 +1,1 @@
+/var/slurm/spool/slurmd/job29042071/slurm_script: line 232: /home/oucspdn089/SIPE/Intro/C/my_number_input.txt: No such file or directory
