@@ -13,7 +13,7 @@
 #
 # --------------------- Change the items below here! ---------------------
 #
-#SBATCH --mail-user=youremail@ou.edu
+#SBATCH --mail-user=arikak@ou.edu
 #SBATCH --mail-type=ALL
 #
 #SBATCH --chdir=/home/user007/HW2/
