@@ -16,9 +16,9 @@
 #SBATCH --mail-user=arikak@ou.edu
 #SBATCH --mail-type=ALL
 #
-#SBATCH --chdir=/home/user007/HW2/
-#SBATCH --output=/home/user007/HW2/autograding_%J_stdout.txt
-#SBATCH --error=/home/user007/HW2/autograding_%J_stderr.txt
+#SBATCH --chdir=/home/oucspdn089/HW2/
+#SBATCH --output=/home/oucspdn089/HW2/autograding_%J_stdout.txt
+#SBATCH --error=/home/oucspdn089/HW2/autograding_%J_stderr.txt
 
 #################################################
 
