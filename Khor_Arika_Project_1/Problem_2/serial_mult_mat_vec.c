@@ -11,17 +11,19 @@
 
 
 void read_files_in(FILE *matFile, FILE *vecFile, int n_row1, int n_col1, int vec_dim, long int *matrix, long int *vec) {
-    for (int i = 0; i < n_row1 * n_col1; i++) { // where n row by n col
-        // Ignore following chars after long int
-        if (fscanf(matFile, "%ld%*c", &matrix[i]) == 1) {
+    // Read Matrix
+    for (int i = 0; i < n_row1 * n_col1; i++) {
+        // Space before %ld skips whitespaces and newlines
+        // %*c skips the comma or trailing newline
+        if (fscanf(matFile, " %ld%*c", &matrix[i]) != 1) {
             printf("Error reading matrix file at index %d\n", i);
             break;
         }
     }
 
-    // then simply going thru the vector isn't hard
+    // Read Vector
     for (int i = 0; i < vec_dim; i++) {
-        if (fscanf(vecFile, "%ld%*c", &vec[i]) == 1) {
+        if (fscanf(vecFile, " %ld%*c", &vec[i]) != 1) {
             printf("Error reading vector file at index %d\n", i);
             break;
         }
