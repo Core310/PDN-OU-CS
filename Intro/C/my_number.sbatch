@@ -16,8 +16,8 @@
 # DON'T REMOVE THE pound sign (#) from before the SBATCH!!!!
 #
 # Everywhere throughout this batch script file:
-# * CHANGE yourusername to your username;
-# * CHANGE youremailaddress@yourinstitution.edu to your e-mail address.
+# * CHANGE oucspdn089 to your username;
+# * CHANGE arikak@ou.edu to your e-mail address.
 #
 # NOTE: If you create any file of human-readable text on a Windows PC,
 # you *MUST* perform the following command on it:
@@ -26,7 +26,7 @@
 #
 # where you replace "filename" with the name of the file; for example:
 #
-#   dos2unix /home/yourusername/SIPE/Intro/C/my_number_input.txt
+#   dos2unix /home/oucspdn089/SIPE/Intro/C/my_number_input.txt
 #
 # This is because virtually all text editors in Windows embed hidden
 # special characters in text files (for example, font information),
@@ -41,7 +41,7 @@
 #
 # To see what batch jobs you personally have in the scheduler:
 #
-#   squeue -u yourusername
+#   squeue -u oucspdn089
 #
 # To see what batch jobs everyone has in your partitions:
 #
@@ -133,7 +133,7 @@
 # will know the working directory, which can be helpful in
 # properly managing your batch job.
 #
-#SBATCH --chdir=/home/yourusername/SIPE/Intro/C
+#SBATCH --chdir=/home/oucspdn089/SIPE/Intro/C
 #
 # Standard output (stdout) is the output that normally would go to
 # the terminal screen.
@@ -148,11 +148,11 @@
 # job ID number.
 #
 # Everywhere throughout this batch script file:
-# * CHANGE yourusername to your username;
-# * CHANGE youremailaddress@yourinstitution.edu to your e-mail address.
+# * CHANGE oucspdn089 to your username;
+# * CHANGE arikak@ou.edu to your e-mail address.
 #
-#SBATCH --output=/home/yourusername/SIPE/Intro/C/my_number_%J_stdout.txt
-#SBATCH --error=/home/yourusername/SIPE/Intro/C/my_number_%J_stderr.txt
+#SBATCH --output=/home/oucspdn089/SIPE/Intro/C/my_number_%J_stdout.txt
+#SBATCH --error=/home/oucspdn089/SIPE/Intro/C/my_number_%J_stderr.txt
 #
 # The SBATCH directive below says to run for up to 30 minutes
 # (that is, zero hours plus 30 minutes plus zero seconds) of
@@ -183,8 +183,8 @@
 # command.
 #
 # Everywhere throughout this batch script file:
-# * CHANGE yourusername to your username;
-# * CHANGE youremailaddress@yourinstitution.edu to your e-mail address.
+# * CHANGE oucspdn089 to your username;
+# * CHANGE arikak@ou.edu to your e-mail address.
 #
 #SBATCH --job-name=my_number
 #
@@ -192,10 +192,10 @@
 # notifications to, which should be changed to your e-mail address.
 #
 # Everywhere throughout this batch script file:
-# * CHANGE yourusername to your username;
-# * CHANGE youremailaddress@yourinstitution.edu to your e-mail address.
+# * CHANGE oucspdn089 to your username;
+# * CHANGE arikak@ou.edu to your e-mail address.
 #
-#SBATCH --mail-user=youremailaddress@yourinstitution.edu
+#SBATCH --mail-user=arikak@ou.edu
 #
 # The SBATCH directive below says to e-mail a notification when the
 # batch job either completes or fails.
@@ -225,8 +225,8 @@ echo ""
 # human readable text.
 #
 # Everywhere throughout this batch script file:
-# * CHANGE yourusername to your username;
-# * CHANGE youremailaddress@yourinstitution.edu to your e-mail address.
+# * CHANGE oucspdn089 to your username;
+# * CHANGE arikak@ou.edu to your e-mail address.
 
-/home/yourusername/SIPE/Intro/C/my_number \
-  < /home/yourusername/SIPE/Intro/C/my_number_input.txt
+/home/oucspdn089/SIPE/Intro/C/my_number \
+  < /home/oucspdn089/SIPE/Intro/C/my_number_input.txt
