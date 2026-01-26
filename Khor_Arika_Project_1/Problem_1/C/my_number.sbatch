@@ -228,5 +228,5 @@ echo ""
 # * CHANGE oucspdn089 to your username;
 # * CHANGE arikak@ou.edu to your e-mail address.
 
-/home/oucspdn089/git/PDN-OU-CS/Khor_Arika_Project_1/Problem_1/C/output/my_number \
+/home/oucspdn089/git/PDN-OU-CS/Khor_Arika_Project_1/Problem_1/C/my_number \
   < /home/oucspdn089/git/PDN-OU-CS/Khor_Arika_Project_1/Problem_1/C/output/my_number_input.txt
