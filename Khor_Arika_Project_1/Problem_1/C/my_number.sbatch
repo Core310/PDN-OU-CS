@@ -232,7 +232,7 @@ echo ""
 # below didn't work for some reason so i had to change it to my own..
 echo -e "0\n11\n1\n4\n5" > /home/oucspdn089/git/PDN-OU-CS/Khor_Arika_Project_1/Problem_1/C/output/my_number_input.txt
 cd /home/oucspdn089/git/PDN-OU-CS/Khor_Arika_Project_1/Problem_1/C
-./my_number < output/my_number_input.txt
+./my_number_unedited < output/my_number_input.txt
 
 
 #/home/oucspdn089/git/PDN-OU-CS/Khor_Arika_Project_1/Problem_1/C/my_number \
