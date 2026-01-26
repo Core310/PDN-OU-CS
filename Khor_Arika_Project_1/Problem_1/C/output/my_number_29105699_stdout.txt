@@ -1,0 +1,35 @@
+Working directory:
+/home/oucspdn089/git/PDN-OU-CS/Khor_Arika_Project_1/Problem_1/C/output
+
+Let's see whether you can guess the number that I'm thinking of.
+It's between 0 and 5.
+What number am I thinking of?
+You guessed 0.
+users_number - computers_number.
+What number am I thinking of?
+You guessed 11.
+invalid, must be between 0 and 5!
+What number am I thinking of?
+You guessed 1.
+users_number - computers_number.
+What number am I thinking of?
+You guessed 4.
+users_number - computers_number.
+What number am I thinking of?
+You guessed 5.
+ none .
+What number am I thinking of?
+You guessed 5.
+ none .
+What number am I thinking of?
+You guessed 5.
+ none .
+What number am I thinking of?
+You guessed 5.
+ none .
+What number am I thinking of?
+You guessed 5.
+ none .
+What number am I thinking of?
+You guessed 5.
+ none .

@@ -1,1 +1,0 @@
-/var/slurm/spool/slurmd/job29105514/slurm_script: line 232: /home/oucspdn089/git/PDN-OU-CS/Khor_Arika_Project_1/Problem_1/C/output/my_number_input.txt: No such file or directory
