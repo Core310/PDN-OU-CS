@@ -26,7 +26,7 @@
 #
 # where you replace "filename" with the name of the file; for example:
 #
-#   dos2unix /home/arika/Documents/PDN-OU-CS/Khor_Arika_Project_1/Problem_1/Intro/Cmy_number_input.txt
+#   dos2unix /home/oucspdn089/git/PDN-OU-CS/Khor_Arika_Project_1/Problem_1/C/output/my_number_input.txt
 #
 # This is because virtually all text editors in Windows embed hidden
 # special characters in text files (for example, font information),
@@ -133,7 +133,7 @@
 # will know the working directory, which can be helpful in
 # properly managing your batch job.
 #
-#SBATCH --chdir=/home/oucspdn089/SIPE/Intro/C
+#SBATCH --chdir=/home/oucspdn089/git/PDN-OU-CS/Khor_Arika_Project_1/Problem_1/C/output
 #
 # Standard output (stdout) is the output that normally would go to
 # the terminal screen.
@@ -151,8 +151,8 @@
 # * CHANGE oucspdn089 to your username;
 # * CHANGE arikak@ou.edu to your e-mail address.
 #
-#SBATCH --output=/home/arika/Documents/PDN-OU-CS/Khor_Arika_Project_1/Problem_1/Intro/Cmy_number_%J_stdout.txt
-#SBATCH --error=/home/arika/Documents/PDN-OU-CS/Khor_Arika_Project_1/Problem_1/Intro/Cmy_number_%J_stderr.txt
+#SBATCH --output=/home/oucspdn089/git/PDN-OU-CS/Khor_Arika_Project_1/Problem_1/C/output/my_number_%J_stdout.txt
+#SBATCH --error=/home/oucspdn089/git/PDN-OU-CS/Khor_Arika_Project_1/Problem_1/C/output/my_number_%J_stderr.txt
 #
 # The SBATCH directive below says to run for up to 30 minutes
 # (that is, zero hours plus 30 minutes plus zero seconds) of
@@ -228,5 +228,5 @@ echo ""
 # * CHANGE oucspdn089 to your username;
 # * CHANGE arikak@ou.edu to your e-mail address.
 
-/home/arika/Documents/PDN-OU-CS/Khor_Arika_Project_1/Problem_1/Intro/Cmy_number \
-  < /home/arika/Documents/PDN-OU-CS/Khor_Arika_Project_1/Problem_1/Intro/Cmy_number_input.txt
+/home/oucspdn089/git/PDN-OU-CS/Khor_Arika_Project_1/Problem_1/C/output/my_number \
+  < /home/oucspdn089/git/PDN-OU-CS/Khor_Arika_Project_1/Problem_1/C/output/my_number_input.txt
