@@ -17,8 +17,8 @@ int main (int argc, char *argv[])
 {
     // Catch console errors
     //  Make sure you include the # of threads and your output time file.
-    if (argc != 4) {
-        printf("USE LIKE THIS: encrypt_serial key input_text.txt output_text.txt\n");
+    if (argc != 6) {
+        printf("USE LIKE THIS: encrypt_parallel key input_text.txt output_text.txt time.txt num_threads\n");
         return EXIT_FAILURE;
     }
 
@@ -26,31 +26,42 @@ int main (int argc, char *argv[])
     char* p1;
     int key = strtol(argv[1], &p1, 10 );
 
+    // Read in the thread count from the new argument
+    int num_threads = atoi(argv[5]);
+
     // Open the input, unencrypted text file
     FILE* inputFile = fopen(argv[2], "r");
 
     // Open the output, encrypted text file
     FILE* outputFile = fopen(argv[3], "w");
 
+    // Open the time file for logging
+    FILE* timeFile = fopen(argv[4], "a");
 
     // Allocate and open a buffer to read in the input
     fseek(inputFile, 0L, SEEK_END);
     long lSize = ftell(inputFile);
     rewind(inputFile);
     unsigned char* buffer = calloc(1, lSize + 1);
+
+    /*
+     * Isn't like all the if statemenets below here unreachable with my current code? Liek can't I just delete it?
+     * Keeping it incase its important but this is totally how tech debt gets thrown into code bases loll
+     *
+     */
     if (!buffer)
         fclose(inputFile),
         fclose(outputFile),
-        // fclose(timeFile),
+        fclose(timeFile),
         free(buffer),
-        fputs("Memory alloc for inputFile1 failed!\n", stderr), 
+        fputs("Memory alloc for inputFile1 failed!\n", stderr),
         exit(1);
 
     // Read the input into the buffer
     if(1 != fread(buffer, lSize, 1, inputFile))
         fclose(inputFile),
         fclose(outputFile),
-        // fclose(timeFile),
+        fclose(timeFile),
         free(buffer),
         fputs("Failed reading into the input buffer!\n", stderr),
         exit(2);
@@ -60,7 +71,7 @@ int main (int argc, char *argv[])
     if (!encrypted_buffer)
         fclose(inputFile),
         fclose(outputFile),
-        // fclose(timeFile),
+        fclose(timeFile),
         free(encrypted_buffer),
         free(buffer),
         fputs("Memory alloc for the encrypted buffer failed!\n", stderr),
@@ -68,23 +79,29 @@ int main (int argc, char *argv[])
 
 
     // ----> Begin Encryption <----- //
-    // Encrypt the buffer into the encrypted_buffer
-    for (int i = 0; i<lSize; i++) {
-        // encrypted_buffer[i] = ??? ;  // TODO: Encrypt a character from the input buffer.
-    }
-    if (DEBUG) printf("Values encypted! \n");
+    // Set threads set thread count 4 testing as asked 4
+    omp_set_num_threads(num_threads);
+    double start_time = omp_get_wtime();
 
-    // Print to the output file
+    #pragma omp parallel for schedule(static)
+    for (int i = 0; i<lSize; i++) {
+        encrypted_buffer[i] = (unsigned char)(buffer[i] + key);
+        // TODO: Encrypt a character from the input buffer.
+    }
+
+    double end_time = omp_get_wtime();
+
+    //Logging s/e timing of codebase
+    fprintf(timeFile, "Threads: %d, Size: %ld, Time: %f\n", num_threads, lSize, end_time - start_time);
+
     for (int i = 0; i<lSize; i++) {
         fprintf(outputFile, "%c", encrypted_buffer[i]);
     }
 
-
-
     // Cleanup
     fclose(inputFile);
     fclose(outputFile);
-    // fclose(timeFile);
+    fclose(timeFile);
     free(encrypted_buffer);
     free(buffer);
 

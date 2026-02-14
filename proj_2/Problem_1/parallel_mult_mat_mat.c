@@ -38,6 +38,10 @@ int main(int argc, char *argv[]) {
 
     // Get num threads
     int thread_count = strtol(argv[9], NULL, 10);
+    /* TODO I ACTUALLY NEED TO DO THIS
+     *Please benchmark the wall-clock runtime of your program using 1, 2,  4, and 8 threads on the following four tests with increasing sizes of the two input matrices:
+     *
+     */
 
     // Get output files
     FILE *outputFile = fopen(argv[7], "w");
@@ -101,7 +105,7 @@ int main(int argc, char *argv[]) {
      */
     double start = omp_get_wtime();
 
-    #pragma omp parallel //nvr spec how mny threads so js default
+    #pragma omp parallel for num_threads(thread_count) //nvr spec how mny threads so js default
     for (int i = 0; i < row1; i++) {
         for (int k = 0; k < col1; k++) {
             long int r = matrixA[i * col1 + k];
