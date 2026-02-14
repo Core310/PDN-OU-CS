@@ -57,7 +57,6 @@ int main (int argc, char *argv[])
         fputs("Memory alloc for inputFile1 failed!\n", stderr),
         exit(1);
 
-    // Read the input into the buffer
     if(1 != fread(buffer, lSize, 1, inputFile))
         fclose(inputFile),
         fclose(outputFile),
@@ -66,7 +65,6 @@ int main (int argc, char *argv[])
         fputs("Failed reading into the input buffer!\n", stderr),
         exit(2);
 
-    // Allocate a buffer for the encrypted data
     unsigned char* encrypted_buffer = calloc(1, lSize+1);
     if (!encrypted_buffer)
         fclose(inputFile),
