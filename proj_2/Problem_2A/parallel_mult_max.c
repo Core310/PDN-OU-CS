@@ -45,16 +45,16 @@ int main(int argc, char *argv[]) {
      * then js bind each 2 sm inp frm argv
      *
      */
-    char *fileA = argv[1];
-    int rA = atoi(argv[2]);
-    int cA = atoi(argv[3]);
-    char *fileB = argv[4];
-    int rB = atoi(argv[5]);
-    int cB = atoi(argv[6]);
+    char *fileA = argv[1],
+     *fileB = argv[4],
+     *fileRes = argv[7],
+     *fileTime = argv[8];
 
-    char *fileRes = argv[7];
-    char *fileTime = argv[8];
-    int num_threads = atoi(argv[9]);
+    int rA = atoi(argv[2]),
+     cA = atoi(argv[3]),
+     rB = atoi(argv[5]),
+     cB = atoi(argv[6]),
+     num_threads = atoi(argv[9]);
 
     /*sometimes its nice to have everything nicely defiend :)
      *instead of bein lazy and just directly calling each arugment (but this leads to me getting laid off so oof...)
@@ -77,25 +77,20 @@ int main(int argc, char *argv[]) {
      *
      */
     #pragma omp parallel for schedule(static)
-    for (int j = 0; j < cB; j++) {           // Outer loop: columns of B
-        for (int i = 0; i < rA; i++) {       // Inner loop: rows of A
+    for (int col_b = 0; col_b < cB; col_b++) {
+        for (int row_a = 0; row_a < rA; row_a++) {
             double dot_product = 0;
-            for (int k = 0; k < cA; k++) {   // Dot product calculation
-                dot_product += A[i * cA + k] * B[k * cB + j];
+            for (int k = 0; k < cA; k++) {   // Dot product loop
+                dot_product += A[row_a * cA + k] * B[k * cB + col_b];
             }
-
-            if (dot_product > global_maximum) {
-                global_maximum = dot_product;
-            }
+            global_maximum = (dot_product > global_maximum) ? dot_product : global_maximum;
         }
     }
 
     double end_time = omp_get_wtime();
-    // ----> End Parallel Computation <----- //
 
     save_results(fileRes, fileTime, num_threads, global_maximum, start_time, end_time);
 
-    // Cleanup
     free(A);
     free(B);
 
