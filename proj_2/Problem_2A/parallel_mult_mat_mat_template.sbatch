@@ -4,9 +4,9 @@
 #SBATCH --exclusive
 #SBATCH --ntasks=8
 #SBATCH --ntasks-per-node=8
-#SBATCH --chdir=/home/oucspdn000/Project_2/Problem_1
-#SBATCH --output=/home/oucspdn000/Project_2/Problem_1/Problem1_%J_stdout.txt
-#SBATCH --error=/home/oucspdn000/Project_2/Problem_1/Problem1_%J_stderr.txt
+#SBATCH --chdir=/home/oucspdn000/Project_2/Problem_2A
+#SBATCH --output=/home/oucspdn000/Project_2/Problem_1/Problem_2A_%J_stdout.txt
+#SBATCH --error=/home/oucspdn000/Project_2/Problem_1/Problem_2A_%J_stderr.txt
 # Adjust time according to your needs and queue limit 
 #SBATCH --time=00:15:00
 #SBATCH --job-name=Project2_Problem1
@@ -14,6 +14,8 @@
 #SBATCH --mail-type=ALL
 
 #################################################
+
+#I'll need 2 change all the test inp files for later.. but the actuall runner shuld stay the same i think..
 
 echo "**Test 1 - 1 threads**"
 ./parallel_mult_mat_mat test1_input_mat_a.csv 1000 1000 test1_input_mat_b.csv 1000 1000 output1.csv test1_time_1p.csv 1
@@ -26,5 +28,3 @@ echo "** Test 3 - 4 threads **"
 
 echo "** Test 4 - 8 threads **"
 ./parallel_mult_mat_mat test2_input_mat_a.csv 1000 1000 test2_input_mat_b.csv 1000 2000 output2_8p.csv test2_time_8p.csv 8
-
-# ...
