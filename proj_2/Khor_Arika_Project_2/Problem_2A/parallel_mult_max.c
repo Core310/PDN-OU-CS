@@ -29,8 +29,8 @@ void save_results(char *fileRes, char *fileTime, int num_threads, double global_
     fclose(fOut);
 
     // Save timing data
-    FILE *fTime = fopen(fileTime, "a");
-    fprintf(fTime, "%d, %f\n", num_threads, end_time - start_time);
+    FILE *fTime = fopen(fileTime, "w");
+    fprintf(fTime, "%f\n", end_time - start_time);
     fclose(fTime);
 }
 
@@ -76,7 +76,7 @@ int main(int argc, char *argv[]) {
      * where da magic habbens
      *
      */
-    #pragma omp parallel for schedule(static)
+    #pragma omp parallel for schedule(static) reduction(max:global_maximum)
     for (int col_b = 0; col_b < cB; col_b++) {
         for (int row_a = 0; row_a < rA; row_a++) {
             double dot_product = 0;

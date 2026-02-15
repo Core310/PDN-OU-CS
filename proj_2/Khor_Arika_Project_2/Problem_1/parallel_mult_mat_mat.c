@@ -121,6 +121,17 @@ int main(int argc, char *argv[]) {
 
     double time_passed = end - start;
 
+    // Save result matrix to file
+    for (int i = 0; i < row1; i++) {
+        for (int j = 0; j < col2; j++) {
+            fprintf(outputFile, "%ld", matrixC[i * col2 + j]);
+            if (j < col2 - 1) {
+                fprintf(outputFile, ",");
+            }
+        }
+        fprintf(outputFile, "\n");
+    }
+
     // Save time to file
     fprintf(outputTime, "%f", time_passed);
 

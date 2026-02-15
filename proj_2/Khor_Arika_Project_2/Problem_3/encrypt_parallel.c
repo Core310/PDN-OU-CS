@@ -36,7 +36,7 @@ int main (int argc, char *argv[])
     FILE* outputFile = fopen(argv[3], "w");
 
     // Open the time file for logging
-    FILE* timeFile = fopen(argv[4], "a");
+    FILE* timeFile = fopen(argv[4], "w");
 
     // Allocate and open a buffer to read in the input
     fseek(inputFile, 0L, SEEK_END);
@@ -90,7 +90,7 @@ int main (int argc, char *argv[])
     double end_time = omp_get_wtime();
 
     //Logging s/e timing of codebase
-    fprintf(timeFile, "Threads: %d, Size: %ld, Time: %f\n", num_threads, lSize, end_time - start_time);
+    fprintf(timeFile, "%f\n", end_time - start_time);
 
     for (int i = 0; i<lSize; i++) {
         fprintf(outputFile, "%c", encrypted_buffer[i]);
