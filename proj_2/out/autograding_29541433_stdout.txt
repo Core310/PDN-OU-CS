@@ -1,0 +1,455 @@
+[32mAutograding for Project 2:
+[0m
+[32mAutograding for Project 2 Problem 1:
+[0m
+[32m --> Test dir: /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2[0m
+[32m --> Project dir: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2[0m
+gcc -fopenmp -g -Wall -o parallel_mult_mat_mat parallel_mult_mat_mat.c -std=c99
+[32mTesting for parallel_mult_mat_mat's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test1_output_mat_1p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1 && ./parallel_mult_mat_mat /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test1_input_mat_a.csv 1000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test1_input_mat_b.csv 1000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test1_output_mat_1p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test1_time_1p.csv 1)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 3.666669s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_mat_mat parallel_mult_mat_mat.c -std=c99
+[32mTesting for parallel_mult_mat_mat's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test1_output_mat_2p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1 && ./parallel_mult_mat_mat /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test1_input_mat_a.csv 1000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test1_input_mat_b.csv 1000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test1_output_mat_2p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test1_time_2p.csv 2)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 1.834874s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_mat_mat parallel_mult_mat_mat.c -std=c99
+[32mTesting for parallel_mult_mat_mat's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test1_output_mat_4p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1 && ./parallel_mult_mat_mat /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test1_input_mat_a.csv 1000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test1_input_mat_b.csv 1000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test1_output_mat_4p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test1_time_4p.csv 4)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 0.918707s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_mat_mat parallel_mult_mat_mat.c -std=c99
+[32mTesting for parallel_mult_mat_mat's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test1_output_mat_8p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1 && ./parallel_mult_mat_mat /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test1_input_mat_a.csv 1000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test1_input_mat_b.csv 1000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test1_output_mat_8p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test1_time_8p.csv 8)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 0.461977s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_mat_mat parallel_mult_mat_mat.c -std=c99
+[32mTesting for parallel_mult_mat_mat's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test2_output_mat_1p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1 && ./parallel_mult_mat_mat /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test2_input_mat_a.csv 1000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test2_input_mat_b.csv 1000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test2_output_mat_1p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test2_time_1p.csv 1)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 7.309913s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_mat_mat parallel_mult_mat_mat.c -std=c99
+[32mTesting for parallel_mult_mat_mat's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test2_output_mat_2p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1 && ./parallel_mult_mat_mat /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test2_input_mat_a.csv 1000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test2_input_mat_b.csv 1000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test2_output_mat_2p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test2_time_2p.csv 2)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 3.671434s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_mat_mat parallel_mult_mat_mat.c -std=c99
+[32mTesting for parallel_mult_mat_mat's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test2_output_mat_4p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1 && ./parallel_mult_mat_mat /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test2_input_mat_a.csv 1000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test2_input_mat_b.csv 1000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test2_output_mat_4p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test2_time_4p.csv 4)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 1.838116s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_mat_mat parallel_mult_mat_mat.c -std=c99
+[32mTesting for parallel_mult_mat_mat's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test2_output_mat_8p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1 && ./parallel_mult_mat_mat /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test2_input_mat_a.csv 1000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test2_input_mat_b.csv 1000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test2_output_mat_8p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test2_time_8p.csv 8)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 0.923786s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_mat_mat parallel_mult_mat_mat.c -std=c99
+[32mTesting for parallel_mult_mat_mat's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test3_output_mat_1p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1 && ./parallel_mult_mat_mat /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test3_input_mat_a.csv 2000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test3_input_mat_b.csv 1000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test3_output_mat_1p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test3_time_1p.csv 1)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 14.62543s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_mat_mat parallel_mult_mat_mat.c -std=c99
+[32mTesting for parallel_mult_mat_mat's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test3_output_mat_2p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1 && ./parallel_mult_mat_mat /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test3_input_mat_a.csv 2000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test3_input_mat_b.csv 1000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test3_output_mat_2p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test3_time_2p.csv 2)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 7.332315s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_mat_mat parallel_mult_mat_mat.c -std=c99
+[32mTesting for parallel_mult_mat_mat's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test3_output_mat_4p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1 && ./parallel_mult_mat_mat /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test3_input_mat_a.csv 2000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test3_input_mat_b.csv 1000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test3_output_mat_4p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test3_time_4p.csv 4)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 3.680999s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_mat_mat parallel_mult_mat_mat.c -std=c99
+[32mTesting for parallel_mult_mat_mat's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test3_output_mat_8p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1 && ./parallel_mult_mat_mat /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test3_input_mat_a.csv 2000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test3_input_mat_b.csv 1000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test3_output_mat_8p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test3_time_8p.csv 8)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 1.840274s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_mat_mat parallel_mult_mat_mat.c -std=c99
+[32mTesting for parallel_mult_mat_mat's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test4_output_mat_1p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1 && ./parallel_mult_mat_mat /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test4_input_mat_a.csv 2000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test4_input_mat_b.csv 2000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test4_output_mat_1p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test4_time_1p.csv 1)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 29.3715s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_mat_mat parallel_mult_mat_mat.c -std=c99
+[32mTesting for parallel_mult_mat_mat's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test4_output_mat_2p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1 && ./parallel_mult_mat_mat /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test4_input_mat_a.csv 2000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test4_input_mat_b.csv 2000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test4_output_mat_2p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test4_time_2p.csv 2)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 14.714624s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_mat_mat parallel_mult_mat_mat.c -std=c99
+[32mTesting for parallel_mult_mat_mat's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test4_output_mat_4p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1 && ./parallel_mult_mat_mat /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test4_input_mat_a.csv 2000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test4_input_mat_b.csv 2000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test4_output_mat_4p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test4_time_4p.csv 4)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 7.358336s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_mat_mat parallel_mult_mat_mat.c -std=c99
+[32mTesting for parallel_mult_mat_mat's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test4_output_mat_8p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1 && ./parallel_mult_mat_mat /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test4_input_mat_a.csv 2000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test4_input_mat_b.csv 2000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test4_output_mat_8p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_1/test4_time_8p.csv 8)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 3.679138s
+[0m
+[32mAutograding for Project 2 Problem 2a:
+[0m
+[32m --> Test dir: /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2[0m
+[32m --> Project dir: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2[0m
+gcc -fopenmp -g -Wall -o parallel_mult_max parallel_mult_max.c -std=c99
+[32mTesting for parallel_mult_max's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test1_output_1p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A && ./parallel_mult_max /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test1_input_mat_a.csv 1000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test1_input_mat_b.csv 1000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test1_output_1p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test1_time_1p.csv 1)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 4.482382s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_max parallel_mult_max.c -std=c99
+[32mTesting for parallel_mult_max's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test1_output_2p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A && ./parallel_mult_max /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test1_input_mat_a.csv 1000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test1_input_mat_b.csv 1000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test1_output_2p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test1_time_2p.csv 2)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 2.247014s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_max parallel_mult_max.c -std=c99
+[32mTesting for parallel_mult_max's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test1_output_4p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A && ./parallel_mult_max /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test1_input_mat_a.csv 1000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test1_input_mat_b.csv 1000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test1_output_4p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test1_time_4p.csv 4)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 1.119866s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_max parallel_mult_max.c -std=c99
+[32mTesting for parallel_mult_max's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test1_output_8p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A && ./parallel_mult_max /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test1_input_mat_a.csv 1000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test1_input_mat_b.csv 1000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test1_output_8p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test1_time_8p.csv 8)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 0.615723s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_max parallel_mult_max.c -std=c99
+[32mTesting for parallel_mult_max's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test2_output_1p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A && ./parallel_mult_max /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test2_input_mat_a.csv 1000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test2_input_mat_b.csv 1000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test2_output_1p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test2_time_1p.csv 1)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 9.111512s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_max parallel_mult_max.c -std=c99
+[32mTesting for parallel_mult_max's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test2_output_2p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A && ./parallel_mult_max /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test2_input_mat_a.csv 1000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test2_input_mat_b.csv 1000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test2_output_2p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test2_time_2p.csv 2)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 4.553675s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_max parallel_mult_max.c -std=c99
+[32mTesting for parallel_mult_max's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test2_output_4p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A && ./parallel_mult_max /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test2_input_mat_a.csv 1000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test2_input_mat_b.csv 1000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test2_output_4p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test2_time_4p.csv 4)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 2.341322s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_max parallel_mult_max.c -std=c99
+[32mTesting for parallel_mult_max's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test2_output_8p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A && ./parallel_mult_max /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test2_input_mat_a.csv 1000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test2_input_mat_b.csv 1000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test2_output_8p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test2_time_8p.csv 8)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 1.159989s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_max parallel_mult_max.c -std=c99
+[32mTesting for parallel_mult_max's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test3_output_1p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A && ./parallel_mult_max /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test3_input_mat_a.csv 2000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test3_input_mat_b.csv 1000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test3_output_1p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test3_time_1p.csv 1)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 18.151642s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_max parallel_mult_max.c -std=c99
+[32mTesting for parallel_mult_max's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test3_output_2p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A && ./parallel_mult_max /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test3_input_mat_a.csv 2000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test3_input_mat_b.csv 1000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test3_output_2p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test3_time_2p.csv 2)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 9.116896s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_max parallel_mult_max.c -std=c99
+[32mTesting for parallel_mult_max's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test3_output_4p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A && ./parallel_mult_max /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test3_input_mat_a.csv 2000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test3_input_mat_b.csv 1000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test3_output_4p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test3_time_4p.csv 4)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 4.681423s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_max parallel_mult_max.c -std=c99
+[32mTesting for parallel_mult_max's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test3_output_8p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A && ./parallel_mult_max /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test3_input_mat_a.csv 2000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test3_input_mat_b.csv 1000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test3_output_8p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test3_time_8p.csv 8)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 2.319032s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_max parallel_mult_max.c -std=c99
+[32mTesting for parallel_mult_max's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test4_output_1p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A && ./parallel_mult_max /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test4_input_mat_a.csv 2000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test4_input_mat_b.csv 2000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test4_output_1p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test4_time_1p.csv 1)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 45.749173s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_max parallel_mult_max.c -std=c99
+[32mTesting for parallel_mult_max's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test4_output_2p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A && ./parallel_mult_max /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test4_input_mat_a.csv 2000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test4_input_mat_b.csv 2000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test4_output_2p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test4_time_2p.csv 2)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 23.130594s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_max parallel_mult_max.c -std=c99
+[32mTesting for parallel_mult_max's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test4_output_4p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A && ./parallel_mult_max /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test4_input_mat_a.csv 2000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test4_input_mat_b.csv 2000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test4_output_4p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test4_time_4p.csv 4)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 11.553419s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_max parallel_mult_max.c -std=c99
+[32mTesting for parallel_mult_max's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test4_output_8p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A && ./parallel_mult_max /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test4_input_mat_a.csv 2000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test4_input_mat_b.csv 2000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test4_output_8p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2A/test4_time_8p.csv 8)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 5.845352s
+[0m
+[32mAutograding for Project 2 Problem 2b:
+[0m
+[32m --> Test dir: /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2[0m
+[32m --> Project dir: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2[0m
+gcc -fopenmp -g -Wall -o parallel_mult_second_largest parallel_mult_second_largest.c -std=c99
+[32mTesting for parallel_mult_second_largest's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test1_output_mat_1p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B && ./parallel_mult_second_largest /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test1_input_mat_a.csv 1000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test1_input_mat_b.csv 1000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test1_output_mat_1p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test1_time_1p.csv 1)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 4.382245s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_second_largest parallel_mult_second_largest.c -std=c99
+[32mTesting for parallel_mult_second_largest's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test1_output_mat_2p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B && ./parallel_mult_second_largest /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test1_input_mat_a.csv 1000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test1_input_mat_b.csv 1000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test1_output_mat_2p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test1_time_2p.csv 2)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 2.195352s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_second_largest parallel_mult_second_largest.c -std=c99
+[32mTesting for parallel_mult_second_largest's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test1_output_mat_4p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B && ./parallel_mult_second_largest /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test1_input_mat_a.csv 1000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test1_input_mat_b.csv 1000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test1_output_mat_4p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test1_time_4p.csv 4)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 1.089234s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_second_largest parallel_mult_second_largest.c -std=c99
+[32mTesting for parallel_mult_second_largest's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test1_output_mat_8p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B && ./parallel_mult_second_largest /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test1_input_mat_a.csv 1000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test1_input_mat_b.csv 1000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test1_output_mat_8p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test1_time_8p.csv 8)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 0.588169s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_second_largest parallel_mult_second_largest.c -std=c99
+[32mTesting for parallel_mult_second_largest's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test2_output_mat_1p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B && ./parallel_mult_second_largest /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test2_input_mat_a.csv 1000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test2_input_mat_b.csv 1000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test2_output_mat_1p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test2_time_1p.csv 1)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 8.911974s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_second_largest parallel_mult_second_largest.c -std=c99
+[32mTesting for parallel_mult_second_largest's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test2_output_mat_2p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B && ./parallel_mult_second_largest /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test2_input_mat_a.csv 1000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test2_input_mat_b.csv 1000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test2_output_mat_2p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test2_time_2p.csv 2)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 4.445636s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_second_largest parallel_mult_second_largest.c -std=c99
+[32mTesting for parallel_mult_second_largest's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test2_output_mat_4p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B && ./parallel_mult_second_largest /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test2_input_mat_a.csv 1000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test2_input_mat_b.csv 1000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test2_output_mat_4p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test2_time_4p.csv 4)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 2.274059s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_second_largest parallel_mult_second_largest.c -std=c99
+[32mTesting for parallel_mult_second_largest's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test2_output_mat_8p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B && ./parallel_mult_second_largest /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test2_input_mat_a.csv 1000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test2_input_mat_b.csv 1000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test2_output_mat_8p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test2_time_8p.csv 8)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 1.146641s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_second_largest parallel_mult_second_largest.c -std=c99
+[32mTesting for parallel_mult_second_largest's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test3_output_mat_1p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B && ./parallel_mult_second_largest /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test3_input_mat_a.csv 2000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test3_input_mat_b.csv 1000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test3_output_mat_1p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test3_time_1p.csv 1)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 17.372908s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_second_largest parallel_mult_second_largest.c -std=c99
+[32mTesting for parallel_mult_second_largest's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test3_output_mat_2p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B && ./parallel_mult_second_largest /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test3_input_mat_a.csv 2000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test3_input_mat_b.csv 1000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test3_output_mat_2p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test3_time_2p.csv 2)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 8.744147s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_second_largest parallel_mult_second_largest.c -std=c99
+[32mTesting for parallel_mult_second_largest's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test3_output_mat_4p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B && ./parallel_mult_second_largest /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test3_input_mat_a.csv 2000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test3_input_mat_b.csv 1000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test3_output_mat_4p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test3_time_4p.csv 4)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 4.430408s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_second_largest parallel_mult_second_largest.c -std=c99
+[32mTesting for parallel_mult_second_largest's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test3_output_mat_8p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B && ./parallel_mult_second_largest /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test3_input_mat_a.csv 2000 1000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test3_input_mat_b.csv 1000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test3_output_mat_8p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test3_time_8p.csv 8)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 2.330764s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_second_largest parallel_mult_second_largest.c -std=c99
+[32mTesting for parallel_mult_second_largest's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test4_output_mat_1p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B && ./parallel_mult_second_largest /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test4_input_mat_a.csv 2000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test4_input_mat_b.csv 2000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test4_output_mat_1p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test4_time_1p.csv 1)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 45.800361s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_second_largest parallel_mult_second_largest.c -std=c99
+[32mTesting for parallel_mult_second_largest's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test4_output_mat_2p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B && ./parallel_mult_second_largest /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test4_input_mat_a.csv 2000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test4_input_mat_b.csv 2000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test4_output_mat_2p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test4_time_2p.csv 2)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 23.158579s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_second_largest parallel_mult_second_largest.c -std=c99
+[32mTesting for parallel_mult_second_largest's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test4_output_mat_4p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B && ./parallel_mult_second_largest /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test4_input_mat_a.csv 2000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test4_input_mat_b.csv 2000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test4_output_mat_4p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test4_time_4p.csv 4)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 11.619776s
+[0m
+gcc -fopenmp -g -Wall -o parallel_mult_second_largest parallel_mult_second_largest.c -std=c99
+[32mTesting for parallel_mult_second_largest's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test4_output_mat_8p.csv[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B && ./parallel_mult_second_largest /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test4_input_mat_a.csv 2000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Input_Matricies_Prob_1_And_2/test4_input_mat_b.csv 2000 2000 /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test4_output_mat_8p.csv /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_2B/test4_time_8p.csv 8)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 5.821782s
+[0m
+[32mAutograding for Project 2 Problem 3:
+[0m
+[32m --> Test dir: /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Problem_3[0m
+[32m --> Project dir: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2[0m
+gcc -fopenmp -g -Wall -o encrypt_parallel encrypt_parallel.c -std=c99
+[32mTesting for encrypt_parallel's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test1_output_1p.txt[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3 && ./encrypt_parallel 10 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Problem_3/test1_text_input.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test1_output_1p.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test1_time_1p.csv 1)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 0.060548s
+[0m
+gcc -fopenmp -g -Wall -o encrypt_parallel encrypt_parallel.c -std=c99
+[32mTesting for encrypt_parallel's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test1_output_2p.txt[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3 && ./encrypt_parallel 10 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Problem_3/test1_text_input.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test1_output_2p.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test1_time_2p.csv 2)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 0.03035s
+[0m
+gcc -fopenmp -g -Wall -o encrypt_parallel encrypt_parallel.c -std=c99
+[32mTesting for encrypt_parallel's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test1_output_4p.txt[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3 && ./encrypt_parallel 10 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Problem_3/test1_text_input.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test1_output_4p.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test1_time_4p.csv 4)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 0.015782s
+[0m
+gcc -fopenmp -g -Wall -o encrypt_parallel encrypt_parallel.c -std=c99
+[32mTesting for encrypt_parallel's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test1_output_8p.txt[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3 && ./encrypt_parallel 10 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Problem_3/test1_text_input.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test1_output_8p.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test1_time_8p.csv 8)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 0.007995s
+[0m
+gcc -fopenmp -g -Wall -o encrypt_parallel encrypt_parallel.c -std=c99
+[32mTesting for encrypt_parallel's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test2_output_1p.txt[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3 && ./encrypt_parallel 10 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Problem_3/test2_text_input.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test2_output_1p.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test2_time_1p.csv 1)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 0.12068s
+[0m
+gcc -fopenmp -g -Wall -o encrypt_parallel encrypt_parallel.c -std=c99
+[32mTesting for encrypt_parallel's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test2_output_2p.txt[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3 && ./encrypt_parallel 10 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Problem_3/test2_text_input.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test2_output_2p.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test2_time_2p.csv 2)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 0.060739s
+[0m
+gcc -fopenmp -g -Wall -o encrypt_parallel encrypt_parallel.c -std=c99
+[32mTesting for encrypt_parallel's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test2_output_4p.txt[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3 && ./encrypt_parallel 10 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Problem_3/test2_text_input.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test2_output_4p.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test2_time_4p.csv 4)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 0.031169s
+[0m
+gcc -fopenmp -g -Wall -o encrypt_parallel encrypt_parallel.c -std=c99
+[32mTesting for encrypt_parallel's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test2_output_8p.txt[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3 && ./encrypt_parallel 10 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Problem_3/test2_text_input.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test2_output_8p.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test2_time_8p.csv 8)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 0.015662s
+[0m
+gcc -fopenmp -g -Wall -o encrypt_parallel encrypt_parallel.c -std=c99
+[32mTesting for encrypt_parallel's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test3_output_1p.txt[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3 && ./encrypt_parallel 10 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Problem_3/test3_text_input.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test3_output_1p.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test3_time_1p.csv 1)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 0.278142s
+[0m
+gcc -fopenmp -g -Wall -o encrypt_parallel encrypt_parallel.c -std=c99
+[32mTesting for encrypt_parallel's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test3_output_2p.txt[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3 && ./encrypt_parallel 10 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Problem_3/test3_text_input.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test3_output_2p.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test3_time_2p.csv 2)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 0.140267s
+[0m
+gcc -fopenmp -g -Wall -o encrypt_parallel encrypt_parallel.c -std=c99
+[32mTesting for encrypt_parallel's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test3_output_4p.txt[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3 && ./encrypt_parallel 10 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Problem_3/test3_text_input.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test3_output_4p.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test3_time_4p.csv 4)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 0.072869s
+[0m
+gcc -fopenmp -g -Wall -o encrypt_parallel encrypt_parallel.c -std=c99
+[32mTesting for encrypt_parallel's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test3_output_8p.txt[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3 && ./encrypt_parallel 10 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Problem_3/test3_text_input.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test3_output_8p.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test3_time_8p.csv 8)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 0.036156s
+[0m
+gcc -fopenmp -g -Wall -o encrypt_parallel encrypt_parallel.c -std=c99
+[32mTesting for encrypt_parallel's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test4_output_1p.txt[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3 && ./encrypt_parallel 10 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Problem_3/test4_text_input.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test4_output_1p.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test4_time_1p.csv 1)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 0.62804s
+[0m
+gcc -fopenmp -g -Wall -o encrypt_parallel encrypt_parallel.c -std=c99
+[32mTesting for encrypt_parallel's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test4_output_2p.txt[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3 && ./encrypt_parallel 10 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Problem_3/test4_text_input.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test4_output_2p.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test4_time_2p.csv 2)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 0.316165s
+[0m
+gcc -fopenmp -g -Wall -o encrypt_parallel encrypt_parallel.c -std=c99
+[32mTesting for encrypt_parallel's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test4_output_4p.txt[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3 && ./encrypt_parallel 10 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Problem_3/test4_text_input.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test4_output_4p.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test4_time_4p.csv 4)
