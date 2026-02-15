@@ -453,3 +453,77 @@ gcc -fopenmp -g -Wall -o encrypt_parallel encrypt_parallel.c -std=c99
 gcc -fopenmp -g -Wall -o encrypt_parallel encrypt_parallel.c -std=c99
 [32mTesting for encrypt_parallel's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test4_output_4p.txt[0m
 (cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3 && ./encrypt_parallel 10 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Problem_3/test4_text_input.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test4_output_4p.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test4_time_4p.csv 4)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 0.160952s
+[0m
+gcc -fopenmp -g -Wall -o encrypt_parallel encrypt_parallel.c -std=c99
+[32mTesting for encrypt_parallel's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test4_output_8p.txt[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3 && ./encrypt_parallel 10 /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Problem_3/test4_text_input.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test4_output_8p.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_3/test4_time_8p.csv 8)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 0.080929s
+[0m
+[32mAutograding for Project 2 Problem 4:
+[0m
+[32m --> Test dir: /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Problem_4[0m
+[32m --> Project dir: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2[0m
+gcc -fopenmp -g -Wall -o decrypt_parallel decrypt_parallel.c -std=c99
+[32mTesting for decrypt_parallel's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_4/test1_output_1p.txt[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_4 && ./decrypt_parallel /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Problem_4/test1_text_to_decrypt_input.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_4/test1_output_1p.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_4/test1_time_1p.csv 1)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 24.763516s
+[0m
+gcc -fopenmp -g -Wall -o decrypt_parallel decrypt_parallel.c -std=c99
+[32mTesting for decrypt_parallel's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_4/test1_output_2p.txt[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_4 && ./decrypt_parallel /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Problem_4/test1_text_to_decrypt_input.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_4/test1_output_2p.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_4/test1_time_2p.csv 2)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 12.578591s
+[0m
+gcc -fopenmp -g -Wall -o decrypt_parallel decrypt_parallel.c -std=c99
+[32mTesting for decrypt_parallel's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_4/test1_output_4p.txt[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_4 && ./decrypt_parallel /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Problem_4/test1_text_to_decrypt_input.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_4/test1_output_4p.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_4/test1_time_4p.csv 4)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 6.437307s
+[0m
+gcc -fopenmp -g -Wall -o decrypt_parallel decrypt_parallel.c -std=c99
+[32mTesting for decrypt_parallel's output: /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_4/test1_output_8p.txt[0m
+(cd /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_4 && ./decrypt_parallel /home/oucspdn089/git/PDN-OU-CS/proj_2/test_data/Problem_4/test1_text_to_decrypt_input.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_4/test1_output_8p.txt /home/oucspdn089/git/PDN-OU-CS/proj_2/Khor_Arika_Project_2/Problem_4/test1_time_8p.csv 8)
+[93mTesting approximate values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 3.234761s
+[0m
+[93m
+ Problem 1 Final Grades:[0m
+         P1-T1-1th  P1-T1-2th  P1-T1-4th  ...  P1-T4-2th  P1-T4-4th  P1-T4-8th
+student        1.0        1.0        1.0  ...        1.0        1.0        1.0
+
+[1 rows x 16 columns]
+[93m
+ Problem 2a Final Grades:[0m
+         P2a-T1-1th  P2a-T1-2th  P2a-T1-4th  ...  P2a-T4-2th  P2a-T4-4th  P2a-T4-8th
+student         1.0         1.0         1.0  ...         1.0         1.0         1.0
+
+[1 rows x 16 columns]
+[93m
+ Problem 2b Final Grades:[0m
+         P2b-T1-1th  P2b-T1-2th  P2b-T1-4th  ...  P2b-T4-2th  P2b-T4-4th  P2b-T4-8th
+student         1.0         1.0         1.0  ...         1.0         1.0         1.0
+
+[1 rows x 16 columns]
+[93m
+ Problem 3 Final Grades:[0m
+         P3-1-1th  P3-1-2th  P3-1-4th  ...  P3-4-2th  P3-4-4th  P3-4-8th
+student       1.0       1.0       1.0  ...       1.0       1.0       1.0
+
+[1 rows x 16 columns]
+[93m
+ Problem 4 Final Grades:[0m
+         P4-1-1th  P4-1-2th  P4-1-4th  P4-1-8th
+student       1.0       1.0       1.0       1.0
+[31m
+ --> 161616164/161616164 problems correct
+[0m
