@@ -1,0 +1,12 @@
+{
+  "workflow": "Standard",
+  "tech_stack": ["C", "OpenMP", "Slurm"],
+  "testing": {
+    "command": "make test",
+    "environment": "OSCER Slurm Cluster"
+  },
+  "preferences": {
+    "parallel_model": "OpenMP",
+    "primary_goal": "Readability"
+  }
+}
