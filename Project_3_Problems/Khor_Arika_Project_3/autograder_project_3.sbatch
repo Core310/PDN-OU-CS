@@ -31,9 +31,8 @@ ls -F ..
 echo "Listing files in Khor_Arika_Project_3:"
 ls -F .
 
-# Build all binaries
-echo "--- Debug: Build Step ---"
-make -C .. all
+# Build all binaries from scratch on the compute node
+make -C .. clean && make -C .. all
 
 # Move into the specific problem directory
 cd Khor_Arika_Project_3
