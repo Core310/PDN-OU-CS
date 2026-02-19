@@ -147,7 +147,7 @@ int main(int argc, char* argv[]) {
 
     double start = omp_get_wtime();
 
-    #pragma omp parallel for default(none) shared(genes, tf_matrix, stderr)
+    #pragma omp parallel for default(none) shared(genes, tf_matrix, stderr) schedule(dynamic)
     for (int gene_index = 0; gene_index < genes.num_genes; ++gene_index) {
         process_tetranucs(genes, &tf_matrix[(long)gene_index * NUM_TETRANUCS], gene_index);
     }
@@ -160,7 +160,7 @@ int main(int argc, char* argv[]) {
      * parallelization opportunity presented by the fact that the reduce step 
      * is performed independently for many elements in an array of intermediate result."
      */
-    #pragma omp parallel for default(none) shared(genes, tf_matrix, median_TF, stderr)
+    #pragma omp parallel for default(none) shared(genes, tf_matrix, median_TF, stderr) schedule(dynamic)
     for (int tet = 0; tet < NUM_TETRANUCS; ++tet) {
         int num_genes = genes.num_genes;
         int* freqs = (int*)calloc(num_genes, sizeof(int));

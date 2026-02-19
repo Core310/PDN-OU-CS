@@ -147,7 +147,7 @@ int main(int argc, char* argv[]) {
 
     double start = omp_get_wtime();
 
-    #pragma omp parallel for default(none) shared(genes, tf_matrix, stderr)
+    #pragma omp parallel for default(none) shared(genes, tf_matrix, stderr) schedule(dynamic)
     for (int gene_index = 0; gene_index < genes.num_genes; ++gene_index) {
         process_tetranucs(genes, &tf_matrix[(long)gene_index * NUM_TETRANUCS], gene_index);
     }
