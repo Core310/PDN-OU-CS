@@ -20,7 +20,7 @@ int main(int argc, char* argv[]) {
      * kmeans_parallel n_points points.csv n_centroids initial_centroid_values.csv final_centroid_values.csv time.csv num_threads"
      */
     if (argc != 8) {
-        fprintf(stderr, "USE LIKE THIS: kmeans_parallel n_points points.csv n_centroids centroids.csv output.csv time.csv num_threads\n");
+        fprintf(stderr, "USE LIKE THIS: kmeans_clustering n_points points.csv n_centroids centroids.csv output.csv time.csv num_threads\n");
         exit(-1);
     }
 
