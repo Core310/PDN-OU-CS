@@ -16,7 +16,7 @@
 #SBATCH --mail-user=arikak@ou.edu
 #SBATCH --mail-type=ALL
 #
-#SBATCH --chdir=/home/oucspdn089/git/PDN-OU-CS/Project_3_Problems/Khor_Arika_Project_3/
+#SBATCH --chdir=/home/oucspdn089/git/PDN-OU-CS/Project_3_Problems/
 #SBATCH --output=/home/oucspdn089/git/PDN-OU-CS/Project_3_Problems/out/autograding_%J_stdout.txt
 #SBATCH --error=/home/oucspdn089/git/PDN-OU-CS/Project_3_Problems/out/autograding_%J_stderr.txt
 
