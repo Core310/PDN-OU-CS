@@ -24,8 +24,13 @@
 
 source /home/oucspdnta/activate_pdn_env.sh
 
+# Build all binaries before running autograder
+cd .. && make all && cd Khor_Arika_Project_3
+
+export PYTHONPATH=$PYTHONPATH:.
+
 # To run all the problems and get all results
-#python3 -u autograder_project_3.py
+python3 -u autograder_project_3.py
 
 # To run just problem 2's autograder
 #python3 -u autograder_problem_3_2.py
