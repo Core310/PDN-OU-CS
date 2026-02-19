@@ -5,6 +5,11 @@ To ensure consistency and eliminate code duplication, all shared logic is encaps
 *   **`setup.c/h`**: Manages CLI parsing, OpenMP configuration, Fasta parsing, and shared algorithms (Sliding Window TF, Median Sorting, CSV Output).
 *   **Usage**: All problem variants include `setup.h` and link against `setup.c` via their respective Makefiles.
 
+## Build System
+A root `Makefile` is provided to manage the entire project:
+*   `make all`: Compiles every variant for Problems 2, 3, and 4.
+*   `make clean`: Removes all compiled binaries across all directories.
+
 ## Coding Standards
 *   **Minimalism**: No single-line comments. No redundant explanations for self-evident code (e.g., variable names or basic I/O).
 *   **High Signal**: Use multi-line block comments (`/* ... */`) for logical sections and parallel strategies.
@@ -26,9 +31,18 @@ To ensure consistency and eliminate code duplication, all shared logic is encaps
 
 ### Phase 3: Problem 4 (K-means Clustering)
 **Goal:** Parallelize 2D K-means clustering using local reductions to avoid false sharing.
-*   **Assignment (Map)**: Parallel loop over points to assign nearest centroids.
-*   **Update (Reduce)**: Use **Local Reductions** (private thread arrays) to avoid false sharing and minimize critical section overhead.
-*   **Convergence**: Iterate until total movement distance <= 1.0.
+*   **Architecture**: Self-contained implementation within `kmeans_clustering.c` (no dependency on the shared `setup` module).
+*   **Parallel Strategy:**
+    /* 
+     * Map Phase: Parallelize point assignment to nearest centroids using squared distance.
+     * Reduce Phase: Use thread-local arrays for partial sums and counts 
+     * to avoid false sharing and minimize critical section overhead.
+     */
+*   **Convergence:** Loop continues until total centroid movement distance <= 1.0 (Req: Page 11).
+*   **CLI & Output:** 
+    - 7 arguments: n_points, points.csv, n_centroids, centroids.csv, output.csv, time.csv, num_threads (Req: Page 12).
+    - Precision: %.6f for centroid coordinates.
+    - Raw numeric seconds in time.csv.
 
 ### Phase 4: Build System Consolidation
 **Goal:** Ensure consistent and clean build environment.
