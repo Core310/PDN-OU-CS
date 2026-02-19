@@ -24,8 +24,11 @@
 
 source /home/oucspdnta/activate_pdn_env.sh
 
-# Build all binaries before running autograder
-cd .. && make all && cd Khor_Arika_Project_3
+# Build all binaries from the root directory (one level up from current chdir)
+make -C .. all
+
+# Move into the specific problem directory to run the autograder
+cd Khor_Arika_Project_3
 
 export PYTHONPATH=$PYTHONPATH:.
 
