@@ -1,9 +1,9 @@
 # Project 3: Mutual Exclusion and Map-Reduce in OpenMP
 
-## Architecture: Centralized Setup Module
-To ensure consistency and eliminate code duplication, all shared logic is encapsulated in the `setup/` directory.
-*   **`setup.c/h`**: Manages CLI parsing, OpenMP configuration, Fasta parsing, and shared algorithms (Sliding Window TF, Median Sorting, CSV Output).
-*   **Usage**: All problem variants include `setup.h` and link against `setup.c` via their respective Makefiles.
+## Architecture: Self-Contained Implementation
+To ensure maximum compatibility with the cluster autograder, each problem variant is implemented as a **fully self-contained** source file. 
+*   All logic for file I/O, DNA parsing, and core algorithms is replicated within each individual `.c` file.
+*   This structure allows any binary to be compiled independently without external dependencies.
 
 ## Build System
 A root `Makefile` is provided to manage the entire project:
@@ -11,42 +11,25 @@ A root `Makefile` is provided to manage the entire project:
 *   `make clean`: Removes all compiled binaries across all directories.
 
 ## Coding Standards
-*   **Minimalism**: No single-line comments. No redundant explanations for self-evident code (e.g., variable names or basic I/O).
+*   **Minimalism**: No single-line comments. No redundant explanations for self-evident code.
 *   **High Signal**: Use multi-line block comments (`/* ... */`) for logical sections and parallel strategies.
-*   **Traceability**: Comments must quote exact wording and page numbers from `Project_3_Instructions.pdf` for all required algorithms.
-*   **Structure**: 5-argument CLI for TF problems; strict error handling for malformed data or malloc failures.
+*   **Traceability**: Comments include exact wording and page numbers from `Project_3_Instructions.pdf` for all required algorithm variants.
+*   **CLI Structure**:
+    *   **Problem 2 & 3**: 5-argument CLI (`input_file`, `output_file`, `time_file`, `num_threads`).
+    *   **Problem 4**: 7-argument CLI (`n_points`, `points.csv`, `n_centroids`, `initial_centroids.csv`, `final_centroids.csv`, `time.csv`, `num_threads`).
 
-## Detailed Coding Plans by Phase
+## Detailed Implementation Notes
 
-### Phase 1: Problem 2 (Average TF)
-**Goal:** Implement sliding window TF calculation with four synchronization variants.
-*   **Modular Strategy**: Utilize `handle_setup()` and `process_tetranucs()` from the setup module.
+### Problem 2 (Average TF)
+*   **Algorithm**: Sliding window of size 4 with quaternary indexing (A=0, C=1, G=2, T=3).
 *   **Variants**: `critical`, `atomic`, `locks`, and `schedule` (using `schedule(runtime)`).
 
-### Phase 2: Problem 3 (Median TF)
-**Goal:** Calculate the median frequency for each tetranucleotide across all genes.
-*   **Memory**: Flat 1D array (`num_genes * 256`) for contiguous cache-friendly storage.
-*   **Logic**: Use `find_median()` from setup module (standardized `qsort` + even/odd handling).
-*   **Variants**: `baseline` (serial median) and `mapreduce` (parallel median over 256 indices).
+### Problem 3 (Median TF)
+*   **Memory**: Uses a flat 1D array (`num_genes * 256`) for contiguous cache-friendly storage.
+*   **Logic**: Standardized `qsort` with even/odd median selection logic.
+*   **Variants**: `baseline` (serial median loop) and `mapreduce` (parallel median loop over 256 indices).
 
-### Phase 3: Problem 4 (K-means Clustering)
-**Goal:** Parallelize 2D K-means clustering using local reductions to avoid false sharing.
-*   **Architecture**: Self-contained implementation within `kmeans_clustering.c` (no dependency on the shared `setup` module).
-*   **Parallel Strategy:**
-    /* 
-     * Map Phase: Parallelize point assignment to nearest centroids using squared distance.
-     * Reduce Phase: Use thread-local arrays for partial sums and counts 
-     * to avoid false sharing and minimize critical section overhead.
-     */
-*   **Convergence:** Loop continues until total centroid movement distance <= 1.0 (Req: Page 11).
-*   **CLI & Output:** 
-    - 7 arguments: n_points, points.csv, n_centroids, centroids.csv, output.csv, time.csv, num_threads (Req: Page 12).
-    - Precision: %.6f for centroid coordinates.
-    - Raw numeric seconds in time.csv.
-
-### Phase 4: Build System Consolidation
-**Goal:** Ensure consistent and clean build environment.
-*   Standardize all Makefiles to use `-O3`, `-fopenmp`, and `-lm`.
-
-### Phase 5: Report Generation
-**Goal:** Create a Markdown report template following the Project 2 format.
+### Problem 4 (K-means Clustering)
+*   **Map Phase**: Parallel point assignment to nearest centroids using squared Euclidean distance.
+*   **Reduce Phase**: Implements **Local Reductions** (private thread-local arrays) to avoid false sharing and minimize synchronization bottlenecks.
+*   **Convergence**: Iterates until the total centroid movement distance is <= 1.0.
