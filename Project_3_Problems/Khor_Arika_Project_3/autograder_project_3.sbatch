@@ -28,10 +28,13 @@ source /home/oucspdnta/activate_pdn_env.sh
 #python3 -u autograder_project_3.py
 
 # To run just problem 2's autograder
-python3 -u autograder_problem_3_2.py
+#python3 -u autograder_problem_3_2.py
+
+python3 Khor_Arika_Project_3/autograder_problem_3_2.py
+python3 Khor_Arika_Project_3/autograder_problem_3_3.py
 
 # To run just problem 3's autograder
- python3 -u autograder_problem_3_3.py
+# python3 -u autograder_problem_3_3.py
 
 # To run just problem 4's autograder
 # python3 -u autograder_problem_3_4.py
