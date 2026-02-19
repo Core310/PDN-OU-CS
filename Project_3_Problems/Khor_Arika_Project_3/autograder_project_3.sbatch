@@ -24,16 +24,28 @@
 
 source /home/oucspdnta/activate_pdn_env.sh
 
-# Build all binaries from the root directory (one level up from current chdir)
+echo "--- Debug: Environment Check ---"
+echo "Current Directory: $(pwd)"
+echo "Listing files in Project_3_Problems:"
+ls -F ..
+echo "Listing files in Khor_Arika_Project_3:"
+ls -F .
+
+# Build all binaries
+echo "--- Debug: Build Step ---"
 make -C .. all
 
-# Move into the specific problem directory to run the autograder
+# Move into the specific problem directory
 cd Khor_Arika_Project_3
 
-export PYTHONPATH=$PYTHONPATH:.
+export PYTHONPATH=$PYTHONPATH:$(pwd)/..
 
-# To run all the problems and get all results
-python3 -u autograder_project_3.py
+echo "--- Debug: Python Import Test ---"
+python3 -c "import sys; sys.path.append('..'); import autograder_base; print('autograder_base imported successfully')"
+
+echo "--- Debug: Running Autograder ---"
+# Use -u for unbuffered output to ensure we see prints immediately
+python3 -u autograder_project_3.py 2>&1
 
 # To run just problem 2's autograder
 #python3 -u autograder_problem_3_2.py
