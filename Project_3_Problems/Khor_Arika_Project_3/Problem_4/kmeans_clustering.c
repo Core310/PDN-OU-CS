@@ -20,7 +20,7 @@ int main(int argc, char* argv[]) {
      * kmeans_parallel n_points points.csv n_centroids initial_centroid_values.csv final_centroid_values.csv time.csv num_threads"
      */
     if (argc != 8) {
-        fprintf(stderr, "USE LIKE THIS: kmeans_clustering n_points points.csv n_centroids centroids.csv output.csv time.csv num_threads\n");
+        fprintf(stderr, "USE LIKE THIS: kmeans_parallel n_points points.csv n_centroids centroids.csv output.csv time.csv num_threads\n");
         exit(-1);
     }
 
@@ -75,8 +75,9 @@ int main(int argc, char* argv[]) {
     while (total_movement > 1.0) {
         
         /* 
-         * Map Phase: Parallel assignment of points to nearest centroids.
-         * Optimization: Use squared distance to avoid sqrt() overhead.
+         * Req: Page 12 - "In all the OpenMP parallel directives, please specify the variable scope 
+         * clauses [i.e., default(none), shared(), private(), and reduction()] to explicitly 
+         * declare the scope of every variable."
          */
         #pragma omp parallel for default(none) shared(num_points, num_centroids, points_x, points_y, centroids_x, centroids_y, point_assignments)
         for (int p = 0; p < num_points; ++p) {
@@ -93,9 +94,9 @@ int main(int argc, char* argv[]) {
         }
 
         /*
-         * Reduce Phase: Compute new centroid positions.
          * Req: Page 12 - "Please consider false sharing when updating different elements in an array."
-         * Solution: Use private thread-local arrays for partial sums and counts.
+         * Strategy: Use private thread-local arrays for partial sums and counts to eliminate 
+         * false sharing and minimize critical section synchronization.
          */
         double* next_x = (double*)calloc(num_centroids, sizeof(double));
         double* next_y = (double*)calloc(num_centroids, sizeof(double));
