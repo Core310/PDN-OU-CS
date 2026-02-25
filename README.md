@@ -18,6 +18,13 @@ A root `Makefile` is provided to manage the entire project:
     *   **Problem 2 & 3**: 5-argument CLI (`input_file`, `output_file`, `time_file`, `num_threads`).
     *   **Problem 4**: 7-argument CLI (`n_points`, `points.csv`, `n_centroids`, `initial_centroids.csv`, `final_centroids.csv`, `time.csv`, `num_threads`).
 
+## Known Issues & Performance
+### Speed Bottleneck (Robust vs. Fast)
+The current implementation prioritize memory robustness (dynamic allocation). If benchmarking on Schooner reveals significant slowdowns on large datasets:
+*   **Cause**: Dynamic pointer arithmetic and `realloc` overhead.
+*   **Solution**: Revert to the "Static Fast" logic using original hardcoded limits (`GENE_ARRAY_SIZE` 164,000 and `GENE_SIZE` 10,000).
+*   **Slurm**: Ensure `autograder_project_3.sbatch` uses at least 30 minutes for large datasets.
+
 ## Detailed Implementation Notes
 
 ### Problem 2 (Average TF)
