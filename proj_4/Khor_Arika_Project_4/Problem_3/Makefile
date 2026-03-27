@@ -2,8 +2,8 @@
 NVCC        = nvcc
 NVCC_FLAGS  = -O3 -I/usr/local/cuda/include
 LD_FLAGS    = -lcudart -L/usr/local/cuda/lib64
-EXE	        = convolution_CUDA
-OBJ	        = convolution_CUDA.o support.o
+EXE         = convolution_CUDA
+OBJ         = convolution_CUDA.o support.o
 
 default: $(EXE)
 
