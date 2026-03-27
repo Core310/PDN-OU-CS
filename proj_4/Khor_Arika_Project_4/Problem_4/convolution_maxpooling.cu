@@ -1,11 +1,79 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <limits.h>
 #include "support.h"
-#include "kernel.cu"
 
 #define MAX_LINE_LENGTH 1000000
 #define RADIUS 2
+#define BLOCK_SIZE 16
+
+__global__ void convolution_maxpooling_kernel(int* paddedInput, int* filter, int* output, int n_row, int n_col) {
+    __shared__ int filter_s[25];
+    __shared__ int tile_s[BLOCK_SIZE + 2 * RADIUS][BLOCK_SIZE + 2 * RADIUS];
+    __shared__ int convolved_s[BLOCK_SIZE][BLOCK_SIZE];
+
+    int tx = threadIdx.x;
+    int ty = threadIdx.y;
+    int row = blockIdx.y * BLOCK_SIZE + ty;
+    int col = blockIdx.x * BLOCK_SIZE + tx;
+
+    // Load filter into shared memory
+    if (ty < 5 && tx < 5) {
+        filter_s[ty * 5 + tx] = filter[ty * 5 + tx];
+    }
+
+    // Padded input dimensions
+    int padded_col = n_col + 2 * RADIUS;
+
+    // Load tile into shared memory (including halo)
+    for (int i = ty; i < BLOCK_SIZE + 2 * RADIUS; i += BLOCK_SIZE) {
+        for (int j = tx; j < BLOCK_SIZE + 2 * RADIUS; j += BLOCK_SIZE) {
+            int global_row = blockIdx.y * BLOCK_SIZE + i;
+            int global_col = blockIdx.x * BLOCK_SIZE + j;
+            
+            if (global_row < n_row + 2 * RADIUS && global_col < n_col + 2 * RADIUS) {
+                tile_s[i][j] = paddedInput[global_row * padded_col + global_col];
+            } else {
+                tile_s[i][j] = 0;
+            }
+        }
+    }
+
+    __syncthreads();
+
+    // Compute convolution for the output pixel and store in shared memory
+    if (row < n_row && col < n_col) {
+        int sum = 0;
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                sum += tile_s[ty + i][tx + j] * filter_s[i * 5 + j];
+            }
+        }
+        convolved_s[ty][tx] = sum;
+    }
+
+    __syncthreads();
+
+    // Perform max-pooling on the convolved tile
+    if (row < n_row && col < n_col) {
+        int max_val = INT_MIN;
+        for (int i = -RADIUS; i <= RADIUS; i++) {
+            for (int j = -RADIUS; j <= RADIUS; j++) {
+                int cur_ty = ty + i;
+                int cur_tx = tx + j;
+                // Check bounds of the shared memory tile
+                if (cur_ty >= 0 && cur_ty < BLOCK_SIZE && cur_tx >= 0 && cur_tx < BLOCK_SIZE) {
+                    if (convolved_s[cur_ty][cur_tx] > max_val) {
+                        max_val = convolved_s[cur_ty][cur_tx];
+                    }
+                }
+            }
+        }
+        output[row * n_col + col] = max_val;
+    }
+}
+
 
 void padMatrix(int* input, int* padded, int n_row, int n_col) {
     int padded_row = n_row + 2 * RADIUS;
@@ -104,7 +172,7 @@ int main(int argc, char* argv[]) {
     Timer timer;
     startTime(&timer);
 
-    convolution_kernel<<<dimGrid, dimBlock>>>(paddedMatrix_d, filterMatrix_d, outputMatrix_d, n_row, n_col);
+    convolution_maxpooling_kernel<<<dimGrid, dimBlock>>>(paddedMatrix_d, filterMatrix_d, outputMatrix_d, n_row, n_col);
     cudaDeviceSynchronize();
 
     stopTime(&timer);
