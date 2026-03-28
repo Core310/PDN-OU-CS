@@ -18,7 +18,7 @@
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{backcolour}{rgb}{0.05,0.05,0.05} % Very dark grey for code blocks
+\definecolor{backcolour}{rgb}{0.05,0.05,0.05} 
 
 % Apply Dark Theme
 \pagecolor{pageblack}
@@ -65,81 +65,96 @@
 
 \vspace{1em}
 
-\section*{\color{white}Problem 1 \& 2: PDNcoin Mining and Reduction}
+\section*{\color{white}Introduction}
+This project explores the transformation of compute-intensive serial algorithms into high-performance CUDA applications. We focus on two domains: parallel search (PDNcoin mining) and image processing (convolutional stencils). The implementations leverage tree reduction, shared memory tiling, and atomic synchronization to maximize GPU utilization.
 
-\subsection*{Algorithm Description}
-The goal of these problems is to optimize a cryptocurrency mining workflow using CUDA. The process is divided into three parallelizable stages:
-\begin{enumerate}[label=\arabic*.]
-    \item \textbf{Nonce Generation:} Embarrassingly parallel generation of random trial values.
-    \item \textbf{Hash Calculation:} Compute-intensive modular arithmetic per nonce.
-    \item \textbf{Global Minimum Search:} Finding the winning nonce with the lowest hash value.
-\end{enumerate}
+\noindent\rule{\textwidth}{0.4pt}
 
-In \textbf{Problem 2}, we implemented a high-performance tree reduction to replace the CPU bottleneck. The primary technical challenge was returning both the minimum hash and its associated nonce. We solved this by packing both 32-bit values into a single 64-bit \texttt{unsigned long long} and using \texttt{atomicCAS} for global synchronization.
+\section*{\color{white}Problems 1 \& 2: Parallel Search and Reduction}
 
-\subsection*{Optimized Reduction Kernel Snippet}
+\subsection*{Comparison: Data Transfer and Bottlenecks}
+The primary difference between Problem 1 and Problem 2 is the \textbf{Data-to-Host (D2H) efficiency}.
+\begin{itemize}
+    \item \textbf{Problem 1 (Fat Transfer):} While hash generation is parallelized, the GPU must copy the entire array of calculated hashes back to the CPU for searching. At 10 million trials, this involves moving 40 MB of data over the PCIe bus, followed by a $O(N)$ serial loop on the host.
+    \item \textbf{Problem 2 (Thin Transfer):} By offloading the minimum search to a GPU reduction kernel, we consolidate millions of results into a single 8-byte value directly in VRAM. This effectively eliminates the D2H bottleneck and the CPU search phase.
+\end{itemize}
+
+\subsection*{Optimized Reduction with Atomic Tie-Breaking}
+To find the global minimum while ensuring the smallest nonce is picked in case of a hash tie, we utilized a packed 64-bit atomic approach.
+
 \begin{lstlisting}
-__global__ void reduction_kernel(unsigned int *d_hashes, unsigned int *d_nonces, int num_elements, unsigned long long *d_min_result) {
-    extern __shared__ unsigned int s_data[];
-    unsigned int *s_hashes = s_data;
-    unsigned int *s_nonces = &s_data[blockDim.x];
-
-    int tid = threadIdx.x;
-    int i = blockIdx.x * blockDim.x + threadIdx.x;
-
-    if(i < num_elements) {
-        s_hashes[tid] = d_hashes[i];
-        s_nonces[tid] = d_nonces[i];
-    } else {
-        s_hashes[tid] = 123123123; // MAX
-        s_nonces[tid] = 0xFFFFFFFFU;
-    }
-    __syncthreads();
-
-    for (unsigned int s=blockDim.x/2; s>0; s>>=1) {
-        if (tid < s) {
-            if (s_hashes[tid] > s_hashes[tid+s]) {
-                s_hashes[tid] = s_hashes[tid+s];
-                s_nonces[tid] = s_nonces[tid+s];
-            }
-        }
-        __syncthreads();
-    }
-
-    if (tid == 0) {
-        unsigned long long local_min = ((unsigned long long)s_hashes[0] << 32) | (unsigned long long)s_nonces[0];
-        atomicMin(d_min_result, local_min); // Logic handled via atomicCAS in implementation
-    }
+// Packing Hash (Upper 32) and Nonce (Lower 32) for atomic priority
+if (tid == 0) {
+    unsigned long long local_min = ((unsigned long long)s_hashes[0] << 32) | (unsigned long long)s_nonces[0];
+    unsigned long long assumed;
+    unsigned long long old = *d_min_result;
+    do {
+        assumed = old;
+        if (local_min < assumed) {
+            old = atomicCAS(d_min_result, assumed, local_min);
+        } else break;
+    } while (assumed != old);
 }
 \end{lstlisting}
 
-\subsection*{Performance Results (Schooner Cluster)}
-
-\subsubsection*{Runtime (seconds) - Mining Trials}
+\subsection*{Performance Results (Mining)}
 \begin{center}
 \begin{tabular}{@{}lcc@{}}
 \toprule
 Implementation & 5 Million Trials & 10 Million Trials \\
 \midrule
-\textbf{Problem 1 (CPU Reduction)} & 0.678518 & 1.131965 \\
-\textbf{Problem 2 (GPU Reduction)} & 0.632880 & 1.087014 \\
+\textbf{Problem 1 (CPU Search)} & 0.678518s & 1.131965s \\
+\textbf{Problem 2 (GPU Reduction)} & 0.632880s & 1.087014s \\
 \bottomrule
 \end{tabular}
 \end{center}
 
 \noindent\rule{\textwidth}{0.4pt}
 
-\section*{\color{white}Problem 3 \& 4: Tiled Convolution and Max-Pooling}
+\section*{\color{white}Problems 3 \& 4: Tiled Stencils and Pipelines}
 
-\subsection*{Algorithm Description}
-These problems implement a deep learning inference pipeline (Stencil Computation). We implemented a 2D convolution layer followed by a max-pooling operation.
+\subsection*{Comparison: Standalone vs. Chained Kernels}
+Problems 3 and 4 demonstrate the evolution from a single-stage kernel to a multi-stage GPU pipeline.
+\begin{itemize}
+    \item \textbf{Problem 3 (Spatial Optimization):} Focuses on optimizing memory bandwidth using shared memory tiling. By loading tiles collaboratively, threads reuse data for stencil calculations, drastically reducing global memory requests.
+    \item \textbf{Problem 4 (Kernel Chaining):} Extends Problem 3 by adding a max-pooling stage. The convolution output is stored in global memory and immediately read by the pooling kernel. This "chaining" keeps the entire feature extraction pipeline on the GPU, avoiding any intermediate host interaction.
+\end{itemize}
 
-Key optimizations include:
-\begin{enumerate}[label=\arabic*.]
-    \item \textbf{Shared Memory Tiling:} Each thread block collaboratively loads an input tile plus a 2-pixel halo into shared memory, reducing global memory pressure.
-    \item \textbf{Dynamic Configuration:} The kernels use \texttt{extern __shared__} to support runtime-configurable \texttt{BLOCK\_SIZE} and \texttt{RADIUS} arguments.
-    \item \textbf{Kernel Chaining:} Problem 4 pipes the convolution output directly to the max-pooling kernel while staying entirely on the device.
-\end{enumerate}
+\subsection*{Collaborative Halo Loading (Problem 3)}
+To handle the 5x5 filter radius, each thread block loads a "halo" of surrounding pixels. We used dynamic shared memory to support configurable radii.
+
+\begin{lstlisting}
+// collaborative loading of tile + halo into dynamic shared memory
+for (int i = ty; i < tile_dim; i += blockDim.y) {
+    for (int j = tx; j < tile_dim; j += blockDim.x) {
+        int global_row = blockIdx.y * blockDim.y + i;
+        int global_col = blockIdx.x * blockDim.x + j;
+        if (global_row < n_row + 2 * radius && global_col < n_col + 2 * radius)
+            tile_s[i * tile_dim + j] = paddedInput[global_row * padded_col + global_col];
+        else tile_s[i * tile_dim + j] = 0;
+    }
+}
+\end{lstlisting}
+
+\subsection*{Max-Pooling Window Logic (Problem 4)}
+The max-pooling kernel performs a sliding window search over the convolved image to enhance pattern clarity.
+
+\begin{lstlisting}
+if (row < n_row && col < n_col) {
+    int max_val = INT_MIN;
+    for (int i = -radius; i <= radius; i++) {
+        for (int j = -radius; j <= radius; j++) {
+            int cur_row = row + i;
+            int cur_col = col + j;
+            if (cur_row >= 0 && cur_row < n_row && cur_col >= 0 && cur_col < n_col) {
+                int val = convolved_input[cur_row * n_col + cur_col];
+                if (val > max_val) max_val = val;
+            }
+        }
+    }
+    output[row * n_col + col] = max_val;
+}
+\end{lstlisting}
 
 \subsection*{Performance Results (2048 x 2048 Matrix)}
 \begin{center}
@@ -147,36 +162,25 @@ Key optimizations include:
 \toprule
 Pipeline Stage & Runtime (seconds) \\
 \midrule
-\textbf{Convolution Only} & 0.001332 \\
-\textbf{Convolution + Max-Pooling} & 0.002001 \\
+\textbf{Problem 3 (Convolution Only)} & 0.001332 \\
+\textbf{Problem 4 (Integrated Pipeline)} & 0.002001 \\
 \bottomrule
 \end{tabular}
 \end{center}
 
 \noindent\rule{\textwidth}{0.4pt}
 
-\section*{\color{white}AI Usage and Workflow}
+\section*{\color{white}AI Usage and Project Layout}
 
 \subsection*{Gemini CLI \& GSD Methodology}
-This project utilized the **Gemini CLI** integrated with the **GSD (getshitdone)** workflow for rigorous planning and execution.
+The project used the **Gemini CLI** + **GSD** framework. AI agents were instrumental in identifying the D2H bottleneck in Problem 1 and suggesting the 64-bit packing optimization for Problem 2. Furthermore, the GTest unit testing suite was entirely generated and verified using AI-assisted verification flows.
 
+\subsection*{Layout Summary}
 \begin{itemize}
-    \item \textbf{Initialization:} Automatically mapped the project structure from the PDF instructions and established coding standards (e.g., \texttt{gpuErrchk} requirement).
-    \item \textbf{Research:} Analyzed the provided serial code to identify optimization targets, specifically pinpointing the 40MB D2H transfer in Problem 1 as a primary bottleneck.
-    \item \textbf{Execution:} Used AI-driven surgical edits to migrate static shared memory allocations to dynamic pointers, enabling the configurable CLI requirement without manual boilerplate.
-    \item \textbf{Verification:} Generated a Google Test suite to stress-test kernels with non-multiple grid sizes and edge-case radii.
-\end{itemize}
-
-\noindent\rule{\textwidth}{0.4pt}
-
-\section*{\color{white}Project Layout}
-\begin{itemize}
-    \item \textbf{common/}: Centralized timers and error handling (\texttt{gpuErrchk}).
-    \item \textbf{Problem\_1/}: GPU mining with host-side reduction.
-    \item \textbf{Problem\_2/}: Fully optimized 64-bit atomic GPU reduction.
-    \item \textbf{Problem\_3/}: Tiled convolution with dynamic halo loading.
-    \item \textbf{Problem\_4/}: Chained GPU pipeline (Conv + MaxPool).
-    \item \textbf{tests/}: GTest unit testing infrastructure.
+    \item \textbf{common/}: Shared `gpuErrchk` error logic and performance timers.
+    \item \textbf{Problem\_1/2}: Mining logic (Fat vs. Thin D2H transfers).
+    \item \textbf{Problem\_3/4}: Image processing (Collaborative tiling vs. Chained pipeline).
+    \item \textbf{tests/}: Unit tests for kernel correctness under variable configurations.
 \end{itemize}
 
 \end{document}
