@@ -170,12 +170,27 @@ Pipeline Stage & Runtime (seconds) \\
 
 \noindent\rule{\textwidth}{0.4pt}
 
-\section*{\color{white}AI Usage and Project Layout}
+\section*{\color{white}AI Usage and Software Engineering Workflow}
 
-\subsection*{Gemini CLI \& GSD Methodology}
-The project used the **Gemini CLI** + **GSD** framework. AI agents were instrumental in identifying the D2H bottleneck in Problem 1 and suggesting the 64-bit packing optimization for Problem 2. Furthermore, the GTest unit testing suite was entirely generated and verified using AI-assisted verification flows.
+\subsection*{Gemini CLI: The Interactive Engine}
+The development of this project was driven by the \textbf{Gemini CLI}, a specialized agentic environment designed for autonomous software engineering. Unlike standard chat-based interfaces, the Gemini CLI operates directly within the project workspace, possessing the capability to read the entire codebase, execute shell commands, and perform surgical file modifications.
 
-\subsection*{Layout Summary}
+\subsection*{The GSD (Get Shit Done) Framework}
+To manage the complexity of transforming brittle CUDA code into an optimized suite, I employed the \textbf{GSD (Get Shit Done)} workflow on top of the Gemini CLI. This framework follows a rigorous, phase-based lifecycle that mirrors high-level engineering project management:
+
+\begin{enumerate}[label=\alph*.]
+    \item \textbf{Initialization and Mapping:} The workflow began by feeding the project PDF into the agent. GSD automatically generated a \texttt{ROADMAP.md} and \texttt{REQUIREMENTS.md}, mapping the instructions to specific technical tasks and identifying architectural concerns (such as the hardcoded magic numbers).
+    \item \textbf{Research and Strategy:} For each problem, the agent performed speculative research. For example, in Problem 2, GSD analyzed the PCIe bandwidth overhead and formulated the strategy to use 64-bit atomic packing to minimize Data-to-Host transfers.
+    \item \textbf{Phase Planning:} Each problem was decomposed into atomic "Plans" (e.g., \texttt{04-01-PLAN.md}). These plans include explicit success criteria, verification steps (unit tests), and rollback procedures.
+    \item \textbf{Execution and Validation:} Tasks were executed in "waves." After every code modification, the agent automatically triggered compilation and verification scripts. A task was only marked as "Completed" in the \texttt{STATE.md} tracker once all autograders and GTest cases reported 100\% success.
+\end{enumerate}
+
+\subsection*{Outcome of the Agentic Approach}
+The integration of Gemini CLI and GSD allowed for a highly reliable refactoring process. It ensured that critical regressions (such as the broken string literals in the starter code) were identified and fixed systematically across all problems simultaneously, and that the transition to dynamic shared memory was verified against 15 distinct edge-case configurations without manual oversight.
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\section*{\color{white}Project Layout}
 \begin{itemize}
     \item \textbf{common/}: Shared `gpuErrchk` error logic and performance timers.
     \item \textbf{Problem\_1/2}: Mining logic (Fat vs. Thin D2H transfers).
