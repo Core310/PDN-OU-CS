@@ -13,6 +13,7 @@
 #include "support.h"
 #include "hash_kernel.cu"
 #include "nonce_kernel.cu"
+#include "reduction_kernel.h"
 
 // to activate debug statements
 #define DEBUG 1
@@ -129,24 +130,47 @@ int main(int argc, char* argv[]) {
     free(transactions);
     cudaFree(device_transactions);
 
-
     // ------ Step 3: Find the nonce with the minimum hash value ------ //
 
-    // TODO Problem 2: find the minimum in the GPU by reduction
-    unsigned int min_hash  = MAX;
+    // Allocate memory for reduction output
+    unsigned int *d_min_hash_out, *d_min_nonce_out;
+    cudaMalloc((void**)&d_min_hash_out, num_blocks * sizeof(unsigned int));
+    cudaMalloc((void**)&d_min_nonce_out, num_blocks * sizeof(unsigned int));
+
+    // Launch the reduction kernel
+    reduction_kernel <<< dimGrid, dimBlock, 2 * dimBlock.x * sizeof(unsigned int) >>> (
+        device_hash_array,
+        device_nonce_array,
+        trials,
+        d_min_hash_out,
+        d_min_nonce_out
+    );
+    cudaDeviceSynchronize();
+
+    // Second pass of reduction if needed (on host for simplicity)
+    unsigned int min_hash = MAX;
     unsigned int min_nonce = MAX;
-    for (int i = 0; i < trials; i++) {
-        if (hash_array[i] < min_hash) {
-            min_hash  = hash_array[i];
-            min_nonce = nonce_array[i];
+    unsigned int* h_min_hash_out = (unsigned int*)malloc(num_blocks * sizeof(unsigned int));
+    unsigned int* h_min_nonce_out = (unsigned int*)malloc(num_blocks * sizeof(unsigned int));
+    cudaMemcpy(h_min_hash_out, d_min_hash_out, num_blocks * sizeof(unsigned int), cudaMemcpyDeviceToHost);
+    cudaMemcpy(h_min_nonce_out, d_min_nonce_out, num_blocks * sizeof(unsigned int), cudaMemcpyDeviceToHost);
+
+    for (int i = 0; i < num_blocks; i++) {
+        if (h_min_hash_out[i] < min_hash) {
+            min_hash = h_min_hash_out[i];
+            min_nonce = h_min_nonce_out[i];
         }
     }
 
     // Free memory
     free(nonce_array);
     free(hash_array);
+    free(h_min_hash_out);
+    free(h_min_nonce_out);
     cudaFree(device_nonce_array);
     cudaFree(device_hash_array);
+    cudaFree(d_min_hash_out);
+    cudaFree(d_min_nonce_out);
 
     stopTime(&timer);
     // ----------------------------------------------------------------------------- //

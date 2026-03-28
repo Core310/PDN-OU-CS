@@ -17,7 +17,7 @@ This document outlines the phased development plan for the GPU Accelerated Scien
 | 1. Problem 1 - GPU Hashing | 1/1 | Completed | 2024-07-29 |
 | 2. Problem 2 - GPU Parallel Reduction | 1/1 | Completed | 2024-07-29 |
 | 3. Problem 3 - GPU 2D Convolution | 1/1 | Complete   | 2026-03-27 |
-| 4. Problem 4 - GPU Convolution with Max Pooling | 0/0 | Not started | - |
+| 4. Problem 4 - GPU Convolution with Max Pooling | 0/1 | Planned | - |
 | 5. Finalization and Code Hardening | 0/0 | Not started | - |
 
 
@@ -68,7 +68,8 @@ This document outlines the phased development plan for the GPU Accelerated Scien
   2. The host code is updated to chain the operations: convolution followed by max pooling.
   3. The final output file is identical to the output from the `convolution_maxpooling_serial.c` executable.
   4. The solution for Problem 4 passes the autograder.
-**Plans**: TBD
+**Plans**: 1 plan
+- [ ] 04-01-PLAN.md — Implement a fused CUDA kernel for 2D convolution and max-pooling.
 
 ### Phase 5: Finalization and Code Hardening
 **Goal**: To improve the overall quality and robustness of the codebase and verify all requirements are met.

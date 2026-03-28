@@ -30,11 +30,10 @@ __global__ void generate_hash_kernel(unsigned int* hash_array, unsigned int* non
     }
     #endif
 
-    #define FATAL(msg, ...) 
-        do {
-            fprintf(stderr, "[%s:%d] "msg"
-", __FILE__, __LINE__, ##__VA_ARGS__);
-            exit(-1);
+    #define FATAL(msg, ...) \
+        do { \
+            fprintf(stderr, "[%s:%d] " msg "\n", __FILE__, __LINE__, ##__VA_ARGS__); \
+            exit(-1); \
         } while(0)
 
     #if __BYTE_ORDER != __LITTLE_ENDIAN

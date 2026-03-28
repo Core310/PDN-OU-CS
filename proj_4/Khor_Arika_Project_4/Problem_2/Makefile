@@ -1,10 +1,13 @@
 NVCC        = nvcc
 NVCC_FLAGS  = -O3 -I/usr/local/cuda/include  
 LD_FLAGS    = -lcudart -L/usr/local/cuda/lib64
-EXE			= gpu_mining_starter
-OBJ			= gpu_mining_starter.o support.o
+EXE	    = gpu_mining_starter
+OBJ	    = gpu_mining_starter.o support.o reduction_kernel.o
 
 default: $(EXE)
+
+$(EXE):$(OBJ)
+	$(NVCC) -o $@ $^ $(LD_FLAGS)
 
 # ------------------------------------------------------------------------------- #
 
@@ -31,13 +34,13 @@ run:
 # ------------------------------------------------------------------------------- #
 
 gpu_mining_starter.o: gpu_mining_starter.cu nonce_kernel.cu hash_kernel.cu reduction_kernel.cu support.h
-	$(NVCC) -c -o $@ gpu_mining_starter.cu $(NVCC_FLAGS)
+	$(NVCC) -c -o $@ gpu_mining_starter.cu $(NVCC_FLAGS) $(LD_FLAGS)
+
+reduction_kernel.o: reduction_kernel.cu support.h
+	$(NVCC) -c -o $@ reduction_kernel.cu $(NVCC_FLAGS) $(LD_FLAGS)
 
 support.o: support.cu support.h
-	$(NVCC) -c -o $@ support.cu $(NVCC_FLAGS)
-
-$(EXE): $(OBJ)
-	$(NVCC) $(OBJ) -o $(EXE) $(LD_FLAGS)
+	$(NVCC) -c -o $@ support.cu $(NVCC_FLAGS) $(LD_FLAGS)
 
 clean:
 	rm -rf *.o $(EXE)

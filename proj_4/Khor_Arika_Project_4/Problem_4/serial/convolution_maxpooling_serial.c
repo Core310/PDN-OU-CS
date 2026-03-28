@@ -46,7 +46,7 @@ int main (int argc, char *argv[])
         const char s[2] = ",";
         token = strtok(line, s);
         int i_col = 0;
-        while (token != NULL)
+        while (token != NULL && i_col < n_col)
         {
             inputMatrix_h[row_count*n_col + i_col] = strtol(token, NULL,10 );
             i_col++;
