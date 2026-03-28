@@ -70,13 +70,21 @@ This project explores the transformation of compute-intensive serial algorithms 
 
 \noindent\rule{\textwidth}{0.4pt}
 
-\section*{\color{white}Problems 1 \& 2: Parallel Search and Reduction}
+\section*{\color{white}Problem 1 \& 2: PDNcoin Mining and Reduction}
 
-\subsection*{Comparison: Data Transfer and Bottlenecks}
-The primary difference between Problem 1 and Problem 2 is the \textbf{Data-to-Host (D2H) efficiency}.
+\subsection*{Algorithm Description}
+The goal of these problems is to optimize a cryptocurrency mining workflow using CUDA. The process is divided into three parallelizable stages:
+\begin{enumerate}[label=\arabic*.]
+    \item \textbf{Nonce Generation:} Embarrassingly parallel generation of random trial values.
+    \item \textbf{Hash Calculation:} Compute-intensive modular arithmetic per nonce.
+    \item \textbf{Global Minimum Search:} Finding the winning nonce with the lowest hash value.
+\end{enumerate}
+
+\subsection*{Comparison: Implementation Differences}
+The fundamental difference between Problem 1 and Problem 2 lies in the \textbf{offloading of the reduction step}.
 \begin{itemize}
-    \item \textbf{Problem 1 (Fat Transfer):} While hash generation is parallelized, the GPU must copy the entire array of calculated hashes back to the CPU for searching. At 10 million trials, this involves moving 40 MB of data over the PCIe bus, followed by a $O(N)$ serial loop on the host.
-    \item \textbf{Problem 2 (Thin Transfer):} By offloading the minimum search to a GPU reduction kernel, we consolidate millions of results into a single 8-byte value directly in VRAM. This effectively eliminates the D2H bottleneck and the CPU search phase.
+    \item \textbf{Problem 1 (Hybrid GPU/CPU):} Steps 1 and 2 are offloaded to the GPU. However, the GPU must copy the entire array of calculated hashes back to the host. At 10 million trials, this involves moving 40 MB over the PCIe bus, followed by an $O(N)$ serial loop on the host to find the minimum.
+    \item \textbf{Problem 2 (Full GPU):} All three steps are offloaded. We implemented a tree reduction kernel that consolidated millions of results into a single 8-byte value directly in VRAM. This effectively eliminates the D2H (Device-to-Host) transfer bottleneck and the CPU search phase.
 \end{itemize}
 
 \subsection*{Optimized Reduction with Atomic Tie-Breaking}
@@ -97,31 +105,34 @@ if (tid == 0) {
 }
 \end{lstlisting}
 
-\subsection*{Performance Results (Mining)}
+\subsection*{Performance Results (Mining Trials)}
 \begin{center}
 \begin{tabular}{@{}lcc@{}}
 \toprule
 Implementation & 5 Million Trials & 10 Million Trials \\
 \midrule
-\textbf{Problem 1 (CPU Search)} & 0.678518s & 1.131965s \\
-\textbf{Problem 2 (GPU Reduction)} & 0.632880s & 1.087014s \\
+\textbf{Serial Mining (CPU)} & 588.61s & 1177.22s \\
+\textbf{Problem 1 (GPU Hash)} & 0.431s & 0.777s \\
+\textbf{Problem 2 (GPU Reduction)} & 0.440s & 0.754s \\
 \bottomrule
 \end{tabular}
 \end{center}
 
 \noindent\rule{\textwidth}{0.4pt}
 
-\section*{\color{white}Problems 3 \& 4: Tiled Stencils and Pipelines}
+\section*{\color{white}Problem 3 \& 4: Tiled Convolution and Max-Pooling}
 
-\subsection*{Comparison: Standalone vs. Chained Kernels}
-Problems 3 and 4 demonstrate the evolution from a single-stage kernel to a multi-stage GPU pipeline.
+\subsection*{Algorithm Description}
+These problems implement a deep learning inference pipeline using 2D stencils. We implemented a 2D convolution layer followed by a max-pooling operation.
+
+\subsection*{Comparison: Implementation Differences}
 \begin{itemize}
-    \item \textbf{Problem 3 (Spatial Optimization):} Focuses on optimizing memory bandwidth using shared memory tiling. By loading tiles collaboratively, threads reuse data for stencil calculations, drastically reducing global memory requests.
-    \item \textbf{Problem 4 (Kernel Chaining):} Extends Problem 3 by adding a max-pooling stage. The convolution output is stored in global memory and immediately read by the pooling kernel. This "chaining" keeps the entire feature extraction pipeline on the GPU, avoiding any intermediate host interaction.
+    \item \textbf{Problem 3 (Spatial Optimization):} Focuses on optimizing memory bandwidth using **shared memory tiling**. By loading tiles collaboratively, threads reuse data for stencil calculations, drastically reducing redundant global memory requests.
+    \item \textbf{Problem 4 (Integrated Pipeline):} Combines the convolution from Problem 3 with a max-pooling stage. The convolution output is kept in global memory and immediately read by the pooling kernel. This "chaining" avoids intermediate host interaction and keeps the full feature extraction on the GPU.
 \end{itemize}
 
 \subsection*{Collaborative Halo Loading (Problem 3)}
-To handle the 5x5 filter radius, each thread block loads a "halo" of surrounding pixels. We used dynamic shared memory to support configurable radii.
+To handle the 5x5 filter, each thread block loads a "halo" of surrounding pixels. We used dynamic shared memory to support runtime-configurable block sizes and radii.
 
 \begin{lstlisting}
 // collaborative loading of tile + halo into dynamic shared memory
@@ -130,14 +141,14 @@ for (int i = ty; i < tile_dim; i += blockDim.y) {
         int global_row = blockIdx.y * blockDim.y + i;
         int global_col = blockIdx.x * blockDim.x + j;
         if (global_row < n_row + 2 * radius && global_col < n_col + 2 * radius)
-            tile_s[i * tile_dim + j] = paddedInput[global_row * padded_col + global_col];
+            tile_s[i * tile_dim + j] = paddedInput[global_row * (n_col + 2 * radius) + global_col];
         else tile_s[i * tile_dim + j] = 0;
     }
 }
 \end{lstlisting}
 
 \subsection*{Max-Pooling Window Logic (Problem 4)}
-The max-pooling kernel performs a sliding window search over the convolved image to enhance pattern clarity.
+The max-pooling kernel enhances feature clarity by searching for local maxima.
 
 \begin{lstlisting}
 if (row < n_row && col < n_col) {
@@ -160,10 +171,10 @@ if (row < n_row && col < n_col) {
 \begin{center}
 \begin{tabular}{@{}lc@{}}
 \toprule
-Pipeline Stage & Runtime (seconds) \\
+Implementation Stage & Runtime (seconds) \\
 \midrule
-\textbf{Problem 3 (Convolution Only)} & 0.001332 \\
-\textbf{Problem 4 (Integrated Pipeline)} & 0.002001 \\
+\textbf{Problem 3 (Convolution Only)} & 0.000671 \\
+\textbf{Problem 4 (Integrated Pipeline)} & 0.000981 \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -173,29 +184,26 @@ Pipeline Stage & Runtime (seconds) \\
 \section*{\color{white}AI Usage and Software Engineering Workflow}
 
 \subsection*{Gemini CLI: The Interactive Engine}
-The development of this project was driven by the \textbf{Gemini CLI}, a specialized agentic environment designed for autonomous software engineering. Unlike standard chat-based interfaces, the Gemini CLI operates directly within the project workspace, possessing the capability to read the entire codebase, execute shell commands, and perform surgical file modifications.
+Development was driven by the \textbf{Gemini CLI}, an agentic environment capable of direct workspace interaction, shell execution, and surgical code refactoring.
 
 \subsection*{The GSD (Get Shit Done) Framework}
-To manage the complexity of transforming brittle CUDA code into an optimized suite, I employed the \textbf{GSD (Get Shit Done)} workflow on top of the Gemini CLI. This framework follows a rigorous, phase-based lifecycle that mirrors high-level engineering project management:
-
+To manage the complexity of this project, I used the **GSD (Get Shit Done)** workflow:
 \begin{enumerate}[label=\alph*.]
-    \item \textbf{Initialization and Mapping:} The workflow began by feeding the project PDF into the agent. GSD automatically generated a \texttt{ROADMAP.md} and \texttt{REQUIREMENTS.md}, mapping the instructions to specific technical tasks and identifying architectural concerns (such as the hardcoded magic numbers).
-    \item \textbf{Research and Strategy:} For each problem, the agent performed speculative research. For example, in Problem 2, GSD analyzed the PCIe bandwidth overhead and formulated the strategy to use 64-bit atomic packing to minimize Data-to-Host transfers.
-    \item \textbf{Phase Planning:} Each problem was decomposed into atomic "Plans" (e.g., \texttt{04-01-PLAN.md}). These plans include explicit success criteria, verification steps (unit tests), and rollback procedures.
-    \item \textbf{Execution and Validation:} Tasks were executed in "waves." After every code modification, the agent automatically triggered compilation and verification scripts. A task was only marked as "Completed" in the \texttt{STATE.md} tracker once all autograders and GTest cases reported 100\% success.
+    \item \textbf{Initialization:} Automatic instruction mapping to \texttt{ROADMAP.md} and \texttt{REQUIREMENTS.md}.
+    \item \textbf{Research:} Bottleneck analysis (identifying the D2H PCIe overhead).
+    \item \textbf{Planning:} Decomposing problems into atomic, verifiable phases.
+    \item \textbf{Execution:} Wave-based implementation with GTest verification checkpoints.
 \end{enumerate}
-
-\subsection*{Outcome of the Agentic Approach}
-The integration of Gemini CLI and GSD allowed for a highly reliable refactoring process. It ensured that critical regressions (such as the broken string literals in the starter code) were identified and fixed systematically across all problems simultaneously, and that the transition to dynamic shared memory was verified against 15 distinct edge-case configurations without manual oversight.
 
 \noindent\rule{\textwidth}{0.4pt}
 
 \section*{\color{white}Project Layout}
 \begin{itemize}
-    \item \textbf{common/}: Shared `gpuErrchk` error logic and performance timers.
-    \item \textbf{Problem\_1/2}: Mining logic (Fat vs. Thin D2H transfers).
-    \item \textbf{Problem\_3/4}: Image processing (Collaborative tiling vs. Chained pipeline).
-    \item \textbf{tests/}: Unit tests for kernel correctness under variable configurations.
+    \item \textbf{common/}: Shared `gpuErrchk` error logic and timing functions.
+    \item \textbf{Problem\_1/2}: Mining logic comparison (Fat vs. Thin D2H transfers).
+    \item \textbf{Problem\_3/4}: Image processing (Spatial tiling vs. Chained pipelines).
+    \item \textbf{serial/}: Centralized reference C programs for performance baselines.
+    \item \textbf{tests/}: Comprehensive Google Test suite for all kernels.
 \end{itemize}
 
 \end{document}
