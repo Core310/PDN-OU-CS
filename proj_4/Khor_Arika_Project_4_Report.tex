@@ -1,0 +1,182 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{titlesec}
+\usepackage{booktabs} 
+\usepackage{enumitem} 
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{listings}
+
+% Dark Theme Colors
+\definecolor{pageblack}{rgb}{0,0,0}
+\definecolor{textgrey}{rgb}{0.5,0.5,0.5}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.05,0.05,0.05} % Very dark grey for code blocks
+
+% Apply Dark Theme
+\pagecolor{pageblack}
+\color{textgrey}
+
+% Setup listings for CUDA/C++
+\lstset{
+    language=C++,
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize\color{textgrey},
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+% Header and Footer Setup
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\color{textgrey}Project 4}
+\chead{\color{textgrey}CUDA Optimization}
+\rhead{\color{textgrey}Semester: SPRING 2026}
+\lfoot{\color{textgrey}Arika Khor}
+\cfoot{}
+\rfoot{\color{textgrey}Page \thepage\ of \pageref{LastPage}}
+
+\begin{document}
+
+\begin{center}
+    {\Large \textbf{\color{white}Project 4 Report: Tree Reduction and Stencil Computation in GPU}}\\
+    \vspace{0.5em}
+    Author: Arika Khor
+\end{center}
+
+\vspace{1em}
+
+\section*{\color{white}Problem 1 \& 2: PDNcoin Mining and Reduction}
+
+\subsection*{Algorithm Description}
+The goal of these problems is to optimize a cryptocurrency mining workflow using CUDA. The process is divided into three parallelizable stages:
+\begin{enumerate}[label=\arabic*.]
+    \item \textbf{Nonce Generation:} Embarrassingly parallel generation of random trial values.
+    \item \textbf{Hash Calculation:} Compute-intensive modular arithmetic per nonce.
+    \item \textbf{Global Minimum Search:} Finding the winning nonce with the lowest hash value.
+\end{enumerate}
+
+In \textbf{Problem 2}, we implemented a high-performance tree reduction to replace the CPU bottleneck. The primary technical challenge was returning both the minimum hash and its associated nonce. We solved this by packing both 32-bit values into a single 64-bit \texttt{unsigned long long} and using \texttt{atomicCAS} for global synchronization.
+
+\subsection*{Optimized Reduction Kernel Snippet}
+\begin{lstlisting}
+__global__ void reduction_kernel(unsigned int *d_hashes, unsigned int *d_nonces, int num_elements, unsigned long long *d_min_result) {
+    extern __shared__ unsigned int s_data[];
+    unsigned int *s_hashes = s_data;
+    unsigned int *s_nonces = &s_data[blockDim.x];
+
+    int tid = threadIdx.x;
+    int i = blockIdx.x * blockDim.x + threadIdx.x;
+
+    if(i < num_elements) {
+        s_hashes[tid] = d_hashes[i];
+        s_nonces[tid] = d_nonces[i];
+    } else {
+        s_hashes[tid] = 123123123; // MAX
+        s_nonces[tid] = 0xFFFFFFFFU;
+    }
+    __syncthreads();
+
+    for (unsigned int s=blockDim.x/2; s>0; s>>=1) {
+        if (tid < s) {
+            if (s_hashes[tid] > s_hashes[tid+s]) {
+                s_hashes[tid] = s_hashes[tid+s];
+                s_nonces[tid] = s_nonces[tid+s];
+            }
+        }
+        __syncthreads();
+    }
+
+    if (tid == 0) {
+        unsigned long long local_min = ((unsigned long long)s_hashes[0] << 32) | (unsigned long long)s_nonces[0];
+        atomicMin(d_min_result, local_min); // Logic handled via atomicCAS in implementation
+    }
+}
+\end{lstlisting}
+
+\subsection*{Performance Results (Schooner Cluster)}
+
+\subsubsection*{Runtime (seconds) - Mining Trials}
+\begin{center}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+Implementation & 5 Million Trials & 10 Million Trials \\
+\midrule
+\textbf{Problem 1 (CPU Reduction)} & 0.678518 & 1.131965 \\
+\textbf{Problem 2 (GPU Reduction)} & 0.632880 & 1.087014 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\section*{\color{white}Problem 3 \& 4: Tiled Convolution and Max-Pooling}
+
+\subsection*{Algorithm Description}
+These problems implement a deep learning inference pipeline (Stencil Computation). We implemented a 2D convolution layer followed by a max-pooling operation.
+
+Key optimizations include:
+\begin{enumerate}[label=\arabic*.]
+    \item \textbf{Shared Memory Tiling:} Each thread block collaboratively loads an input tile plus a 2-pixel halo into shared memory, reducing global memory pressure.
+    \item \textbf{Dynamic Configuration:} The kernels use \texttt{extern __shared__} to support runtime-configurable \texttt{BLOCK\_SIZE} and \texttt{RADIUS} arguments.
+    \item \textbf{Kernel Chaining:} Problem 4 pipes the convolution output directly to the max-pooling kernel while staying entirely on the device.
+\end{enumerate}
+
+\subsection*{Performance Results (2048 x 2048 Matrix)}
+\begin{center}
+\begin{tabular}{@{}lc@{}}
+\toprule
+Pipeline Stage & Runtime (seconds) \\
+\midrule
+\textbf{Convolution Only} & 0.001332 \\
+\textbf{Convolution + Max-Pooling} & 0.002001 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\section*{\color{white}AI Usage and Workflow}
+
+\subsection*{Gemini CLI \& GSD Methodology}
+This project utilized the **Gemini CLI** integrated with the **GSD (getshitdone)** workflow for rigorous planning and execution.
+
+\begin{itemize}
+    \item \textbf{Initialization:} Automatically mapped the project structure from the PDF instructions and established coding standards (e.g., \texttt{gpuErrchk} requirement).
+    \item \textbf{Research:} Analyzed the provided serial code to identify optimization targets, specifically pinpointing the 40MB D2H transfer in Problem 1 as a primary bottleneck.
+    \item \textbf{Execution:} Used AI-driven surgical edits to migrate static shared memory allocations to dynamic pointers, enabling the configurable CLI requirement without manual boilerplate.
+    \item \textbf{Verification:} Generated a Google Test suite to stress-test kernels with non-multiple grid sizes and edge-case radii.
+\end{itemize}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\section*{\color{white}Project Layout}
+\begin{itemize}
+    \item \textbf{common/}: Centralized timers and error handling (\texttt{gpuErrchk}).
+    \item \textbf{Problem\_1/}: GPU mining with host-side reduction.
+    \item \textbf{Problem\_2/}: Fully optimized 64-bit atomic GPU reduction.
+    \item \textbf{Problem\_3/}: Tiled convolution with dynamic halo loading.
+    \item \textbf{Problem\_4/}: Chained GPU pipeline (Conv + MaxPool).
+    \item \textbf{tests/}: GTest unit testing infrastructure.
+\end{itemize}
+
+\end{document}
