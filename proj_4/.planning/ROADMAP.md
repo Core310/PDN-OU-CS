@@ -1,83 +1,78 @@
-# Roadmap
+# Project Roadmap
 
-This document outlines the phased development plan for the GPU Accelerated Scientific Computing project.
+This roadmap outlines the phased approach to refactoring and improving the CUDA project codebase.
 
 ## Phases
 
-- [x] **Phase 1: Problem 1 - GPU Hashing** - Implement the GPU-based parallel hash generation for the cryptocurrency mining problem.
-- [x] **Phase 2: Problem 2 - GPU Parallel Reduction** - Implement the GPU-based parallel reduction to find the minimum hash.
-- [x] **Phase 3: Problem 3 - GPU 2D Convolution** - Implement the GPU-based 2D image convolution. (completed 2026-03-27)
-- [ ] **Phase 4: Problem 4 - GPU Convolution with Max Pooling** - Implement the GPU-based max pooling operation.
-- [ ] **Phase 5: Finalization and Code Hardening** - Perform final testing, review code, and address non-functional requirements.
+- [ ] **Phase 1: Foundational Refactoring** - Establish a clean, non-redundant code structure and implement robust error handling.
+- [ ] **Phase 2: Algorithm Optimization** - Improve the performance of a key parallel algorithm.
+- [ ] **Phase 3: Unit Testing Integration** - Introduce a testing framework and create a safety net for kernels.
+- [ ] **Phase 4: Configuration and Usability** - Eliminate hardcoded values to improve flexibility.
+- [ ] **Phase 5: Finalization and Validation** - Ensure all refactoring goals are met and remove dead code.
 
 ## Progress
 
 | Phase | Plans Complete | Status | Completed |
 |---|---|---|---|
-| 1. Problem 1 - GPU Hashing | 1/1 | Completed | 2024-07-29 |
-| 2. Problem 2 - GPU Parallel Reduction | 1/1 | Completed | 2024-07-29 |
-| 3. Problem 3 - GPU 2D Convolution | 1/1 | Complete   | 2026-03-27 |
-| 4. Problem 4 - GPU Convolution with Max Pooling | 0/1 | Planned | - |
-| 5. Finalization and Code Hardening | 0/0 | Not started | - |
-
+| 1. Foundational Refactoring | 2/2 | Completed | 2024-08-01 |
+| 2. Algorithm Optimization | 0/1 | In Progress | - |
+| 3. Unit Testing Integration | 0/0 | Not started | - |
+| 4. Configuration and Usability | 0/0 | Not started | - |
+| 5. Finalization and Validation | 0/0 | Not started | - |
 
 ## Phase Details
 
-### Phase 1: Problem 1 - GPU Hashing
-**Goal**: To accelerate the hash generation part of the cryptocurrency mining problem by moving the computation to the GPU.
-**Depends on**: Nothing
-**Requirements**: `P1-01`, `P1-02`, `P1-03`, `P1-04`
-**Success Criteria**:
-  1. A new CUDA kernel is created that computes hash values in parallel.
-  2. The `TODO` for hash generation in `gpu_mining_starter.cu` is removed and replaced with a call to the new kernel.
-  3. The program produces the same hash values as the original CPU-based loop, verifiable by manual inspection or logging.
-  4. The solution for Problem 1 passes the relevant section of the autograder.
-**Plans**: 1 plan
-- [x] 01-01-PLAN.md — Implement GPU hashing kernel.
+### Phase 1: Foundational Refactoring
+**Goal:** To create a stable and reliable foundation by centralizing shared code and ensuring all errors are caught.
+**Depends on:** Nothing
+**Requirements:** SETUP-01, SETUP-02, RELY-01, RELY-02
+**Plans:** 2 plans
+- [x] `01-foundational-refactoring-01-PLAN.md` — Consolidate duplicated `support` code into a `common` directory.
+- [x] `01-foundational-refactoring-02-PLAN.md` — Integrate `common` code into build system and add unified error handling.
+**Success Criteria:**
+  1. A `common` directory exists containing a single copy of `support.h`/`.cu` and other shared files.
+  2. All `Problem_*` Makefiles link to the common files; the project still compiles and runs correctly.
+  3. A single CUDA error-checking macro is defined in `common/support.h`.
+  4. Executing the programs with invalid parameters (e.g., asking for too much GPU memory) causes a graceful exit with a clear error message, rather than a silent failure or crash.
 
-### Phase 2: Problem 2 - GPU Parallel Reduction
-**Goal**: To implement an efficient parallel reduction on the GPU to find the nonce corresponding to the minimum hash.
-**Depends on**: Phase 1
-**Requirements**: `P2-01`, `P2-02`, `P2-03`, `P2-04`
-**Success Criteria**:
-  1. A new CUDA kernel is created that implements a parallel reduction algorithm.
-  2. The `TODO` for finding the minimum in `gpu_mining_starter.cu` is removed and replaced with a call to the reduction kernel.
-  3. The program correctly identifies the minimum hash and its associated nonce, matching the output of the serial implementation.
-  4. The solution for Problem 2 passes the relevant section of the autograder.
-**Plans**: 1 plan
-- [x] 02-01-PLAN.md — Implement GPU parallel reduction for minimum hash and nonce.
+### Phase 2: Algorithm Optimization
+**Goal:** To significantly improve performance by implementing an efficient parallel reduction on the GPU.
+**Depends on:** Phase 1
+**Requirements:** PERF-01, PERF-02
+**Plans:** 1 plan
+- [ ] `02-01-PLAN.md` — Implement a fully on-device parallel reduction using atomic operations.
+**Success Criteria:**
+  1. A new GPU kernel exists that performs a full reduction without needing an intermediate CPU step.
+  2. The mining application (Problem 1) now uses this new kernel.
+  3. The end-to-end time for the mining problem is demonstrably faster than the original implementation, especially for large input sizes.
+  4. The optimized mining problem still produces the correct output as verified by the autograder.
 
-### Phase 3: Problem 3 - GPU 2D Convolution
-**Goal**: To create a GPU-accelerated 2D convolution implementation.
-**Depends on**: Phase 1
-**Requirements**: `P3-01`, `P3-02`, `P3-03`
-**Success Criteria**:
-  1. A new CUDA kernel is created that performs a 2D convolution.
-  2. The host code is implemented to handle data loading, kernel launch, and result retrieval for the convolution task.
-  3. The output file generated by the GPU implementation is identical to the output from the `convolution_serial.c` executable.
-  4. The solution for Problem 3 passes the autograder.
-**Plans**: 1 plan
-- [x] 03-01-PLAN.md — Implement GPU 2D convolution with shared memory tiling and host-side padding.
+### Phase 3: Unit Testing Integration
+**Goal:** To improve code quality and developer confidence by introducing a unit testing framework.
+**Depends on:** Phase 1
+**Requirements:** TEST-01, TEST-02, TEST-03
+**Success Criteria:**
+  1. The build system has a new target (e.g., `make test`) that compiles and runs unit tests.
+  2. A developer can run a test that validates only the reduction kernel's logic without running the entire mining application.
+  3. A developer can run a test that validates only the convolution kernel's logic.
+  4. The test suite is clean and reports success for the newly created tests.
 
-### Phase 4: Problem 4 - GPU Convolution with Max Pooling
-**Goal**: To extend the convolution implementation with a GPU-accelerated max pooling layer.
-**Depends on**: Phase 3
-**Requirements**: `P4-01`, `P4-02`, `P4-03`
-**Success Criteria**:
-  1. A new CUDA kernel is created that performs a max pooling operation over a 2D matrix.
-  2. The host code is updated to chain the operations: convolution followed by max pooling.
-  3. The final output file is identical to the output from the `convolution_maxpooling_serial.c` executable.
-  4. The solution for Problem 4 passes the autograder.
-**Plans**: 1 plan
-- [ ] 04-01-PLAN.md — Implement a fused CUDA kernel for 2D convolution and max-pooling.
+### Phase 4: Configuration and Usability
+**Goal:** To make the application more flexible by replacing hardcoded "magic numbers" with command-line arguments.
+**Depends on:** Phase 1
+**Requirements:** CONF-01, CONF-02
+**Success Criteria:**
+  1. A user can run the convolution program and specify the filter radius from the command line.
+  2. A user can run the mining/reduction programs and specify the thread block size from the command line.
+  3. Running the programs with no arguments or `--help` prints a usage message explaining the new parameters.
+  4. The autograder scripts are updated to use the new command-line arguments and still pass.
 
-### Phase 5: Finalization and Code Hardening
-**Goal**: To improve the overall quality and robustness of the codebase and verify all requirements are met.
-**Depends on**: Phase 1, 2, 3, 4
-**Requirements**: `NFR-01`, `NFR-02`, `NFR-03`, `NFR-04`, `NFR-05`, `NFR-06`
-**Success Criteria**:
-  1. All `autograder_*.py` scripts run successfully, and all tests pass.
-  2. The `read_file` function no longer uses a static-sized buffer, preventing potential overflows.
-  3. Command-line argument parsing is improved to validate input and provide clear error messages.
-  4. A final review confirms that performance speedup has been achieved for all problems.
-**Plans**: TBD
+### Phase 5: Finalization and Validation
+**Goal:** To complete the refactoring by removing all remaining duplicated code and verifying project integrity.
+**Depends on:** Phase 4
+**Requirements:** CLEAN-01
+**Success Criteria:**
+  1. A search for `support.h` in the project returns only one file (in the `common` directory).
+  2. All `Problem_*/serial/` directories are removed, and a central `serial/` directory provides the reference implementations.
+  3. The entire project compiles cleanly.
+  4. All autograders and unit tests pass successfully.
