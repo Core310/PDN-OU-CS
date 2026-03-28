@@ -1,79 +1,81 @@
 # Architecture
 
-**Analysis Date:** 2024-07-25
+**Analysis Date:** 2024-07-31
 
 ## Pattern Overview
 
-**Overall:** CPU-GPU Offloading for Scientific Computing
-
-The project is not a single application but a collection of four distinct computational problems. The primary architectural pattern is the use of a General-Purpose GPU (GPGPU) to accelerate computationally intensive, data-parallel tasks.
+**Overall:** Host-Device GPGPU (General-Purpose computing on Graphics Processing Units)
 
 **Key Characteristics:**
-- **Heterogeneous Computing:** The system uses both the CPU (host) and a GPU (device) for computation.
-- **Parallelism:** Tasks are parallelized across thousands of GPU threads to achieve speedup over traditional serial CPU execution.
-- **Problem-Oriented:** The architecture is structured around solving specific, isolated computational problems (e.g., cryptocurrency mining, image convolution). Each problem exists as a self-contained unit.
+- **Heterogeneous Computing:** The application logic is split between the CPU (host) and the GPU (device). The CPU handles serial tasks like I/O, control flow, and setup, while the GPU performs massively parallel computations.
+- **CUDA Programming Model:** The project uses NVIDIA's CUDA framework to write C/C++ code that can execute on the GPU.
+- **Explicit Data Management:** The host code is responsible for explicitly allocating memory on the GPU, transferring data between host and device, and deallocating memory. This is a defining characteristic of the CUDA programming model.
 
 ## Layers
 
-The architecture does not follow a traditional multi-tiered pattern (e.g., UI/Business/Data). Instead, it's a two-part system within each problem.
+**Host/Driver Layer:**
+- **Purpose:** Orchestrates the entire computation. Reads input data, manages GPU memory, launches kernels, and writes output data.
+- **Location:** `.cu` files containing the `main` function (e.g., `Khor_Arika_Project_4/Problem_3/convolution_CUDA.cu`).
+- **Contains:** C/C++ code for I/O, memory management (`cudaMalloc`, `cudaMemcpy`, `cudaFree`), and kernel launch syntax (`<<<...>>>`).
+- **Depends on:** CUDA Runtime API, Support Layer.
+- **Used by:** The user, via command-line execution of the compiled binary.
 
-**Host (CPU):**
-- **Purpose:** Orchestrates the overall process, handles I/O (file reading/writing), manages GPU memory, and executes serial parts of the computation.
-- **Location:** `Khor_Arika_Project_4/Problem_*/` (e.g., `gpu_mining_starter.cu`, `convolution.cu`) and `Khor_Arika_Project_4/Problem_*/serial/` (e.g., `serial_mining.c`).
-- **Contains:** The `main` function, file I/O logic, CUDA API calls for memory management (`cudaMalloc`, `cudaMemcpy`), and kernel launch configuration.
-- **Depends on:** CUDA runtime libraries.
-- **Used by:** The user or an execution script (`Makefile`, `.sbatch`).
+**Device/Kernel Layer:**
+- **Purpose:** Executes the computationally intensive parallel algorithms.
+- **Location:** `.cu` files containing `__global__` functions (e.g., `Khor_Arika_Project_4/Problem_3/kernel.cu`, `Khor_Arika_Project_4/Problem_1/hash_kernel.cu`).
+- **Contains:** CUDA kernels that define the logic for a single thread. Utilizes the CUDA thread hierarchy (`blockIdx`, `threadIdx`).
+- **Depends on:** Nothing (it is the base computational unit).
+- **Used by:** The Host/Driver Layer, which launches it.
 
-**Device (GPU):**
-- **Purpose:** Executes massively parallel computations.
-- **Location:** Kernels are defined in `.cu` files (e.g., `nonce_kernel.cu`, `hash_kernel.cu`) and launched from the host code.
-- **Contains:** CUDA kernels (`__global__` functions) that define the logic to be executed by each GPU thread.
-- **Depends on:** Data provided by the host.
-- **Used by:** The host code, which launches the kernels.
+**Support Layer:**
+- **Purpose:** Provides reusable helper functions for tasks common across different problems, such as timing and error handling.
+- **Location:** `Khor_Arika_Project_4/Problem_*/support.h`, `Khor_Arika_Project_4/Problem_*/support.cu`.
+- **Contains:** Functions for starting/stopping timers (`startTime`, `stopTime`) and handling CUDA errors.
+- **Depends on:** CUDA Runtime API.
+- **Used by:** The Host/Driver Layer.
+
+**Serial/Reference Layer:**
+- **Purpose:** Provides a sequential, CPU-only implementation of the same algorithm. This is used for correctness verification and performance comparison.
+- **Location:** `Khor_Arika_Project_4/Problem_*/serial/` directories (e.g., `serial_mining.c`).
+- **Contains:** Standard C code.
+- **Depends on:** Standard C libraries.
+- **Used by:** Developers for testing and benchmarking.
 
 ## Data Flow
 
-**Typical Data Flow (Problem 1 - Mining):**
+**Typical GPU Computation Flow (e.g., Convolution):**
 
-1.  **Host (CPU):** The `main` function in `gpu_mining_starter.cu` is invoked. It reads command-line arguments and loads transaction data from a `.csv` file into host memory.
-2.  **Host -> Device (CPU -> GPU):** The host allocates memory on the GPU device using `cudaMalloc`.
-3.  **Device (GPU):** The host launches the `nonce_kernel` on the GPU. Thousands of threads execute in parallel, each generating a unique nonce and writing it to the GPU memory allocated in the previous step.
-4.  **Device -> Host (GPU -> CPU):** The host calls `cudaMemcpy` to copy the array of generated nonces from GPU memory back to host memory.
-5.  **Host (CPU):** The host code iterates through the nonces to generate hashes and find the minimum value. *(Note: The `TODO` comments in the code indicate this step is intended to be moved to the GPU as well).*
-6.  **Host (CPU):** The final result (the nonce corresponding to the minimum hash) is written to output files.
+1.  **Host:** The `main` function in `convolution_CUDA.cu` is executed on the CPU.
+2.  **Host:** Input data (e.g., a matrix) is read from a file (`input.csv`) into host RAM using `malloc` and standard file I/O.
+3.  **Host:** GPU device memory is allocated using `cudaMalloc`.
+4.  **Host -> Device:** The input data is copied from host RAM to GPU VRAM using `cudaMemcpy(..., cudaMemcpyHostToDevice)`.
+5.  **Host:** The host launches the `convolution_kernel<<<...>>>` on the GPU, passing device pointers as arguments. The CPU can continue other tasks or wait.
+6.  **Device:** The GPU executes the `convolution_kernel` in parallel across thousands of threads. Threads may use `__shared__` memory for optimized data access (tiling).
+7.  **Host:** The host calls `cudaDeviceSynchronize()` to block and wait until the GPU kernel has finished execution.
+8.  **Device -> Host:** The computed result is copied from GPU VRAM back to host RAM using `cudaMemcpy(..., cudaMemcpyDeviceToHost)`.
+9.  **Host:** The host writes the result from RAM to an output file (`results.csv`).
+10. **Host:** Both host (`free`) and device (`cudaFree`) memory are deallocated.
 
 ## Key Abstractions
 
 **CUDA Kernel:**
-- **Purpose:** A function that runs on the GPU and is executed by many threads in parallel. It is the core unit of parallel computation.
-- **Examples:** `nonce_kernel` in `Khor_Arika_Project_4/Problem_1/nonce_kernel.cu`.
-- **Pattern:** Declared with `__global__ void`. Launched from the host using the `<<<grid, block>>>` syntax.
+- **Purpose:** Represents the core parallel algorithm. It's a C-style function that is executed by many GPU threads simultaneously.
+- **Examples:** `__global__ void convolution_kernel(...)` in `Khor_Arika_Project_4/Problem_3/kernel.cu`.
+- **Pattern:** Prefixed with `__global__`. Launched from the host using `<<<...>>>` syntax.
 
-**Host/Device Memory Management:**
-- **Purpose:** Explicit management of memory on the CPU's RAM (host) and the GPU's VRAM (device). Data must be manually transferred between the two.
-- **Examples:** `cudaMalloc`, `cudaMemcpy`, `cudaFree` calls within `Khor_Arika_Project_4/Problem_1/gpu_mining_starter.cu`.
-- **Pattern:** Allocate on device (`cudaMalloc`), copy from host (`cudaMemcpyHostToDevice`), compute, copy back to host (`cudaMemcpyDeviceToHost`), free on device (`cudaFree`).
-
-## Entry Points
-
-**Primary Entry Point (GPU version):**
-- **Location:** The `main` function inside the primary `.cu` file for each problem (e.g., `Khor_Arika_Project_4/Problem_1/gpu_mining_starter.cu`).
-- **Triggers:** Executed via a `Makefile` target (e.g., `make run`) or a SLURM batch script (`.sbatch`).
-- **Responsibilities:** Overall orchestration of the CPU-GPU workflow: data loading, memory transfers, kernel launches, and result output.
-
-**Comparison Entry Point (Serial version):**
-- **Location:** The `main` function inside the C file in the `serial/` subdirectory (e.g., `Khor_Arika_Project_4/Problem_1/serial/serial_mining.c`).
-- **Triggers:** Executed via its own `Makefile`.
-- **Responsibilities:** Performs the same logic as the GPU version but entirely on the CPU in a serial manner.
+**Shared Memory Tiling:**
+- **Purpose:** An optimization pattern to reduce slow global VRAM access. Data is cooperatively loaded by a block of threads into fast, on-chip shared memory, computed on, and then written back.
+- **Examples:** The use of `__shared__ int tile_s[...]` and `__shared__ int filter_s[...]` in `Khor_Arika_Project_4/Problem_3/kernel.cu`.
+- **Pattern:** Declare variables with `__shared__`, load data from global to shared memory, synchronize threads with `__syncthreads()`, compute using shared memory.
 
 ## Error Handling
 
-**Strategy:** Manual, explicit error checking after CUDA API calls.
+**Strategy:** Explicit return code checking.
 
 **Patterns:**
-- The `cudaError_t` return value from every major CUDA API call (e.g., `cudaMalloc`, `cudaMemcpy`, `cudaDeviceSynchronize`) is checked.
-- A utility function, `err_check`, is used to wrap this logic. If the return value is not `cudaSuccess`, it prints a descriptive error message along with the official error string from `cudaGetErrorString` and terminates the program.
+- The CUDA Runtime API functions (e.g., `cudaMalloc`) return an error code of type `cudaError_t`.
+- The `support.h` file likely contains a macro (e.g., `FATAL` or a custom error-checking wrapper, though not fully shown in provided files) that checks this return value. If the value is not `cudaSuccess`, it prints an error message and terminates. This is a standard pattern in CUDA applications.
 
 ---
 
-*Architecture analysis: 2024-07-25*
+*Architecture analysis: 2024-07-31*

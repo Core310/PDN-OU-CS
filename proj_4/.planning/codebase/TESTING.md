@@ -1,129 +1,121 @@
 # Testing Patterns
 
-**Analysis Date:** 2024-07-29
+**Analysis Date:** 2024-07-25
 
 ## Test Framework
 
 **Runner:**
-- A custom Python-based testing harness is used. It is not a standard framework like `pytest` or `gtest`.
-- The main runner script is `Khor_Arika_Project_4/autograder_project_4.py`.
-- It uses `pandas` for analyzing and storing results.
-- The core logic appears to be in a `Base_Autograder` class which individual test scripts inherit from.
+- **Custom Python Scripts:** The project does not use a standard test runner like `pytest` or `unittest`. Instead, a suite of custom Python scripts (`autograder_*.py`) serve as the test execution engine.
+- **Base Class:** A base class, `Base_Autograder` (located in `autograder_base.py`), provides common functionality. Specific test scripts inherit from this class.
 
 **Assertion Library:**
-- Assertions are done by comparing output files. The `grade_problem` method in the autograder scripts reads the student-generated output and compares it against a pre-computed "golden" output file. It is a form of diff-based testing.
+- **File Comparison:** There is no traditional assertion library. Assertions are performed by running the compiled C/CUDA executables, saving their output to files (usually `.csv`), and comparing these against pre-defined "golden" result files.
+- **Libraries Used:** `pandas` and `numpy` are used within the autograder scripts to load and compare the output files.
 
 **Run Commands:**
 ```bash
-# To run the full test suite
+# Tests are run by executing the Python autograder scripts directly
 python Khor_Arika_Project_4/autograder_project_4.py
+
+# Individual problem tests can also be run
+python Khor_Arika_Project_4/autograder_problem_4_1.py
 ```
+There are also `.sbatch` files, suggesting tests are intended to be run on a Slurm cluster.
 
 ## Test File Organization
 
 **Location:**
-- Test scripts are located in `Khor_Arika_Project_4/`.
-- Test data (input files and expected output files) is located in the `test_data/` directory, segregated by problem number.
-- This represents a clean separation of tests from the application code.
+- Test scripts are located in the `Khor_Arika_Project_4/` directory. They are not co-located with the source code being tested.
+- Test *data* and expected outputs are stored in the `test_data/` directory at the project root.
 
 **Naming:**
-- Test scripts follow the pattern `autograder_problem_4_[problem_number].py`.
+- Test scripts follow the pattern `autograder_problem_*.py` or `autograder_project_*.py`.
 
 **Structure:**
 ```
 [project-root]/
 ├── Khor_Arika_Project_4/
-│   ├── autograder_project_4.py      # Main test runner
-│   ├── autograder_problem_4_1.py    # Tests for Problem 1
-│   └── ...
-├── Problem_1/
-│   └── ... (code to be tested)
+│   ├── autograder_problem_4_1.py  # Test script for Problem 1
+│   ├── autograder_problem_4_2.py  # Test script for Problem 2
+│   ├── ...
+│   └── Problem_1/                 # Source code for Problem 1
+│       └── gpu_mining_starter.cu
 └── test_data/
-    ├── Problem_1_and_2/
-    │   ├── in_20k.csv               # Test input data (fixture)
-    │   └── gpu_nonce_files/
-    │       └── out_gpu_20k_5m.csv   # Expected ("golden") output
-    └── ...
+    └── Problem_1_and_2/
+        ├── in_20k.csv             # Input data for tests
+        └── gpu_nonce_files/
+            └── out_gpu_20k_5m.csv # Expected ("golden") output
 ```
 
 ## Test Structure
 
 **Suite Organization:**
-- The `autograder_project_4.py` script serves as the test suite, importing and running tests for each problem sequentially.
-- Each `autograder_problem_4_*.py` file defines a class that configures and executes tests for one problem from the project.
+- Each `autograder_*.py` file represents a test suite for a specific problem.
+- Within each suite, the `autograde()` method defines the series of tests to be run.
+- The pattern involves:
+    1. Defining paths to student executables and output locations.
+    2. Defining paths to test data and expected output files.
+    3. Constructing the shell commands needed to run the student's executable with the correct arguments.
+    4. Calling a helper method (`grade_problem`) that executes the command, waits for the output file to be created, and then compares it to the expected output file.
+- Example from `Khor_Arika_Project_4/autograder_problem_4_1.py`:
+  ```python
+  class Autograder_4_1(Base_Autograder):
+      def autograde(self):
+          # ... setup paths and commands ...
+          
+          # Command to run the student's code
+          c_p1 = [
+              "gpu_mining_problem1",
+              "input_file.csv",
+              20000,
+              5000000,
+              "output_file.csv",
+              "time_file.csv"
+          ]
 
-**Patterns:**
-- **Setup:** The `__init__` method of each autograder class sets up paths to student code, test data, and defines the specific test cases to run.
-- **Execution:** The `autograde` method builds a list of command-line instructions. Each command runs the compiled C/CUDA executable with specific inputs, directing the output to temporary files.
-- **Assertion/Grading:** A helper method (`grade_problem`) is called, which orchestrates running the command and comparing the actual output file contents against the expected output file.
-- **Teardown:** There is no explicit teardown logic; the test harness simply writes results to `.csv` files.
+          # ... loop through tests ...
+          result = self.grade_problem(
+              problem_dir,
+              [expected_output_path],
+              [actual_output_path],
+              [c_p1],
+              is_numeric_comparison
+          )
+          # ... process result ...
+  ```
 
 ## Mocking
 
 **Framework:**
-- No mocking framework is used.
+- Not applicable. The testing strategy relies exclusively on running the actual compiled programs.
 
 **Patterns:**
-- Mocking is not used. The tests run the actual compiled executables.
-
-**What to Mock:**
-- Not applicable.
-
-**What NOT to Mock:**
-- The entire application is tested end-to-end.
+- No mocking is used. The tests are full integration tests that exercise the C/CUDA executables.
 
 ## Fixtures and Factories
 
 **Test Data:**
-- Test fixtures are static `.csv` files located in the `test_data/` directory.
-- There is a clear distinction between input files (e.g., `in_20k.csv`) and expected output files (e.g., `out_gpu_20k_5m.csv`).
-- There is no dynamic data generation; all test data is pre-generated and checked into the repository.
-
-```python
-# Example of fixture paths from autograder_problem_4_1.py
-
-# Expected input
-t_p1_in = [
-    os.path.join(test_in_dir, "in_20k.csv")
-]
-
-# Expected output
-t_dir = os.path.join(test_out_dir, "gpu_nonce_files")
-t_p1_out = [
-    os.path.join(t_dir, "out_gpu_20k_5m.csv"),
-    os.path.join(t_dir, "out_gpu_20k_10m.csv")
-]
-```
-
-**Location:**
-- All fixtures reside in the `test_data/` directory.
+- Test data is managed as static files, primarily CSVs.
+- These "golden files" serve as both inputs and expected outputs for the test runs.
+- They are stored in `test_data/` and organized by the problem they apply to.
 
 ## Coverage
 
 **Requirements:**
-- No code coverage tools (like `gcov`) are configured or used.
-- Test coverage is not measured or enforced.
-
-**View Coverage:**
-- Not applicable.
+- No code coverage tools (like `gcov`) or requirements are detected.
+- Coverage is implicit; a test passes if the executable runs and produces the correct output file for a given input. The breadth of test cases determines the functional coverage.
 
 ## Test Types
 
 **Unit Tests:**
-- Not used. Individual functions within the C/CUDA code are not tested in isolation.
+- **Not Used:** There is no evidence of unit testing for either the Python autograder framework or the C/CUDA source code.
 
 **Integration Tests:**
-- The entire testing approach is based on integration testing. It verifies the behavior of the complete, compiled program.
+- **Primary Focus:** All tests in this project are integration tests. They verify the behavior of the complete, compiled program from the command line, checking its ability to process input files and generate correct output files.
 
 **E2E Tests:**
-- The tests function as end-to-end tests for a command-line application. They execute the program with arguments and validate the output files, which is the full scope of the application's behavior. The tests also capture performance metrics (timing).
+- Not applicable in a traditional sense, but the integration tests serve a similar role by validating the full program flow.
 
-## Common Patterns
-
-**Async Testing:**
-- Not applicable.
-
-**Error Testing:**
-- The tests primarily focus on "happy path" scenarios by checking for correct output. They do not appear to test for failure cases, such as behavior with invalid input files or incorrect command-line arguments.
 ---
-*Testing analysis: 2024-07-29*
+
+*Testing analysis: 2024-07-25*

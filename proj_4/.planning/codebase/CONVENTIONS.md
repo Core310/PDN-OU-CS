@@ -1,101 +1,109 @@
 # Coding Conventions
 
-**Analysis Date:** 2024-07-29
+**Analysis Date:** 2024-07-25
 
 ## Naming Patterns
 
 **Files:**
-- C/CUDA source files use `snake_case` or `kebab-case` (e.g., `gpu_mining_starter.cu`, `serial_mining.c`).
-- Header files use `snake_case` (e.g., `support.h`).
+- Python scripts use `snake_case.py` (e.g., `autograder_problem_4_1.py`).
+- C/CUDA source files use `snake_case.c` or `snake_case.cu` (e.g., `gpu_mining_starter.cu`).
 - Makefiles are named `Makefile`.
-- Python test scripts are `snake_case` (e.g., `autograder_problem_4_1.py`).
 
 **Functions:**
-- C/CUDA functions use `snake_case` (e.g., `generate_hash`, `read_file`, `err_check`).
+- Python functions and methods use `snake_case` (e.g., `autograde()`).
+- C/CUDA functions use `snake_case` (e.g., `read_file`, `err_check`).
+- CUDA kernels are distinguished by a `_kernel` suffix (e.g., `generate_hash_kernel`).
 
 **Variables:**
-- Local and global variables primarily use `snake_case` (e.g., `n_transactions`, `nonce_array`, `min_hash`).
-- CUDA-specific dimension variables use `camelCase` (e.g., `dimGrid`, `dimBlock`).
-- Pointers to device memory are often prefixed with `device_` (e.g., `device_nonce_array`).
+- Python variables use `snake_case` (e.g., `student_name`).
+- C/CUDA variables primarily use `snake_case` (e.g., `n_transactions`).
+- C/CUDA pointer variables are sometimes prefixed with `d_` (device) or `h_` (host) to denote memory space (e.g., `d_min_hash_out`).
+- Constants in both languages use `UPPERCASE_SNAKE_CASE` (e.g., `BLOCK_SIZE`, `DEBUG`).
 
 **Types:**
-- Standard C/CUDA integer types are used (e.g., `unsigned int`). No custom type definitions are prevalent.
-
-**Constants / Macros:**
-- Defined using `#define` and use `UPPER_SNAKE_CASE` (e.g., `DEBUG`, `BLOCK_SIZE`, `TARGET`).
+- Python classes use a modified `PascalCase` with an underscore (e.g., `Autograder_4_1`). The standard convention is `PascalCase` without underscores.
 
 ## Code Style
 
 **Formatting:**
-- No automated formatting tool (like `clang-format` or `prettier`) is detected.
-- Formatting is manual and can be inconsistent.
-- **Braces:** Inconsistent style. Function definitions place the opening brace on a new line. Control structures (`if`, `for`) typically place the brace on the same line, but this is not always followed.
-- **Indentation:** Appears to be 4-space indentation.
-- **Spacing:** Logical blocks of code within functions are separated by multiple newlines and decorative comment blocks (e.g., `// -------- Start Mining -------- //`).
+- No automated formatter (like Black or Prettier) is detected.
+- Python code is generally well-formatted, using 4-space indentation.
+- C/CUDA code has inconsistent brace styling. Opening braces for functions are on a new line, while for control structures (`if`, `for`) they are on the same line.
 
 **Linting:**
-- No linting tool (like `cpplint` or `clang-tidy`) is configured.
-- The `Makefile` does not use warning flags like `-Wall` or `-Wextra`, so the compiler is not configured to enforce stricter code quality checks.
+- No linter configuration (like `.eslintrc` or `flake8`) is detected.
+- Python code uses f-strings for formatting and `os.path.join` for path construction, which are modern best practices.
 
 ## Import Organization
 
 **Order:**
-- In `.c` and `.cu` files, headers are grouped at the top.
-1. System and CUDA libraries (`<stdlib.h>`, `<cuda_runtime_api.h>`)
-2. Local project headers (`"support.h"`)
-3. Other source files are sometimes included directly (`#include "hash_kernel.cu"`), which acts as a simple module system.
+- In Python files, imports are grouped at the top of the file, with standard library modules first.
+- Example from `Khor_Arika_Project_4/autograder_problem_4_1.py`:
+  ```python
+  import numpy as np
+  import os
+  import pandas as pd
+  import sys
+  ```
 
 **Path Aliases:**
-- Not applicable for the C/CUDA code.
+- No path aliases (like `@/` or `~/`) are used. Relative paths are used for local project imports (e.g., `sys.path.append("..")`).
 
 ## Error Handling
 
 **Patterns:**
-- **Argument Parsing:** Command-line argument count is checked at the start of `main`. If incorrect, a usage message is printed to `stdout` and the program exits with `EXIT_FAILURE`.
-- **File I/O:** `fopen` results are checked. On failure, an error is printed to `stderr` and the program exits.
-- **CUDA Errors:** A dedicated wrapper function, `err_check`, is used to check the return value of all CUDA API calls (e.g., `cudaMalloc`, `cudaMemcpy`, `cudaDeviceSynchronize`). On error, it prints a descriptive message and the CUDA error string to `stderr` before exiting. This is a robust pattern.
+- **Python:** Error handling is minimal. The autograder scripts do not use `try...except` blocks and appear to assume that file paths are valid and commands will execute.
+- **C/CUDA:** A robust, explicit error-handling pattern is used for CUDA API calls. A wrapper function, `err_check`, is used after each CUDA call to check the return status, print a detailed error message, and exit on failure.
+  - Example from `Khor_Arika_Project_4/Problem_1/gpu_mining_starter.cu`:
+    ```c++
+    void err_check(cudaError_t ret, char* msg, int exit_code) {
+        if (ret != cudaSuccess)
+            fprintf(stderr, "%s "%s".
+", msg, cudaGetErrorString(ret)),
+            exit(exit_code);
+    }
+    
+    // Usage
+    cuda_ret = cudaMalloc((void**)&device_nonce_array, trials * sizeof(unsigned int));
+    err_check(cuda_ret, (char*)"Unable to allocate nonces to device memory!", 1);
+    ```
 
 ## Logging
 
 **Framework:**
-- Logging is performed using `printf` to standard output. There is no formal logging framework.
-
-**Patterns:**
-- A `DEBUG` macro (`#define DEBUG 1`) is used to conditionally compile `printf` statements that display results and timing information to the console during a run. This acts as a simple way to toggle verbose output.
+- No formal logging framework is used.
+- Output is printed directly to `stdout` and `stderr` using `print()` in Python and `printf()`/`fprintf()` in C/CUDA.
+- The Python scripts use ANSI escape codes for colored output.
 
 ## Comments
 
 **When to Comment:**
-- Comments are used to describe the purpose of functions, explain constants, and label distinct logical sections within a function.
-- `// TODO` comments are used to mark areas with incomplete functionality.
+- Comments are used to explain non-obvious steps or to structure sections of code.
+- In C/CUDA, large blocks of functionality in `main` are delineated by comments (e.g., `// ------ Step 1: generate the nonce values ------ //`).
 
 **JSDoc/TSDoc:**
-- Not applicable. Function headers use a multi-line `/* ... */` block with a short description. Example:
-```c
-/* Generate Hash ----------------------------------------- //
-*   Generates a hash value from a nonce and transaction list.
-*/
-```
-
-## Function Design
-
-**Size:**
-- Functions are generally small and focused on a single responsibility (e.g., `read_file`, `generate_hash`).
-
-**Parameters:**
-- Pointers are used to pass arrays and for output parameters.
-
-**Return Values:**
-- `main` returns `0` on success and non-zero on failure.
-- CUDA API error codes are captured and passed to a dedicated error-handling function.
+- Not applicable. Docstrings are largely absent from Python code.
+- C/CUDA functions have multi-line block comments explaining their purpose.
+  - Example from `Khor_Arika_Project_4/Problem_1/gpu_mining_starter.cu`:
+  ```c++
+  /* Read File -------------------- //
+  *   Reads in a file of transactions. 
+  */
+  void read_file(...)
+  ```
 
 ## Module Design
 
 **Exports:**
-- Not applicable in the traditional sense. Functions are declared in headers (`.h` files) or via prototypes at the top of `.c` files to be used within that file.
-- Some `.cu` files are directly included in others, effectively merging them at compile time.
+- Python modules use classes (`Autograder_4_1`) that are instantiated and run via a `main` function guard (`if __name__ == "__main__":`).
+- C/CUDA code is structured as single executables.
 
 **Barrel Files:**
-- Not applicable.
+- Not used.
+
+**Special Note: CUDA Includes**
+- The project uses `#include "some_kernel.cu"` to include CUDA kernel definitions directly into the main `.cu` file. This is unconventional. Typically, kernel definitions are in their own compilation units and their declarations are placed in header files (`.h`), which are then included. This approach simplifies the build process for a small project but is not scalable.
+
 ---
-*Convention analysis: 2024-07-29*
+
+*Convention analysis: 2024-07-25*

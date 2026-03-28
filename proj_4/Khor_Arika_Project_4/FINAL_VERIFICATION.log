@@ -1,0 +1,97 @@
+make: Nothing to be done for 'default'.
+Failure.
+   Min hash:  23
+   Min nonce: 20718523
+   0.678518 seconds
+make: Nothing to be done for 'default'.
+Success!
+   Min hash:  17
+   Min nonce: 72440096
+   1.131965 seconds
+make: Nothing to be done for 'default'.
+Failure.
+   Min hash:  23
+   Min nonce: 20718523
+   0.632880 seconds
+make: Nothing to be done for 'default'.
+Success!
+   Min hash:  17
+   Min nonce: 72440096
+   1.087014 seconds
+make: Nothing to be done for 'default'.
+make: Nothing to be done for 'default'.
+[32mAutograding for Project 4:
+[0m
+[32mAutograding for Project 4 Problem 1:
+[0m
+[32m --> Test dir: /home/arika/Documents/PDN-OU-CS/proj_4/test_data/Problem_1_and_2[0m
+[32m --> Project dir: /home/arika/Documents/PDN-OU-CS/proj_4/Khor_Arika_Project_4[0m
+[32mTesting for gpu_mining_problem1's output: /home/arika/Documents/PDN-OU-CS/proj_4/Khor_Arika_Project_4/Problem_1/results_20k_5m.csv[0m
+(cd /home/arika/Documents/PDN-OU-CS/proj_4/Khor_Arika_Project_4/Problem_1 && ./gpu_mining_problem1 /home/arika/Documents/PDN-OU-CS/proj_4/test_data/Problem_1_and_2/in_20k.csv 20000 5000000 /home/arika/Documents/PDN-OU-CS/proj_4/Khor_Arika_Project_4/Problem_1/results_20k_5m.csv /home/arika/Documents/PDN-OU-CS/proj_4/Khor_Arika_Project_4/Problem_1/time_20k_5m.csv)
+[93mTesting exact values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 0.678518s
+[0m
+[32mTesting for gpu_mining_problem1's output: /home/arika/Documents/PDN-OU-CS/proj_4/Khor_Arika_Project_4/Problem_1/results_20k_10m.csv[0m
+(cd /home/arika/Documents/PDN-OU-CS/proj_4/Khor_Arika_Project_4/Problem_1 && ./gpu_mining_problem1 /home/arika/Documents/PDN-OU-CS/proj_4/test_data/Problem_1_and_2/in_20k.csv 20000 10000000 /home/arika/Documents/PDN-OU-CS/proj_4/Khor_Arika_Project_4/Problem_1/results_20k_10m.csv /home/arika/Documents/PDN-OU-CS/proj_4/Khor_Arika_Project_4/Problem_1/time_20k_10m.csv)
+[93mTesting exact values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 1.131965s
+[0m
+[32mAutograding for Project 4 Problem 2:
+[0m
+[32m --> Test dir: /home/arika/Documents/PDN-OU-CS/proj_4/test_data/Problem_1_and_2[0m
+[32m --> Project dir: /home/arika/Documents/PDN-OU-CS/proj_4/Khor_Arika_Project_4[0m
+[32mTesting for gpu_mining_problem2's output: /home/arika/Documents/PDN-OU-CS/proj_4/Khor_Arika_Project_4/Problem_2/results_20k_5m.csv[0m
+(cd /home/arika/Documents/PDN-OU-CS/proj_4/Khor_Arika_Project_4/Problem_2 && ./gpu_mining_problem2 /home/arika/Documents/PDN-OU-CS/proj_4/test_data/Problem_1_and_2/in_20k.csv 20000 5000000 /home/arika/Documents/PDN-OU-CS/proj_4/Khor_Arika_Project_4/Problem_2/results_20k_5m.csv /home/arika/Documents/PDN-OU-CS/proj_4/Khor_Arika_Project_4/Problem_2/time_20k_5m.csv)
+[93mTesting exact values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 0.63288s
+[0m
+[32mTesting for gpu_mining_problem2's output: /home/arika/Documents/PDN-OU-CS/proj_4/Khor_Arika_Project_4/Problem_2/results_20k_10m.csv[0m
+(cd /home/arika/Documents/PDN-OU-CS/proj_4/Khor_Arika_Project_4/Problem_2 && ./gpu_mining_problem2 /home/arika/Documents/PDN-OU-CS/proj_4/test_data/Problem_1_and_2/in_20k.csv 20000 10000000 /home/arika/Documents/PDN-OU-CS/proj_4/Khor_Arika_Project_4/Problem_2/results_20k_10m.csv /home/arika/Documents/PDN-OU-CS/proj_4/Khor_Arika_Project_4/Problem_2/time_20k_10m.csv)
+[93mTesting exact values...[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 1.087014s
+[0m
+[32mAutograding for Project 4 Problem 3:
+[0m
+[32m --> Test dir: /home/arika/Documents/PDN-OU-CS/proj_4/test_data/Problem_3[0m
+[32m --> Project dir: /home/arika/Documents/PDN-OU-CS/proj_4/Khor_Arika_Project_4[0m
+[32mTesting for convolution_CUDA's output: /home/arika/Documents/PDN-OU-CS/proj_4/Khor_Arika_Project_4/Problem_3/results.csv[0m
+(cd /home/arika/Documents/PDN-OU-CS/proj_4/Khor_Arika_Project_4/Problem_3 && ./convolution_CUDA 2048 2048 /home/arika/Documents/PDN-OU-CS/proj_4/test_data/Problem_3/mat_input.csv /home/arika/Documents/PDN-OU-CS/proj_4/Khor_Arika_Project_4/Problem_3/results.csv /home/arika/Documents/PDN-OU-CS/proj_4/Khor_Arika_Project_4/Problem_3/time.csv)
+[93mTesting approximate values...[0m
+[31mDIFF: 0.0[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 0.00133200001437217s
+[0m
+[32mAutograding for Project 4 Problem 4:
+[0m
+[32m --> Test dir: /home/arika/Documents/PDN-OU-CS/proj_4/test_data/Problem_4[0m
+[32m --> Project dir: /home/arika/Documents/PDN-OU-CS/proj_4/Khor_Arika_Project_4[0m
+[32mTesting for convolution_maxpooling_CUDA's output: /home/arika/Documents/PDN-OU-CS/proj_4/Khor_Arika_Project_4/Problem_4/results.csv[0m
+(cd /home/arika/Documents/PDN-OU-CS/proj_4/Khor_Arika_Project_4/Problem_4 && ./convolution_maxpooling_CUDA 2048 2048 /home/arika/Documents/PDN-OU-CS/proj_4/test_data/Problem_4/mat_input.csv /home/arika/Documents/PDN-OU-CS/proj_4/Khor_Arika_Project_4/Problem_4/results.csv /home/arika/Documents/PDN-OU-CS/proj_4/Khor_Arika_Project_4/Problem_4/time.csv)
+[93mTesting approximate values...[0m
+[31mDIFF: 0.0[0m
+[93m    Test result 0 = 1[0m
+[93m    Time result 0 = 0.002001000102609396s
+[0m
+[93m
+ Problem 1 Final Grades:[0m
+         P2-20k-5m  P2-20k-10m
+student        1.0         1.0
+[93m
+ Problem 2 Final Grades:[0m
+         P2-20k-5m  P2-20k-10m
+student        1.0         1.0
+[93m
+ Problem 3 Final Grades:[0m
+         P4_3_Test
+student        1.0
+[93m
+ Problem 4 Final Grades:[0m
+         P4_4_Test
+student        1.0
+[31m
+ --> 211/211 problems correct
+[0m

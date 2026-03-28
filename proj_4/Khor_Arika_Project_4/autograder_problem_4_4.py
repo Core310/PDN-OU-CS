@@ -145,7 +145,7 @@ class Autograder_4_4(Base_Autograder):
 
             # add each result to the dataframes
             grade.loc[student_name, columns[file]] = test_results[file][0]
-            time.loc[student_name, columns[file]] = str(time_results[file][0])
+            time.loc[student_name, columns[file]] = float(time_results[file][0])
 
         return [grade, time]
     
@@ -157,7 +157,7 @@ def main():
     res = p4.autograde()
 
     total   = len(res[0].columns)
-    correct = int(res[0].sum(axis=1)[0])
+    correct = int(res[0].sum(axis=1).iloc[0])
 
     print(f"{Y}\nFinal Grades:{W}")
     res[0].to_csv("P4_4_grades.csv")

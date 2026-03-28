@@ -1,15 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "support.h"
+#include "../common/support.h"
 #include "kernel.cu"
 
 #define MAX_LINE_LENGTH 1000000
-#define RADIUS 2
 
-void padMatrix(int* input, int* padded, int n_row, int n_col) {
-    int padded_row = n_row + 2 * RADIUS;
-    int padded_col = n_col + 2 * RADIUS;
+void padMatrix(int* input, int* padded, int n_row, int n_col, int radius) {
+    int padded_row = n_row + 2 * radius;
+    int padded_col = n_col + 2 * radius;
     
     // Initialize padded matrix with zeros
     for (int i = 0; i < padded_row * padded_col; i++) {
@@ -19,14 +18,14 @@ void padMatrix(int* input, int* padded, int n_row, int n_col) {
     // Copy original data to center of padded matrix
     for (int i = 0; i < n_row; i++) {
         for (int j = 0; j < n_col; j++) {
-            padded[(i + RADIUS) * padded_col + (j + RADIUS)] = input[i * n_col + j];
+            padded[(i + radius) * padded_col + (j + radius)] = input[i * n_col + j];
         }
     }
 }
 
 int main(int argc, char* argv[]) {
-    if (argc != 6) {
-        printf("USE LIKE THIS: convolution_CUDA n_row n_col input.csv results.csv time.csv\n");
+    if (argc < 6 || argc > 8) {
+        printf("USE LIKE THIS: convolution_CUDA n_row n_col input.csv results.csv time.csv [BLOCK_SIZE] [RADIUS]\n");
         return EXIT_FAILURE;
     }
 
@@ -35,6 +34,16 @@ int main(int argc, char* argv[]) {
     char* input_filename = argv[3];
     char* results_filename = argv[4];
     char* time_filename = argv[5];
+
+    int block_size = 16;
+    if (argc >= 7) {
+        block_size = atoi(argv[6]);
+    }
+
+    int radius = 2;
+    if (argc >= 8) {
+        radius = atoi(argv[7]);
+    }
 
     FILE* inputFile = fopen(input_filename, "r");
     if (inputFile == NULL) {
@@ -66,52 +75,63 @@ int main(int argc, char* argv[]) {
     free(line);
 
     // Padding
-    int padded_row = n_row + 2 * RADIUS;
-    int padded_col = n_col + 2 * RADIUS;
+    int padded_row = n_row + 2 * radius;
+    int padded_col = n_col + 2 * radius;
     int* paddedMatrix_h = (int*)malloc(padded_row * padded_col * sizeof(int));
     if (paddedMatrix_h == NULL) {
         FATAL("Failed to allocate memory for paddedMatrix_h");
     }
-    padMatrix(inputMatrix_h, paddedMatrix_h, n_row, n_col);
+    padMatrix(inputMatrix_h, paddedMatrix_h, n_row, n_col, radius);
 
     // Initialize filter
-    int* filterMatrix_h = (int*)malloc(5 * 5 * sizeof(int));
-    memset(filterMatrix_h, 0, 5 * 5 * sizeof(int));
-    filterMatrix_h[0*5+0] = 1;
-    filterMatrix_h[1*5+1] = 1;
-    filterMatrix_h[2*5+2] = 1;
-    filterMatrix_h[3*5+3] = 1;
-    filterMatrix_h[4*5+4] = 1;
-    filterMatrix_h[4*5+0] = 1;
-    filterMatrix_h[3*5+1] = 1;
-    filterMatrix_h[1*5+3] = 1;
-    filterMatrix_h[0*5+4] = 1;
+    int filter_dim = 2 * radius + 1;
+    int* filterMatrix_h = (int*)malloc(filter_dim * filter_dim * sizeof(int));
+    memset(filterMatrix_h, 0, filter_dim * filter_dim * sizeof(int));
+    
+    if (radius == 2) {
+        filterMatrix_h[0*5+0] = 1;
+        filterMatrix_h[1*5+1] = 1;
+        filterMatrix_h[2*5+2] = 1;
+        filterMatrix_h[3*5+3] = 1;
+        filterMatrix_h[4*5+4] = 1;
+        filterMatrix_h[4*5+0] = 1;
+        filterMatrix_h[3*5+1] = 1;
+        filterMatrix_h[1*5+3] = 1;
+        filterMatrix_h[0*5+4] = 1;
+    } else {
+        // Identity filter for other radii
+        filterMatrix_h[radius * filter_dim + radius] = 1;
+    }
 
     // Allocate device memory
     int *paddedMatrix_d, *filterMatrix_d, *outputMatrix_d;
-    cudaMalloc((void**)&paddedMatrix_d, padded_row * padded_col * sizeof(int));
-    cudaMalloc((void**)&filterMatrix_d, 5 * 5 * sizeof(int));
-    cudaMalloc((void**)&outputMatrix_d, n_row * n_col * sizeof(int));
+    gpuErrchk(cudaMalloc((void**)&paddedMatrix_d, padded_row * padded_col * sizeof(int)));
+    gpuErrchk(cudaMalloc((void**)&filterMatrix_d, filter_dim * filter_dim * sizeof(int)));
+    gpuErrchk(cudaMalloc((void**)&outputMatrix_d, n_row * n_col * sizeof(int)));
 
     // Transfer to device
-    cudaMemcpy(paddedMatrix_d, paddedMatrix_h, padded_row * padded_col * sizeof(int), cudaMemcpyHostToDevice);
-    cudaMemcpy(filterMatrix_d, filterMatrix_h, 5 * 5 * sizeof(int), cudaMemcpyHostToDevice);
+    gpuErrchk(cudaMemcpy(paddedMatrix_d, paddedMatrix_h, padded_row * padded_col * sizeof(int), cudaMemcpyHostToDevice));
+    gpuErrchk(cudaMemcpy(filterMatrix_d, filterMatrix_h, filter_dim * filter_dim * sizeof(int), cudaMemcpyHostToDevice));
 
     // Kernel launch configuration
-    dim3 dimBlock(BLOCK_SIZE, BLOCK_SIZE);
-    dim3 dimGrid((n_col + BLOCK_SIZE - 1) / BLOCK_SIZE, (n_row + BLOCK_SIZE - 1) / BLOCK_SIZE);
+    dim3 dimBlock(block_size, block_size);
+    dim3 dimGrid((n_col + block_size - 1) / block_size, (n_row + block_size - 1) / block_size);
+
+    // Shared memory size calculation
+    int tile_dim = block_size + 2 * radius;
+    size_t shared_mem_size = sizeof(int) * (tile_dim * tile_dim + filter_dim * filter_dim);
 
     Timer timer;
     startTime(&timer);
 
-    convolution_kernel<<<dimGrid, dimBlock>>>(paddedMatrix_d, filterMatrix_d, outputMatrix_d, n_row, n_col);
-    cudaDeviceSynchronize();
+    convolution_kernel<<<dimGrid, dimBlock, shared_mem_size>>>(paddedMatrix_d, filterMatrix_d, outputMatrix_d, n_row, n_col, radius);
+    gpuErrchk(cudaDeviceSynchronize());
 
     stopTime(&timer);
 
     // Copy back
     int* outputMatrix_h = (int*)malloc(n_row * n_col * sizeof(int));
-    cudaMemcpy(outputMatrix_h, outputMatrix_d, n_row * n_col * sizeof(int), cudaMemcpyDeviceToHost);
+    gpuErrchk(cudaMemcpy(outputMatrix_h, outputMatrix_d, n_row * n_col * sizeof(int), cudaMemcpyDeviceToHost));
 
     // Save results
     FILE* resultsFile = fopen(results_filename, "w");
@@ -134,9 +154,9 @@ int main(int argc, char* argv[]) {
     free(paddedMatrix_h);
     free(filterMatrix_h);
     free(outputMatrix_h);
-    cudaFree(paddedMatrix_d);
-    cudaFree(filterMatrix_d);
-    cudaFree(outputMatrix_d);
+    gpuErrchk(cudaFree(paddedMatrix_d));
+    gpuErrchk(cudaFree(filterMatrix_d));
+    gpuErrchk(cudaFree(outputMatrix_d));
 
     return 0;
 }

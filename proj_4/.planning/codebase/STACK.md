@@ -5,63 +5,55 @@
 ## Languages
 
 **Primary:**
-- **CUDA C++:** Used for all GPU kernel implementations and host-side control logic. The version is determined by the CUDA Toolkit.
-- **C:** Used for serial implementations and helper functions.
+- C++/CUDA - Used for the core GPU computation kernels and application logic in `Khor_Arika_Project_4/Problem_*/*.cu`.
+- C - Used for serial, CPU-only versions of the algorithms for comparison, found in `Khor_Arika_Project_4/Problem_*/serial/*.c`.
 
 **Secondary:**
-- **Bash:** Used in `.sbatch` scripts for job submission and environment setup.
+- Python 3.12.3 - Used for autograding scripts (`autograder_*.py`) that orchestrate tests and verify results.
 
 ## Runtime
 
 **Environment:**
-- **Slurm Workload Manager:** The project is designed to be run on a High-Performance Computing (HPC) cluster using Slurm for job scheduling.
-- **CUDA Platform:** Executes on NVIDIA GPUs. The `.sbatch` files specify `CUDA/10.1.243`.
-
-**Compiler:**
-- **NVCC (NVIDIA CUDA C/C++ Compiler):** The primary compiler for `.cu` files, specified in `Makefile`.
-- **GCC (GNU Compiler Collection):** Used as the host compiler by `nvcc`. The `.sbatch` files specify `GCC/8.3.0`.
+- The core application is compiled C++/CUDA code that runs as native executables on a Linux environment with an NVIDIA GPU.
+- Python scripts run using the Python 3.12.3 interpreter located in the `.venv/` directory.
 
 **Package Manager:**
-- **Make:** The `make` utility is used as the build system.
-- **Dependencies:** Dependencies like the CUDA Toolkit are managed via environment modules on the HPC cluster (`module load CUDA/...`). There is no traditional package manager lockfile.
+- `pip` is used for Python dependencies.
+- A virtual environment exists at `.venv/`, but no `requirements.txt` or `pyproject.toml` is present in the root. Dependencies are installed directly.
 
 ## Frameworks
 
 **Core:**
-- **NVIDIA CUDA:** The core framework for developing applications that run on NVIDIA GPUs. The project uses CUDA for parallel computations like hashing and convolution.
+- NVIDIA CUDA - The fundamental framework for GPU programming. Used for writing kernels and managing GPU-CPU data transfers.
 
 **Testing:**
-- No formal testing framework (like Jest or PyTest) was detected. Testing appears to be done through direct execution and validation of output files. Autograding scripts (`autograder_*.py`) are present, suggesting a Python-based external validation system.
+- The project uses custom Python scripts (`autograder_*.py`) for testing and validation, not a standard testing framework like PyTest or Google Test.
 
 **Build/Dev:**
-- **Make:** Used to orchestrate the compilation process via `Makefile`.
+- `make` - Used to orchestrate the compilation of C and CUDA source files via `Makefile`s.
+- `nvcc` (NVIDIA CUDA Compiler) - The compiler for all `.cu` files.
+- `gcc` - The compiler for serial C (`.c`) files.
 
 ## Key Dependencies
 
-**Critical:**
-- **CUDA Toolkit:** Essential for compilation (`nvcc`) and runtime (`-lcudart`). The project relies on headers like `cuda_runtime_api.h` and `curand_kernel.h`.
+**Python (for Autograding):**
+- `numpy` - Used for numerical operations and handling array data in autograding scripts.
+- `pandas` - Used to read, manipulate, and compare data from `.csv` files, which serve as inputs and outputs for the programs.
 
-**Infrastructure:**
-- **Slurm:** Required for job submission and execution on the target HPC environment.
+**C++/CUDA:**
+- CUDA Toolkit - A hard dependency. The Makefiles point to `/usr/local/cuda/include` and `/usr/local/cuda/lib64`, indicating a standard installation path is expected.
 
 ## Configuration
 
 **Build:**
-- **`Makefile`:** Located in each `Problem_*` directory, these files define compiler flags (`-O3`), include paths (`-I/usr/local/cuda/include`), linker flags, and build targets.
-
-**Runtime:**
-- **`.sbatch` files:** These scripts configure the Slurm job, requesting resources (e.g., GPU partitions), setting time limits, and defining the execution commands (`make run`). They also load the required CUDA and GCC versions.
+- Build configuration is managed through `Makefile`s located in each problem directory (e.g., `Khor_Arika_Project_4/Problem_1/Makefile`). These define compiler flags and linking.
 
 ## Platform Requirements
 
 **Development & Production:**
 - A Linux-based OS.
-- An NVIDIA GPU compatible with CUDA 10.1.
-- NVIDIA CUDA Toolkit v10.1.243 installed.
-- GCC v8.3.0.
-- `make` utility.
-- Slurm for running the provided `.sbatch` scripts.
-
+- An NVIDIA GPU with a compatible CUDA driver.
+- The NVIDIA CUDA Toolkit installed.
+- `make`, `gcc`, and `python`.
 ---
-
 *Stack analysis: 2024-07-25*

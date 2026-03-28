@@ -4,62 +4,58 @@
 
 ## APIs & External Services
 
-- **None Detected:** The project is self-contained and does not make calls to external web APIs or services. The primary "integration" is with the local hardware.
-
-**Hardware Integration:**
-- **NVIDIA GPU:** The application integrates directly with the system's GPU via the CUDA API. This is the core purpose of the project.
-  - SDK/Client: `CUDA Toolkit 10.1.243`
-  - Auth: Not applicable. Access is managed by the underlying operating system and Slurm scheduler.
+**Category: None**
+- This project is self-contained and focuses on local, high-performance computation. No calls to external web APIs or services were detected.
 
 ## Data Storage
 
 **Databases:**
-- **None Detected:** The project does not connect to a database.
+- None. The application does not connect to a database.
 
 **File Storage:**
-- **Local Filesystem:** All data input and output is handled via local files.
-  - **Input:** Reads data from `.csv` files (e.g., `test_data/Problem_1_and_2/in_20k.csv`).
-  - **Output:** Writes results and timing information to new `.csv` files in the same directory as the executable.
+- **Local Filesystem Only:** The application reads input data exclusively from local `.csv` files (e.g., `test_data/Problem_1_and_2/debug_1k.csv`).
+- It writes its output and timing results to new `.csv` files in the respective problem directories.
 
 **Caching:**
-- **None Detected:** There is no persistent caching layer.
+- None detected.
 
 ## Authentication & Identity
 
-- **Not Applicable:** The application is a command-line tool for computation and does not have users or authentication.
+**Auth Provider:**
+- Not applicable. The application runs locally and has no concept of users or authentication.
 
 ## Monitoring & Observability
 
 **Error Tracking:**
-- **None Detected:** No external error tracking service is used. Errors are reported to `stderr` and captured in log files specified by Slurm (`_P4-1_%J_stderr.txt`).
+- None. Errors are typically handled by printing to `stderr` or are surfaced through compiler errors.
 
 **Logs:**
-- **Standard Output/Error:** Logging is done via `printf` statements to `stdout` and `stderr`.
-- **Slurm Log Files:** When run via `sbatch`, `stdout` and `stderr` are redirected to files in the execution directory, as defined in the `.sbatch` scripts.
+- Logging is informal, consisting of `printf` statements in the C/CUDA code to print progress or results to `stdout`. There is no structured logging framework.
 
 ## CI/CD & Deployment
 
 **Hosting:**
-- **HPC Cluster:** The application is intended to be run on a High-Performance Computing cluster managed by the **Slurm Workload Manager**.
+- Not applicable. This is a command-line application, not a hosted service.
 
 **CI Pipeline:**
-- **None Detected:** There are no configuration files for CI services like GitHub Actions, Jenkins, etc.
-
-**Deployment:**
-- **Manual:** Deployment consists of copying the source code to the HPC cluster, compiling it with `make`, and submitting jobs with `sbatch`.
+- None detected. The project does not contain configuration for services like GitHub Actions, Travis CI, etc.
+- The project is submitted for grading via `.sbatch` files, which are scripts for the Slurm Workload Manager, indicating deployment to a High-Performance Computing (HPC) cluster.
 
 ## Environment Configuration
 
 **Required env vars:**
-- **None Detected:** The application does not appear to use environment variables for configuration. Configuration is passed via command-line arguments. The build environment relies on `PATH` and `LD_LIBRARY_PATH` being correctly set by the `module load` command.
+- No reliance on environment variables for configuration was detected. All configuration is passed as command-line arguments.
 
 **Secrets location:**
-- **Not Applicable:** There are no secrets or credentials.
+- Not applicable. The application uses no secrets.
 
 ## Webhooks & Callbacks
 
-- **Not Applicable:** The application does not use webhooks.
+**Incoming:**
+- None.
+
+**Outgoing:**
+- None.
 
 ---
-
 *Integration audit: 2024-07-25*

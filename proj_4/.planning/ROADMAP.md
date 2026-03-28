@@ -16,9 +16,10 @@ This roadmap outlines the phased approach to refactoring and improving the CUDA 
 |---|---|---|---|
 | 1. Foundational Refactoring | 2/2 | Completed | 2024-08-01 |
 | 2. Algorithm Optimization | 1/1 | Completed | 2024-08-01 |
-| 3. Unit Testing Integration | 2/2 | In Progress | - |
-| 4. Configuration and Usability | 0/0 | Not started | - |
-| 5. Finalization and Validation | 0/0 | Not started | - |
+| 3. Unit Testing Integration | 2/2 | Completed | 2024-08-01 |
+| 4. Configuration and Usability | 3/3 | Completed | 2024-08-01 |
+| 5. Finalization and Validation | 1/1 | Completed | 2024-08-01 |
+
 
 ## Phase Details
 

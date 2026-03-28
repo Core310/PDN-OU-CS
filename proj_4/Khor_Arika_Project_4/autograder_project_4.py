@@ -19,28 +19,28 @@ def main():
     p1 = Autograder_4_1()
     res1 = p1.autograde()
     total1 = str(len(res1[0].columns))
-    correct1 = str(int(res1[0].sum(axis=1)[0]))
+    correct1 = str(int(res1[0].sum(axis=1).iloc[0]))
 
     # Grade Problem 2
     print(f"{G}Autograding for Project 4 Problem 2:\n{W}")
     p2 = Autograder_4_2()
     res2 = p2.autograde()
     total2 = str(len(res2[0].columns))
-    correct2 = str(int(res2[0].sum(axis=1)[0]))
+    correct2 = str(int(res2[0].sum(axis=1).iloc[0]))
 
     # Grade Problem 3
     print(f"{G}Autograding for Project 4 Problem 3:\n{W}")
     p3 = Autograder_4_3()
     res3 = p3.autograde()
     total3 = str(len(res3[0].columns))
-    correct3 = str(int(res3[0].sum(axis=1)[0]))
+    correct3 = str(int(res3[0].sum(axis=1).iloc[0]))
 
     # Grade Problem 4
     print(f"{G}Autograding for Project 4 Problem 4:\n{W}")
     p4 = Autograder_4_4()
     res4 = p4.autograde()
     total4 = str(len(res4[0].columns))
-    correct4 = str(int(res4[0].sum(axis=1)[0]))
+    correct4 = str(int(res4[0].sum(axis=1).iloc[0]))
   
     # Print results
     print(f"{Y}\n Problem 1 Final Grades:{W}")
