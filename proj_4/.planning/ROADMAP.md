@@ -4,8 +4,8 @@ This roadmap outlines the phased approach to refactoring and improving the CUDA 
 
 ## Phases
 
-- [ ] **Phase 1: Foundational Refactoring** - Establish a clean, non-redundant code structure and implement robust error handling.
-- [ ] **Phase 2: Algorithm Optimization** - Improve the performance of a key parallel algorithm.
+- [x] **Phase 1: Foundational Refactoring** - Establish a clean, non-redundant code structure and implement robust error handling.
+- [x] **Phase 2: Algorithm Optimization** - Improve the performance of a key parallel algorithm.
 - [ ] **Phase 3: Unit Testing Integration** - Introduce a testing framework and create a safety net for kernels.
 - [ ] **Phase 4: Configuration and Usability** - Eliminate hardcoded values to improve flexibility.
 - [ ] **Phase 5: Finalization and Validation** - Ensure all refactoring goals are met and remove dead code.
@@ -15,8 +15,8 @@ This roadmap outlines the phased approach to refactoring and improving the CUDA 
 | Phase | Plans Complete | Status | Completed |
 |---|---|---|---|
 | 1. Foundational Refactoring | 2/2 | Completed | 2024-08-01 |
-| 2. Algorithm Optimization | 0/1 | In Progress | - |
-| 3. Unit Testing Integration | 0/0 | Not started | - |
+| 2. Algorithm Optimization | 1/1 | Completed | 2024-08-01 |
+| 3. Unit Testing Integration | 2/2 | In Progress | - |
 | 4. Configuration and Usability | 0/0 | Not started | - |
 | 5. Finalization and Validation | 0/0 | Not started | - |
 
@@ -27,8 +27,8 @@ This roadmap outlines the phased approach to refactoring and improving the CUDA 
 **Depends on:** Nothing
 **Requirements:** SETUP-01, SETUP-02, RELY-01, RELY-02
 **Plans:** 2 plans
-- [x] `01-foundational-refactoring-01-PLAN.md` — Consolidate duplicated `support` code into a `common` directory.
-- [x] `01-foundational-refactoring-02-PLAN.md` — Integrate `common` code into build system and add unified error handling.
+- [x] `01-01-PLAN.md` — Consolidate duplicated `support` code into a `common` directory.
+- [x] `01-02-PLAN.md` — Integrate `common` code into build system and add unified error handling.
 **Success Criteria:**
   1. A `common` directory exists containing a single copy of `support.h`/`.cu` and other shared files.
   2. All `Problem_*` Makefiles link to the common files; the project still compiles and runs correctly.
@@ -40,7 +40,7 @@ This roadmap outlines the phased approach to refactoring and improving the CUDA 
 **Depends on:** Phase 1
 **Requirements:** PERF-01, PERF-02
 **Plans:** 1 plan
-- [ ] `02-01-PLAN.md` — Implement a fully on-device parallel reduction using atomic operations.
+- [x] `02-01-PLAN.md` — Implement a fully on-device parallel reduction using atomic operations.
 **Success Criteria:**
   1. A new GPU kernel exists that performs a full reduction without needing an intermediate CPU step.
   2. The mining application (Problem 1) now uses this new kernel.
@@ -51,6 +51,9 @@ This roadmap outlines the phased approach to refactoring and improving the CUDA 
 **Goal:** To improve code quality and developer confidence by introducing a unit testing framework.
 **Depends on:** Phase 1
 **Requirements:** TEST-01, TEST-02, TEST-03
+**Plans:** 2 plans
+- [ ] `03-01-PLAN.md` — Initialize Google Test framework and implement reduction kernel unit tests.
+- [ ] `03-02-PLAN.md` — Implement convolution kernel unit tests and integrate into a unified build target.
 **Success Criteria:**
   1. The build system has a new target (e.g., `make test`) that compiles and runs unit tests.
   2. A developer can run a test that validates only the reduction kernel's logic without running the entire mining application.
