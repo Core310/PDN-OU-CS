@@ -1,6 +1,6 @@
 # Codebase Structure
 
-**Analysis Date:** 2025-05-15
+**Analysis Date:** 2025-03-30
 
 ## Directory Layout
 
@@ -8,11 +8,12 @@
 proj_5/
 ├── Problem_1/          # Ping-Pong MPI problem
 │   ├── Makefile        # Build instructions for pingpong_MPI
-│   ├── pingpong_MPI.c  # Source code (stub)
+│   ├── pingpong_MPI.c  # Source code (complete)
 │   ├── pingpong_diffnode.sbatch  # SLURM script for different nodes
 │   └── pingpong_samenode.sbatch  # SLURM script for same node
 ├── Problem_2/          # Dot Product MPI problem
 │   ├── Makefile        # Build instructions for dot_product_MPI
+│   ├── dot_product_MPI.c # Source code (stub)
 │   ├── dot_product.sbatch # SLURM script for dot product
 │   └── serial/         # Serial implementation
 │       ├── dotprod_serial.c # Serial source code (complete)
@@ -25,80 +26,110 @@ proj_5/
 │   └── merge_sort_samenode.sbatch # SLURM script for same node
 ├── Problem_4/          # Pi calculation MPI problem
 │   ├── Makefile        # Build instructions for pi_MPI
+│   ├── pi_MPI.c        # Source code (stub)
 │   └── pi.sbatch       # SLURM script for pi calculation
-└── Project_5_Instructions.docx # Project instructions
+├── tests/              # Testing suite
+│   └── Project_5_Tests/
+│       ├── Autograder/ # Automated grading logic
+│       │   ├── autograder_base.py
+│       │   ├── autograder_problem_5_2.py
+│       │   ├── autograder_problem_5_3.py
+│       │   ├── autograder_problem_5_4.py
+│       │   ├── autograder_project_5.py
+│       │   ├── autograder_project_5.sbatch
+│       │   └── test_scripts/
+│       └── test_data/  # CSV data for testing (vectors, expected outputs)
+└── Project_5_Instructions.pdf # Project instructions
 ```
 
 ## Directory Purposes
 
 **Problem_1:**
-- Purpose: Implementation of MPI Ping-Pong messaging pattern.
-- Contains: MPI source, Makefile, SLURM scripts.
-- Key files: `Problem_1/pingpong_MPI.c`
+- Purpose: Distributed messaging latency measurements via Ping-Pong.
+- Contains: MPI source, Makefile, and SLURM scripts for intra-node and inter-node testing.
+- Key files: `Problem_1/pingpong_MPI.c`.
 
 **Problem_2:**
-- Purpose: Implementation of Parallel Dot Product using MPI.
-- Contains: Makefile, SLURM scripts, and a `serial` subdirectory.
-- Key files: `Problem_2/serial/dotprod_serial.c` (Serial reference implementation)
+- Purpose: Vector dot product implementation in parallel.
+- Contains: MPI stub, Makefile, SLURM scripts, and a `serial` subdirectory.
+- Key files: `Problem_2/dot_product_MPI.c`, `Problem_2/serial/dotprod_serial.c`.
 
 **Problem_3:**
-- Purpose: Implementation of Parallel Merge Sort using MPI.
-- Contains: MPI source, Makefile, SLURM scripts.
-- Key files: `Problem_3/merge_sort_MPI.c`
+- Purpose: Sorting large arrays using parallel merge sort.
+- Contains: MPI stub with basic I/O helpers, Makefile, and SLURM scripts.
+- Key files: `Problem_3/merge_sort_MPI.c`.
 
 **Problem_4:**
-- Purpose: Implementation of Pi calculation using MPI (likely Monte Carlo or Trapezoidal).
-- Contains: Makefile, SLURM scripts.
-- Key files: `Problem_4/Makefile` (Missing source `pi_MPI.c`)
+- Purpose: Approximating Pi using the Monte Carlo method.
+- Contains: MPI stub, Makefile, and SLURM scripts.
+- Key files: `Problem_4/pi_MPI.c`.
+
+**tests/:**
+- Purpose: Houses the automated grading framework and test datasets.
+- Contains: Python scripts for testing (`autograder_*.py`), shell scripts for batch runs (`test_scripts/`), and reference CSV files.
 
 ## Key File Locations
 
-**Entry Points:**
-- `Problem_1/pingpong_MPI.c`: Entry for Problem 1 MPI implementation.
-- `Problem_2/serial/dotprod_serial.c`: Entry for Problem 2 serial implementation.
-- `Problem_3/merge_sort_MPI.c`: Entry for Problem 3 MPI implementation.
+**Entry Points (MPI Implementations):**
+- `Problem_1/pingpong_MPI.c`
+- `Problem_2/dot_product_MPI.c`
+- `Problem_3/merge_sort_MPI.c`
+- `Problem_4/pi_MPI.c`
 
-**Configuration:**
-- `Problem_1/Makefile`: Build configuration for Problem 1.
-- `Problem_2/Makefile`: Build configuration for Problem 2 MPI.
-- `Problem_2/serial/Makefile`: Build configuration for Problem 2 serial.
-- `Problem_3/Makefile`: Build configuration for Problem 3.
-- `Problem_4/Makefile`: Build configuration for Problem 4.
+**Entry Point (Serial Reference):**
+- `Problem_2/serial/dotprod_serial.c`
 
-**Testing:**
-- `Problem_1/pingpong_samenode.sbatch`: Job script for testing Problem 1 on the same node.
-- `Problem_1/pingpong_diffnode.sbatch`: Job script for testing Problem 1 on different nodes.
-- `Problem_2/dot_product.sbatch`: Job script for testing Problem 2 MPI.
-- `Problem_2/serial/prob3_serial.sbatch`: Job script for testing Problem 2 serial (note potential naming confusion).
-- `Problem_3/merge_sort_samenode.sbatch`: Job script for testing Problem 3 on the same node.
-- `Problem_4/pi.sbatch`: Job script for testing Problem 4 MPI.
+**Build Configuration:**
+- `Problem_1/Makefile`
+- `Problem_2/Makefile`
+- `Problem_2/serial/Makefile`
+- `Problem_3/Makefile`
+- `Problem_4/Makefile`
+
+**SLURM Execution:**
+- `Problem_1/pingpong_samenode.sbatch`
+- `Problem_1/pingpong_diffnode.sbatch`
+- `Problem_2/dot_product.sbatch`
+- `Problem_3/merge_sort_samenode.sbatch`
+- `Problem_4/pi.sbatch`
 
 ## Naming Conventions
 
 **Files:**
-- [Pattern]: `[problem_name]_MPI.c` for MPI implementations.
-- [Pattern]: `[problem_name].sbatch` for SLURM job scripts.
+- [Pattern]: `[problem_name]_MPI.c` for parallel implementation files.
+- [Pattern]: `*.sbatch` for cluster job scripts.
 - [Pattern]: `Makefile` for build instructions.
+- [Pattern]: `*.csv` for data input/output.
 
 **Directories:**
-- [Pattern]: `Problem_[N]` for each project task.
+- [Pattern]: `Problem_[N]` for each problem task.
+- [Pattern]: `serial/` for serial versions of problems.
 
 ## Where to Add New Code
 
-**New Feature:**
-- MPI Implementations: `Problem_[N]/[name]_MPI.c`
-- Serial References: `Problem_[N]/serial/[name]_serial.c`
+**New Problem Logic:**
+- Implement MPI logic in the corresponding `Problem_N/[name]_MPI.c` file.
+- Update `Makefile` if new source files are added.
 
-**Utilities:**
-- MPI Helpers: Typically included in the main MPI source file or as separate headers if needed (none detected yet).
+**New Utility Functions:**
+- Common helpers should be added to the respective MPI source file (local to problem) or a shared header if needed across problems.
+
+**New Tests:**
+- Test data: `tests/Project_5_Tests/test_data/[Problem_N]/`
+- Autograder scripts: `tests/Project_5_Tests/Autograder/`
 
 ## Special Directories
 
+**tests/Project_5_Tests/test_data/:**
+- Purpose: Contains critical vector data and expected result files for validation.
+- Generated: No (provided)
+- Committed: Yes
+
 **Problem_2/serial/:**
-- Purpose: Contains the serial reference implementation for comparison with the parallel version.
+- Purpose: Holds the serial baseline implementation for Problem 2.
 - Generated: No
 - Committed: Yes
 
 ---
 
-*Structure analysis: 2025-05-15*
+*Structure analysis: 2025-03-30*
