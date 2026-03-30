@@ -1,0 +1,2 @@
+make[1]: *** No rule to make target `gpu_mining_starter.cu', needed by `gpu_mining_starter.o'.  Stop.
+make: *** [run] Error 2
