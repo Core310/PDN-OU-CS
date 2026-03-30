@@ -7,10 +7,10 @@
 - Deliver: Source code, Makefile, and Sbatch files.
 
 ## Milestone 2: Problem 2 - Parallel Dot Product (20 pts)
-- Implement `dot_product_MPI.c` using `MPI_Scatter` and `MPI_Reduce`.
-- Compare results with serial implementation.
-- Measure performance for 2, 4, 8 processes.
-- Deliver: Source code, Makefile, and Sbatch file.
+**Goal:** Parallelize dot product using MPI collective communication (MPI_Scatter, MPI_Reduce).
+**Plans:** 2 plans
+- [ ] 02-01-PLAN.md — Parallel Dot Product Implementation
+- [ ] 02-02-PLAN.md — Autograder Verification
 
 ## Milestone 3: Problem 3 - Parallel Merge Sort (30 pts)
 - Implement `merge_sort_MPI.c` with `qsort` and tree-based merge reduction.
