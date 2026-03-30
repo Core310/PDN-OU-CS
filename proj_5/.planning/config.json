@@ -1,0 +1,17 @@
+{
+  "user": {
+    "username": "oucspdn089",
+    "email": "arikak@ou.edu",
+    "home_path": "/home/oucspdn089/git/PDN-OU-CS/proj_5",
+    "output_path": "/home/oucspdn089/git/PDN-OU-CS/proj_5/out"
+  },
+  "project": {
+    "name": "Project 5: MPI Programming",
+    "graduate_status": true,
+    "apply_mandates": true
+  },
+  "workflow": {
+    "pause_after_phase": true,
+    "auto_accept_edits": true
+  }
+}
