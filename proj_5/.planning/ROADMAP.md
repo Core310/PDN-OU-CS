@@ -13,16 +13,14 @@
 - [ ] 02-02-PLAN.md — Autograder Verification
 
 ## Milestone 3: Problem 3 - Parallel Merge Sort (30 pts)
-- Implement `merge_sort_MPI.c` with `qsort` and tree-based merge reduction.
-- Correctly handle MPI ranks for sender/receiver at each iteration.
-- Compare same-node vs. different-node performance for 4 processes.
-- Deliver: Source code, Makefile, and Sbatch files.
+**Goal:** Implement `merge_sort_MPI.c` with `qsort` and tree-based merge reduction.
+**Plans:** 1 plan
+- [ ] 03-01-PLAN.md — Parallel Merge Sort Implementation
 
 ## Milestone 4: Problem 4 - Monte Carlo Pi (20 pts)
-- Implement `pi_MPI.c` using Monte Carlo estimation.
-- Correctly handle seeds based on process IDs.
-- Sum partial counts on Process 0.
-- Deliver: Source code, Makefile, and Sbatch file.
+**Goal:** Implement `pi_MPI.c` using Monte Carlo estimation.
+**Plans:** 1 plan
+- [ ] 04-01-PLAN.md — Implement Monte Carlo Pi
 
 ## Milestone 5: Report & Submission
 - Collect all timing results and generate tables (Wall-clock, Speedup, Efficiency).
