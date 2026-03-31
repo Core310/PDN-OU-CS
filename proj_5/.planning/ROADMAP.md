@@ -23,7 +23,8 @@
 - [ ] 04-01-PLAN.md — Implement Monte Carlo Pi
 
 ## Milestone 5: Report & Submission
-- Collect all timing results and generate tables (Wall-clock, Speedup, Efficiency).
-- Generate plots for Problem 1 and perform linear regression.
-- Discussion on scalability and communication costs for all problems.
-- Final PDF Report and ZIP submission.
+**Goal:** Produce a comprehensive final report analyzing the performance of the MPI implementations and package all project deliverables for submission.
+**Plans:** 3 plans
+- [ ] 05-01-PLAN.md — Data Consolidation and Analysis Environment Setup
+- [ ] 05-02-PLAN.md — Performance Analysis and Visualization
+- [ ] 05-03-PLAN.md — Final Report Generation and Submission Package
