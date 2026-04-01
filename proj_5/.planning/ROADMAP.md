@@ -24,6 +24,7 @@
 
 ## Milestone 5: Report & Submission
 **Goal:** Produce a comprehensive final report analyzing the performance of the MPI implementations and package all project deliverables for submission.
+**Requirements:** [REPORT-01, REPORT-02, REPORT-03, REPORT-04, REPORT-05, REPORT-06]
 **Plans:** 3 plans
 - [ ] 05-01-PLAN.md — Data Consolidation and Analysis Environment Setup
 - [ ] 05-02-PLAN.md — Performance Analysis and Visualization
