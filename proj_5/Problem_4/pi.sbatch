@@ -25,6 +25,11 @@ echo ""
 module load intel/2022.2
 module load OpenMPI/4.1.4-GCC-11.3.0
 
+# Compile the code
+make clean && make
+
+echo "--- Starting runs ---"
+
 # (Project_5_Instructions.pdf, Page 11)
 # n = 2^16 (fixed). Processors: 2, 4, 8, 16.
 

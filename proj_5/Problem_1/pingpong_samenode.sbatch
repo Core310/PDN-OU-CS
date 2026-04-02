@@ -25,6 +25,11 @@ echo ""
 module load intel/2022.2
 module load OpenMPI/4.1.4-GCC-11.3.0
 
+# Compile the code
+make clean && make
+
+echo "--- Starting runs ---"
+
 # (Project_5_Instructions.pdf, Page 4)
 # "Calculate the communication time for arrays of 1 million, 2 million, 4 million, and 8 million integers."
 

@@ -25,6 +25,11 @@ echo ""
 module load intel/2022.2
 module load OpenMPI/4.1.4-GCC-11.3.0
 
+# Compile the code
+make clean && make
+
+echo "--- Starting runs ---"
+
 # (Project_5_Instructions.pdf, Page 9)
 # Processes: 4 on the same node. Sizes: 262144, 524288, 1048576.
 

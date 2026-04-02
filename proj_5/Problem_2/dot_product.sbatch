@@ -12,9 +12,9 @@
 #
 #SBATCH --job-name=hw5prob2
 #
-#SBATCH --chdir=/home/oucspdn089/git/PDN-OU-CS/proj_5/Problem_2
-#SBATCH --output=/home/oucspdn089/git/PDN-OU-CS/proj_5/out/_P5-2_%J_stdout.txt
-#SBATCH --error=/home/oucspdn089/git/PDN-OU-CS/proj_5/out/_P5-2_%J_stderr.txt
+#SBATCH --chdir=/home/arika/Documents/PDN-OU-CS/proj_5/Problem_2
+#SBATCH --output=/home/arika/Documents/PDN-OU-CS/proj_5/out/_P5-2_%J_stdout.txt
+#SBATCH --error=/home/arika/Documents/PDN-OU-CS/proj_5/out/_P5-2_%J_stderr.txt
 #
 #################################################
 
@@ -25,18 +25,23 @@ echo ""
 module load intel/2022.2
 module load OpenMPI/4.1.4-GCC-11.3.0
 
+# Compile the code
+make clean && make
+
+echo "--- Starting runs ---"
+
 # (Project_5_Instructions.pdf, Page 6)
 # Processes: 2, 4, 8. Sizes: 262144, 524288, 1048576.
-# Vectors are in ../test_data/Vectors/ (assuming relative path as per structure)
+# Vectors are in ../tests/Project_5_Tests/test_data/Vectors/
 
-mpirun -n 2 ./dot_product_MPI 262144 vec_2_18_1.csv vec_2_18_2.csv res_2p_18.csv time_2p_18.csv
-mpirun -n 4 ./dot_product_MPI 262144 vec_2_18_1.csv vec_2_18_2.csv res_4p_18.csv time_4p_18.csv
-mpirun -n 8 ./dot_product_MPI 262144 vec_2_18_1.csv vec_2_18_2.csv res_8p_18.csv time_8p_18.csv
+srun -n 2 ./dot_product_MPI 262144 ../tests/Project_5_Tests/test_data/Vectors/vec1_2^18.csv ../tests/Project_5_Tests/test_data/Vectors/vec2_2^18.csv result_2p_18.csv time_2p_18.csv
+srun -n 4 ./dot_product_MPI 262144 ../tests/Project_5_Tests/test_data/Vectors/vec1_2^18.csv ../tests/Project_5_Tests/test_data/Vectors/vec2_2^18.csv result_4p_18.csv time_4p_18.csv
+srun -n 8 ./dot_product_MPI 262144 ../tests/Project_5_Tests/test_data/Vectors/vec1_2^18.csv ../tests/Project_5_Tests/test_data/Vectors/vec2_2^18.csv result_8p_18.csv time_8p_18.csv
 
-mpirun -n 2 ./dot_product_MPI 524288 vec_2_19_1.csv vec_2_19_2.csv res_2p_19.csv time_2p_19.csv
-mpirun -n 4 ./dot_product_MPI 524288 vec_2_19_1.csv vec_2_19_2.csv res_4p_19.csv time_4p_19.csv
-mpirun -n 8 ./dot_product_MPI 524288 vec_2_19_1.csv vec_2_19_2.csv res_8p_19.csv time_8p_19.csv
+srun -n 2 ./dot_product_MPI 524288 ../tests/Project_5_Tests/test_data/Vectors/vec1_2^19.csv ../tests/Project_5_Tests/test_data/Vectors/vec2_2^19.csv result_2p_19.csv time_2p_19.csv
+srun -n 4 ./dot_product_MPI 524288 ../tests/Project_5_Tests/test_data/Vectors/vec1_2^19.csv ../tests/Project_5_Tests/test_data/Vectors/vec2_2^19.csv result_4p_19.csv time_4p_19.csv
+srun -n 8 ./dot_product_MPI 524288 ../tests/Project_5_Tests/test_data/Vectors/vec1_2^19.csv ../tests/Project_5_Tests/test_data/Vectors/vec2_2^19.csv result_8p_19.csv time_8p_19.csv
 
-mpirun -n 2 ./dot_product_MPI 1048576 vec_2_20_1.csv vec_2_20_2.csv res_2p_20.csv time_2p_20.csv
-mpirun -n 4 ./dot_product_MPI 1048576 vec_2_20_1.csv vec_2_20_2.csv res_4p_20.csv time_4p_20.csv
-mpirun -n 8 ./dot_product_MPI 1048576 vec_2_20_1.csv vec_2_20_2.csv res_8p_20.csv time_8p_20.csv
+srun -n 2 ./dot_product_MPI 1048576 ../tests/Project_5_Tests/test_data/Vectors/vec1_2^20.csv ../tests/Project_5_Tests/test_data/Vectors/vec2_2^20.csv result_2p_20.csv time_2p_20.csv
+srun -n 4 ./dot_product_MPI 1048576 ../tests/Project_5_Tests/test_data/Vectors/vec1_2^20.csv ../tests/Project_5_Tests/test_data/Vectors/vec2_2^20.csv result_4p_20.csv time_4p_20.csv
+srun -n 8 ./dot_product_MPI 1048576 ../tests/Project_5_Tests/test_data/Vectors/vec1_2^20.csv ../tests/Project_5_Tests/test_data/Vectors/vec2_2^20.csv result_8p_20.csv time_8p_20.csv
