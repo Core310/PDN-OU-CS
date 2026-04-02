@@ -12,9 +12,9 @@
 #
 #SBATCH --job-name=hw5prob4
 #
-#SBATCH --chdir=/home/arika/Documents/PDN-OU-CS/proj_5/Problem_4
-#SBATCH --output=/home/arika/Documents/PDN-OU-CS/proj_5/out/_P5-4_%J_stdout.txt
-#SBATCH --error=/home/arika/Documents/PDN-OU-CS/proj_5/out/_P5-4_%J_stderr.txt
+#SBATCH --chdir=$SLURM_SUBMIT_DIR/Problem_4
+#SBATCH --output=$SLURM_SUBMIT_DIR/out/_P5-4_%J_stdout.txt
+#SBATCH --error=$SLURM_SUBMIT_DIR/out/_P5-4_%J_stderr.txt
 #
 #################################################
 
