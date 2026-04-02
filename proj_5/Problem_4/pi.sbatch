@@ -12,9 +12,9 @@
 #
 #SBATCH --job-name=hw5prob4
 #
-#SBATCH --chdir=/home/oucspdn089/git/PDN-OU-CS/proj_5/Problem_4
-#SBATCH --output=/home/oucspdn089/git/PDN-OU-CS/proj_5/out/_P5-4_%J_stdout.txt
-#SBATCH --error=/home/oucspdn089/git/PDN-OU-CS/proj_5/out/_P5-4_%J_stderr.txt
+#SBATCH --chdir=/home/arika/Documents/PDN-OU-CS/proj_5/Problem_4
+#SBATCH --output=/home/arika/Documents/PDN-OU-CS/proj_5/out/_P5-4_%J_stdout.txt
+#SBATCH --error=/home/arika/Documents/PDN-OU-CS/proj_5/out/_P5-4_%J_stderr.txt
 #
 #################################################
 
@@ -28,7 +28,7 @@ module load OpenMPI/4.1.4-GCC-11.3.0
 # (Project_5_Instructions.pdf, Page 11)
 # n = 2^16 (fixed). Processors: 2, 4, 8, 16.
 
-mpirun -n 2 ./pi_MPI result_2p.csv time_2p.csv
-mpirun -n 4 ./pi_MPI result_4p.csv time_4p.csv
-mpirun -n 8 ./pi_MPI result_8p.csv time_8p.csv
-mpirun -n 16 ./pi_MPI result_16p.csv time_16p.csv
+srun -n 2 ./pi_MPI result_2p_prob4.csv time_2p_prob4.csv
+srun -n 4 ./pi_MPI result_4p_prob4.csv time_4p_prob4.csv
+srun -n 8 ./pi_MPI result_8p_prob4.csv time_8p_prob4.csv
+srun -n 16 ./pi_MPI result_16p_prob4.csv time_16p_prob4.csv

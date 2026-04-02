@@ -13,9 +13,9 @@
 #
 #SBATCH --job-name=hw5prob1_diff
 #
-#SBATCH --chdir=/home/oucspdn089/git/PDN-OU-CS/proj_5/Problem_1
-#SBATCH --output=/home/oucspdn089/git/PDN-OU-CS/proj_5/out/_P5-1_diff_%J_stdout.txt
-#SBATCH --error=/home/oucspdn089/git/PDN-OU-CS/proj_5/out/_P5-1_diff_%J_stderr.txt
+#SBATCH --chdir=/home/arika/Documents/PDN-OU-CS/proj_5/Problem_1
+#SBATCH --output=/home/arika/Documents/PDN-OU-CS/proj_5/out/_P5-1_diff_%J_stdout.txt
+#SBATCH --error=/home/arika/Documents/PDN-OU-CS/proj_5/out/_P5-1_diff_%J_stderr.txt
 #
 #################################################
 
@@ -29,7 +29,7 @@ module load OpenMPI/4.1.4-GCC-11.3.0
 # (Project_5_Instructions.pdf, Page 4)
 # "Calculate the communication time for arrays of 1 million, 2 million, 4 million, and 8 million integers."
 
-mpirun -n 2 ./pingpong_MPI 1000000 time_1M_diff.csv
-mpirun -n 2 ./pingpong_MPI 2000000 time_2M_diff.csv
-mpirun -n 2 ./pingpong_MPI 4000000 time_4M_diff.csv
-mpirun -n 2 ./pingpong_MPI 8000000 time_8M_diff.csv
+srun -n 2 ./pingpong_MPI 1000000 time_1M_diff.csv
+srun -n 2 ./pingpong_MPI 2000000 time_2M_diff.csv
+srun -n 2 ./pingpong_MPI 4000000 time_4M_diff.csv
+srun -n 2 ./pingpong_MPI 8000000 time_8M_diff.csv

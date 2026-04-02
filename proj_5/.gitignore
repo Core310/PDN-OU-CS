@@ -1,0 +1,34 @@
+# Python virtual environment
+venv/
+
+# Build artifacts
+submission.zip
+__pycache__/
+tests/Project_5_Tests/Autograder/__pycache__/
+
+# Other projects
+../Khor_Arika_Project_4/
+
+# Gemini CLI specific files
+.gemini/
+.geminiignore
+../.geminiignore
+gsd-workstreams.skill
+
+# Compiled binaries
+Problem_1/pingpong_MPI
+Problem_2/dot_product_MPI
+Problem_3/merge_sort_MPI
+Problem_4/pi_MPI
+
+# Temporary output files
+Problem_*/result_*.csv
+Problem_*/time_*.csv
+Problem_*/res_test.csv
+Problem_*/time_test.csv
+*.csv
+*.txt
+
+# OS-specific
+.DS_Store
+Thumbs.db

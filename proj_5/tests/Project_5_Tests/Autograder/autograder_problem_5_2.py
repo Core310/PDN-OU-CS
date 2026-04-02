@@ -24,7 +24,7 @@ class Autograder_5_2(Base_Autograder):
     """
     Intialize variables
     """
-    def __init__(self, in_student_name="student", in_this_dir=".", in_test_files=["..", "test_data"]):
+    def __init__(self, in_student_name="student", in_this_dir=".", in_test_files=["tests", "Project_5_Tests", "test_data"]):
         super().__init__()
 
         # Student information
@@ -230,7 +230,7 @@ def main():
     res = p2.autograde()
 
     total   = len(res[0].columns)
-    correct = int(res[0].sum(axis=1)[0])
+    correct = int(res[0].sum(axis=1).iloc[0])
 
     print(f"{Y}\nFinal Grades:{W}")
     res[0].to_csv("P5_2_grades.csv")

@@ -147,7 +147,7 @@ class Autograder_5_3(Base_Autograder):
         ]
 
         # The actual output from the student
-        t_dir = os.path.join(this_dir, self.student_files)
+        t_dir = os.path.join(os.path.abspath(os.path.join(this_dir, "..", "..", "..")), self.student_files)
         t_get = [
             [],
             [],
@@ -238,7 +238,7 @@ def main():
     res = p3.autograde()
 
     total   = len(res[0].columns)
-    correct = int(res[0].sum(axis=1)[0])
+    correct = int(res[0].sum(axis=1).iloc[0])
 
     print(f"{Y}\nFinal Grades:{W}")
     res[0].to_csv("P5_3_grades.csv")
