@@ -1,10 +1,10 @@
 # Roadmap: Project 5 (MPI Programming)
 
 ## Milestone 1: Problem 1 - Ping-Pong (30 pts)
-- Implement `pingpong_MPI.c` with array bouncing (1000 times).
-- Measure communication time for specified array sizes.
-- Update `sbatch` files for single vs. multi-node execution.
-- Deliver: Source code, Makefile, and Sbatch files.
+**Goal:** Implement `pingpong_MPI.c` with array bouncing (1000 times), measure communication time for specified array sizes, and update `sbatch` files for single vs. multi-node execution.
+**Requirements:** [REQ-01, REQ-02, REQ-03, REQ-04]
+**Plans:** 1 plan
+- [ ] 01-01-PLAN.md — Implement Ping-Pong Communication and Measurement
 
 ## Milestone 2: Problem 2 - Parallel Dot Product (20 pts)
 **Goal:** Parallelize dot product using MPI collective communication (MPI_Scatter, MPI_Reduce).
