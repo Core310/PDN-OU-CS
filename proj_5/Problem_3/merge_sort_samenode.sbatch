@@ -12,9 +12,8 @@
 #
 #SBATCH --job-name=hw5prob3_same
 #
-#SBATCH --chdir=$SLURM_SUBMIT_DIR/Problem_3
-#SBATCH --output=$SLURM_SUBMIT_DIR/out/_P5-3_same_%J_stdout.txt
-#SBATCH --error=$SLURM_SUBMIT_DIR/out/_P5-3_same_%J_stderr.txt
+#SBATCH --output=out/_P5-3_same_%J_stdout.txt
+#SBATCH --error=out/_P5-3_same_%J_stderr.txt
 
 #################################################
 
@@ -26,13 +25,13 @@ module load intel/2022.2
 module load OpenMPI/4.1.4-GCC-11.3.0
 
 # Compile the code
-make clean && make
+make -C Problem_3 clean && make -C Problem_3
 
 echo "--- Starting runs ---"
 
 # (Project_5_Instructions.pdf, Page 9)
 # Processes: 4 on the same node. Sizes: 262144, 524288, 1048576.
 
-mpirun -n 4 ./merge_sort_MPI 262144 ../tests/Project_5_Tests/test_data/Vectors/vec1_2^18.csv result_4p_18_same.csv time_4p_18_same.csv
-mpirun -n 4 ./merge_sort_MPI 524288 ../tests/Project_5_Tests/test_data/Vectors/vec1_2^19.csv result_4p_19_same.csv time_4p_19_same.csv
-mpirun -n 4 ./merge_sort_MPI 1048576 ../tests/Project_5_Tests/test_data/Vectors/vec1_2^20.csv result_4p_20_same.csv time_4p_20_same.csv
+srun -n 4 ./Problem_3/merge_sort_MPI 262144 tests/Project_5_Tests/test_data/Vectors/vec1_2^18.csv Problem_3/result_4p_18_same.csv Problem_3/time_4p_18_same.csv
+srun -n 4 ./Problem_3/merge_sort_MPI 524288 tests/Project_5_Tests/test_data/Vectors/vec1_2^19.csv Problem_3/result_4p_19_same.csv Problem_3/time_4p_19_same.csv
+srun -n 4 ./Problem_3/merge_sort_MPI 1048576 tests/Project_5_Tests/test_data/Vectors/vec1_2^20.csv Problem_3/result_4p_20_same.csv Problem_3/time_4p_20_same.csv
