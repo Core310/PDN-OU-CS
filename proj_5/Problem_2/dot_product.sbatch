@@ -23,6 +23,7 @@ echo ""
 
 module load intel/2022.2
 module load OpenMPI/4.1.4-GCC-11.3.0
+source "$ONEAPI/setvars.sh"
 
 # Compile the code in its directory
 make -C Problem_2 clean && make -C Problem_2
