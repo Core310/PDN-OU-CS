@@ -21,9 +21,7 @@ echo "Working directory:"
 pwd
 echo ""
 
-module load intel/2022.2
 module load OpenMPI/4.1.4-GCC-11.3.0
-source "$ONEAPI/setvars.sh"
 
 # Compile the code
 make -C Problem_3 clean && make -C Problem_3
