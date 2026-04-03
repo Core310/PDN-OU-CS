@@ -31,14 +31,14 @@ echo "--- Starting runs ---"
 # (Project_5_Instructions.pdf, Page 6)
 # All paths are now relative to the project root
 
-srun --exact -n 2 ./Problem_2/dot_product_MPI 262144 tests/Project_5_Tests/test_data/Vectors/vec1_2^18.csv tests/Project_5_Tests/test_data/Vectors/vec2_2^18.csv Problem_2/result_2p_18.csv Problem_2/time_2p_18.csv
-srun --exact -n 4 ./Problem_2/dot_product_MPI 262144 tests/Project_5_Tests/test_data/Vectors/vec1_2^18.csv tests/Project_5_Tests/test_data/Vectors/vec2_2^18.csv Problem_2/result_4p_18.csv Problem_2/time_4p_18.csv
-srun --exact -n 8 ./Problem_2/dot_product_MPI 262144 tests/Project_5_Tests/test_data/Vectors/vec1_2^18.csv tests/Project_5_Tests/test_data/Vectors/vec2_2^18.csv Problem_2/result_8p_18.csv Problem_2/time_8p_18.csv
+mpirun -n 2 ./Problem_2/dot_product_MPI 262144 tests/Project_5_Tests/test_data/Vectors/vec1_2^18.csv tests/Project_5_Tests/test_data/Vectors/vec2_2^18.csv Problem_2/result_2p_18.csv Problem_2/time_2p_18.csv
+mpirun -n 4 ./Problem_2/dot_product_MPI 262144 tests/Project_5_Tests/test_data/Vectors/vec1_2^18.csv tests/Project_5_Tests/test_data/Vectors/vec2_2^18.csv Problem_2/result_4p_18.csv Problem_2/time_4p_18.csv
+mpirun -n 8 ./Problem_2/dot_product_MPI 262144 tests/Project_5_Tests/test_data/Vectors/vec1_2^18.csv tests/Project_5_Tests/test_data/Vectors/vec2_2^18.csv Problem_2/result_8p_18.csv Problem_2/time_8p_18.csv
 
-srun --exact -n 2 ./Problem_2/dot_product_MPI 524288 tests/Project_5_Tests/test_data/Vectors/vec1_2^19.csv tests/Project_5_Tests/test_data/Vectors/vec2_2^19.csv Problem_2/result_2p_19.csv Problem_2/time_2p_19.csv
-srun --exact -n 4 ./Problem_2/dot_product_MPI 524288 tests/Project_5_Tests/test_data/Vectors/vec1_2^19.csv tests/Project_5_Tests/test_data/Vectors/vec2_2^19.csv Problem_2/result_4p_19.csv Problem_2/time_4p_19.csv
-srun --exact -n 8 ./Problem_2/dot_product_MPI 524288 tests/Project_5_Tests/test_data/Vectors/vec1_2^19.csv tests/Project_5_Tests/test_data/Vectors/vec2_2^19.csv Problem_2/result_8p_19.csv Problem_2/time_8p_19.csv
+mpirun -n 2 ./Problem_2/dot_product_MPI 524288 tests/Project_5_Tests/test_data/Vectors/vec1_2^19.csv tests/Project_5_Tests/test_data/Vectors/vec2_2^19.csv Problem_2/result_2p_19.csv Problem_2/time_2p_19.csv
+mpirun -n 4 ./Problem_2/dot_product_MPI 524288 tests/Project_5_Tests/test_data/Vectors/vec1_2^19.csv tests/Project_5_Tests/test_data/Vectors/vec2_2^19.csv Problem_2/result_4p_19.csv Problem_2/time_4p_19.csv
+mpirun -n 8 ./Problem_2/dot_product_MPI 524288 tests/Project_5_Tests/test_data/Vectors/vec1_2^19.csv tests/Project_5_Tests/test_data/Vectors/vec2_2^19.csv Problem_2/result_8p_19.csv Problem_2/time_8p_19.csv
 
-srun --exact -n 2 ./Problem_2/dot_product_MPI 1048576 tests/Project_5_Tests/test_data/Vectors/vec1_2^20.csv tests/Project_5_Tests/test_data/Vectors/vec2_2^20.csv Problem_2/result_2p_20.csv Problem_2/time_2p_20.csv
-srun --exact -n 4 ./Problem_2/dot_product_MPI 1048576 tests/Project_5_Tests/test_data/Vectors/vec1_2^20.csv tests/Project_5_Tests/test_data/Vectors/vec2_2^20.csv Problem_2/result_4p_20.csv Problem_2/time_4p_20.csv
-srun --exact -n 8 ./Problem_2/dot_product_MPI 1048576 tests/Project_5_Tests/test_data/Vectors/vec1_2^20.csv tests/Project_5_Tests/test_data/Vectors/vec2_2^20.csv Problem_2/result_8p_20.csv Problem_2/time_8p_20.csv
+mpirun -n 2 ./Problem_2/dot_product_MPI 1048576 tests/Project_5_Tests/test_data/Vectors/vec1_2^20.csv tests/Project_5_Tests/test_data/Vectors/vec2_2^20.csv Problem_2/result_2p_20.csv Problem_2/time_2p_20.csv
+mpirun -n 4 ./Problem_2/dot_product_MPI 1048576 tests/Project_5_Tests/test_data/Vectors/vec1_2^20.csv tests/Project_5_Tests/test_data/Vectors/vec2_2^20.csv Problem_2/result_4p_20.csv Problem_2/time_4p_20.csv
+mpirun -n 8 ./Problem_2/dot_product_MPI 1048576 tests/Project_5_Tests/test_data/Vectors/vec1_2^20.csv tests/Project_5_Tests/test_data/Vectors/vec2_2^20.csv Problem_2/result_8p_20.csv Problem_2/time_8p_20.csv

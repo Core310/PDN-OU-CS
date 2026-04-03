@@ -31,7 +31,7 @@ echo "--- Starting runs ---"
 # (Project_5_Instructions.pdf, Page 11)
 # n = 2^16 (fixed). Processors: 2, 4, 8, 16.
 
-srun --exact -n 2 ./Problem_4/pi_MPI Problem_4/result_2p_prob4.csv Problem_4/time_2p_prob4.csv
-srun --exact -n 4 ./Problem_4/pi_MPI Problem_4/result_4p_prob4.csv Problem_4/time_4p_prob4.csv
-srun --exact -n 8 ./Problem_4/pi_MPI Problem_4/result_8p_prob4.csv Problem_4/time_8p_prob4.csv
-srun --exact -n 16 ./Problem_4/pi_MPI Problem_4/result_16p_prob4.csv Problem_4/time_16p_prob4.csv
+mpirun -n 2 ./Problem_4/pi_MPI Problem_4/result_2p_prob4.csv Problem_4/time_2p_prob4.csv
+mpirun -n 4 ./Problem_4/pi_MPI Problem_4/result_4p_prob4.csv Problem_4/time_4p_prob4.csv
+mpirun -n 8 ./Problem_4/pi_MPI Problem_4/result_8p_prob4.csv Problem_4/time_8p_prob4.csv
+mpirun -n 16 ./Problem_4/pi_MPI Problem_4/result_16p_prob4.csv Problem_4/time_16p_prob4.csv
