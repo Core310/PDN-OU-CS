@@ -32,7 +32,7 @@ echo "--- Starting runs ---"
 # (Project_5_Instructions.pdf, Page 4)
 # "Calculate the communication time for arrays of 1 million, 2 million, 4 million, and 8 million integers."
 
-srun -n 2 ./Problem_1/pingpong_MPI 1000000 Problem_1/time_1M_diff.csv
-srun -n 2 ./Problem_1/pingpong_MPI 2000000 Problem_1/time_2M_diff.csv
-srun -n 2 ./Problem_1/pingpong_MPI 4000000 Problem_1/time_4M_diff.csv
-srun -n 2 ./Problem_1/pingpong_MPI 8000000 Problem_1/time_8M_diff.csv
+srun --exact -n 2 ./Problem_1/pingpong_MPI 1000000 Problem_1/time_1M_diff.csv
+srun --exact -n 2 ./Problem_1/pingpong_MPI 2000000 Problem_1/time_2M_diff.csv
+srun --exact -n 2 ./Problem_1/pingpong_MPI 4000000 Problem_1/time_4M_diff.csv
+srun --exact -n 2 ./Problem_1/pingpong_MPI 8000000 Problem_1/time_8M_diff.csv
