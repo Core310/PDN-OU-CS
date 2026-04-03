@@ -1,7 +1,5 @@
 #!/bin/bash
 #SBATCH --partition=oucspdn_cpu
-#SBATCH --ntasks=4
-#SBATCH --ntasks-per-node=4
 #
 #SBATCH --time=00:15:00
 #
