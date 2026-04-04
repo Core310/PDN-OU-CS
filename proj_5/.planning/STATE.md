@@ -5,7 +5,7 @@
 - [x] Milestone 2: Problem 2 - Parallel Dot Product
 - [x] Milestone 3: Problem 3 - Parallel Merge Sort
 - [x] Milestone 4: Problem 4 - Monte Carlo Pi (Graduate)
-- [ ] Milestone 5: Final Report & Submission
+- [x] Milestone 5: Final Report & Submission
 
 ## Completed Tasks
 ### Phase 1: Planning & Setup
@@ -39,6 +39,16 @@
 - [x] Implement ping-pong communication in `Problem_1/pingpong_MPI.c`.
 - [x] Configure Makefile and sbatch scripts for Problem 1.
 
-## Active Tasks
-- [ ] Milestone 5: Final Report & Submission (Initiate with /gsd:plan-phase 5)
+### Phase 8: Reporting, Analysis & Submission
+- [x] Set up Python virtual environment with `pandas`, `matplotlib`, `numpy`.
+- [x] Create `run_autograder.sh` script.
+- [x] Fix autograder pathing bugs (`autograder_problem_5_2.py`, `autograder_problem_5_3.py`, `autograder_problem_5_4.py`).
+- [x] Fix C code bugs (e.g., Problem 3 `fopen` null check, `cmpfloat` corruption).
+- [x] Run all sbatch jobs via `run_all_sbatch.sh` to generate raw timing data.
+- [x] Run autograder via `run_autograder.sh` to generate grades and analysis CSVs.
+- [x] Generate performance metrics, tables, and plots.
+- [x] Draft the Final Report in Markdown (`reports/REPORT.md`).
+- [x] Create Final Submission ZIP Archive (`submission.zip`) with specified content.
 
+## Active Tasks
+- None. All project tasks completed.

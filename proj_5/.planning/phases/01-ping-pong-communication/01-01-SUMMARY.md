@@ -7,7 +7,7 @@ summary: true
 ## Summary of Work (Plan 01)
 
 ### Objective
-Implemented and verified the Ping-Pong communication problem for MPI, measuring communication times for array bouncing on both single and multi-node configurations.
+Implemented and verified the Ping-Pong communication problem for MPI, measuring communication times for array bouncing on both single and multi-node configurations. The implementation was verified through successful compilation, execution on the Schooner cluster, and subsequent passing of autograder tests.
 
 ### Key Changes
 - **`Problem_1/pingpong_MPI.c`**:
@@ -16,16 +16,16 @@ Implemented and verified the Ping-Pong communication problem for MPI, measuring 
     - The existing `Makefile` was found to be correctly configured for compiling `pingpong_MPI.c` into the `pingpong_MPI` executable using `mpicc`. No modifications were needed.
 - **`Problem_1/pingpong_samenode.sbatch`**:
     - Updated `SBATCH --chdir`, `SBATCH --output`, and `SBATCH --error` paths to be user-specific (`/home/arika/Documents/PDN-OU-CS/proj_5/Problem_1`).
-    - Replaced `mpirun` with `srun` for launching MPI jobs, consistent with Slurm cluster best practices.
+    - Replaced `srun` with `mpirun` for launching MPI jobs due to PMI support issues on Schooner.
+    - Explicitly set `#SBATCH --ntasks`, `--ntasks-per-node`, and `--nodes` directives to avoid "More processors requested than permitted" errors.
 - **`Problem_1/pingpong_diffnode.sbatch`**:
     - Updated `SBATCH --chdir`, `SBATCH --output`, and `SBATCH --error` paths to be user-specific (`/home/arika/Documents/PDN-OU-CS/proj_5/Problem_1`).
-    - Replaced `mpirun` with `srun` for launching MPI jobs.
+    - Replaced `srun` with `mpirun` for launching MPI jobs due to PMI support issues on Schooner.
+    - Explicitly set `#SBATCH --ntasks`, `--ntasks-per-node`, and `--nodes` directives.
 
 ### Verification
-- **Task 1 (Core Logic)**: Verified by compiling and running `pingpong_MPI.c` with `mpirun -np 2 Problem_1/pingpong_MPI 262144 dummy_time.csv`. The program executed successfully, producing a time output file.
-- **Task 2 (Makefile and Sbatch Scripts)**:
-    - `Makefile` verification: `make clean && make` in `Problem_1/` directory successfully cleaned and recompiled the executable.
-    - `sbatch` scripts verification: The sbatch scripts were updated to adhere to current user paths and use `srun`. While a full `sbatch` execution on a cluster was not performed by the agent due to environment limitations, the syntactic correctness was ensured through modification.
+- **Compilation & Execution**: Successfully compiled `pingpong_MPI.c` and executed it via updated `sbatch` scripts (`pingpong_samenode.sbatch`, `pingpong_diffnode.sbatch`) on the Schooner cluster. This generated the required `time_*.csv` files in the `Problem_1/` directory.
+- **Autograder**: The main autograder script (`run_autograder.sh`) correctly evaluated the generated data, confirming the successful execution and data generation for Problem 1.
 
 ### Outcome
-Problem 1 (Ping-Pong Communication) is fully implemented and verified locally. The associated `Makefile` and `sbatch` scripts are ready for execution on a Slurm cluster. The timing data needed for the final report analysis is expected to be generated upon actual Slurm execution.
+Problem 1 (Ping-Pong Communication) is fully implemented, configured for the Schooner cluster, and its execution has been successfully verified by the autograder. The timing data is available for inclusion in the final report.
