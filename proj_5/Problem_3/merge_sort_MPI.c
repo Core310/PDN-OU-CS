@@ -125,6 +125,7 @@ int main (int argc, char *argv[])
     }
 
 
+    fclose(inputFile);
     MPI_Finalize();
 
     if(DEBUG) printf("Finished!\n");
@@ -152,6 +153,12 @@ float* read_input(FILE* inputFile, int n_items) {
 // source: https://stackoverflow.com/questions/3886446/problem-trying-to-use-the-c-qsort-function
 int cmpfloat(const void* a, const void* b) {
     float fa = *(const float*)a;
+    float fb = *(const float*)b;
+    if (fa < fb) return -1;
+    if (fa > fb) return 1;
+    return 0;
+} // Cmp Int //
+onst float*)a;
     float fb = *(const float*)b;
     if (fa < fb) return -1;
     if (fa > fb) return 1;

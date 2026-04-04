@@ -24,7 +24,7 @@ class Autograder_5_4(Base_Autograder):
     """
     Initializes variables
     """
-    def __init__(self, in_student_name="student", in_this_dir=".", in_test_files=["..", "test_data"]):
+    def __init__(self, in_student_name="student", in_this_dir=".", in_test_files=["tests", "Project_5_Tests", "test_data"]):
         super().__init__()
 
         # Student information
