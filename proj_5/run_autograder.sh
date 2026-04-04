@@ -15,6 +15,8 @@ fi
 # Activate the virtual environment
 source venv/bin/activate
 
+module load OpenMPI/4.1.4-GCC-11.3.0
+
 # Run the main autograder script
 python tests/Project_5_Tests/Autograder/autograder_project_5.py
 
