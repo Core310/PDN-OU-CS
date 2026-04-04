@@ -1,55 +1,46 @@
 # AI Usage
 DISCLAIMER: As with all AI tools, I understand that they are good for generating *templates* **not** for actual code. Overly relying on AI generated code quickly leads to immense tech debt and what many people call "vibe coding clean-up" roles. Most of what was used was either a) proof of concept to see how well the tools fair with heavy user influence, or b) to check exisitng work currently written as a "helper" to optmize performance and readability.
 
-While documentation was tidied and used to generate suggestions with the Gemni CLI workflow, most of it still ended up handwritten.
+While documentation was tidied and used to generate suggestions with the Gemini CLI workflow, most of it still ended up handwritten.
 
-The primary use of AI used two main tech stacks:
-- [surf sense](https://www.surfsense.com/)
-- [gemni cli](https://github.com/google-gemini/gemini-cli)
+The primary use of AI in this project was through the Gemini CLI, leveraging its integrated GSD (Get Shit Done) workflow for project planning, execution, and verification.
 
+## Gemini CLI & GSD Workflow
 
-GSD (getshitdone) was used for the initial project planning (as seen below). Then I manually went in and edited by hand parts that didn't seem good, or fit with the code structure.
-## Gemni CLI
-I used the following GSD model ontop of gemni CLI to better verify the work and assumptions done:
-- [getshitdone](https://github.com/rokicool/gsd-opencode)
+The Gemini CLI, powered by the `gsd-opencode` model, was instrumental in structuring and automating various aspects of this MPI project. It provided a framework for breaking down complex tasks, tracking progress, and interactively developing solutions.
 
-Additionally I have my own custom rule-set script which is pretty long so won't be included here.
+### Initialization (`/gsd-new-project`)
+This phase involved setting up the project's foundational structure and understanding initial requirements.
+- **Initial Questions**: Gemini facilitated clarifying project scope, constraints (e.g., Slurm environment, MPI limitations), and specific requirements for each problem.
+- **PDF Document Upload**: The `Project_5_Instructions.pdf` was analyzed by Gemini, allowing for direct extraction and interpretation of problem specifications, grading rubrics, and submission guidelines.
+- **Assumptions**: GSD helped identify and document implicit assumptions (e.g., specific OpenMPI module versions, `mpirun` vs. `srun` on Schooner due to PMI issues).
+- **Codebase Linking**: The local repository was linked, enabling Gemini to read and modify files directly.
+- **README Generation**: Initial `README.md` and planning documents were generated to outline the project's roadmap and state.
 
-Several model types were used dependent on what needed to be done.
+### Research
+Although a dedicated `Research` phase was not explicitly triggered, elements of research were integrated into other phases. Gemini, when faced with environmental complexities (e.g., `srun` limitations, module conflicts), effectively researched solutions by suggesting diagnostic scripts and analyzing their outputs.
 
-As with most GSD workflows for each new PDN project I would go with the following:
+### Planning (`/gsd-plan-phase <number>`)
+GSD's planning capabilities were used to break down the project into manageable phases and atomic tasks.
+- **Phase Definition**: Each of the four MPI problems (Ping-Pong, Dot Product, Merge Sort, Monte Carlo Pi) was defined as a distinct phase. Reporting and submission were also planned as separate phases.
+- **Task Breakdown**: For each phase, detailed plans (`0X-XX-PLAN.md`) were generated, outlining specific implementation steps, file modifications, and success criteria.
+- **Plan Checker**: This ensured that all aspects of a problem were addressed before proceeding to execution.
+- **Context Isolation**: Gemini maintained context specific to each phase, allowing focused development.
 
-- Initialization (`/gsd-new-project`)
-	- Inital questions
-	- PDF Document upload of problems
-	- Assumptions being made (and fixed)
-	- Code style wished to be generated
-	- codebase linked
-	- README generated
-	- Point towards internal data that should be used (all 3 textbooks, path to local repo)
-- Research
-	- Custom phase with gemni
-	- able to do more in depth analysis of the project given along with sources pointed to
-	- additionally looks out for more sources online
-	- I usually search myself for stackoverflow topics I may think useful. I will then point it to my surfsense model to see if it makes sense to implement it, then feed it to GSD to write in.
-- Planning (`/gsd-plan-phase <number>`)
-	- Split each problem and sub problem into their own atomic phases/tasks
-	- A plan checker ensuring nothing was missed
-	- Context Isolation and verification of tasks
-- Execution (`/gsd-run-phase <number>`)
-	- execution of per phase as outlined in generated README
-	- tasks are run per wave with atomic commits
-	- Each commit is then showed of what changed and I can go in and ask / edit the changes it made
-- Verification
-	- Spawn any debug agents
-	- generate potential ticket issues
+### Execution (`/gsd-run-phase <number>`)
+The core development work was performed during the execution phases, with Gemini acting as the primary agent for code generation and modification.
+- **Iterative Implementation**: Gemini implemented the C code for each MPI problem (`dot_product_MPI.c`, `merge_sort_MPI.c`, `pi_MPI.c`) and configured associated `Makefile`s and `.sbatch` scripts.
+- **Debugging & Refinement**: This phase involved extensive interactive debugging, particularly for cluster-specific issues. Gemini iteratively identified and fixed:
+    - `sbatch` script errors (e.g., incorrect module loading, `srun` vs. `mpirun`, resource directives).
+    - Python virtual environment setup and dependency installation.
+    - Autograder script bugs (e.g., pathing errors, `KeyError` in `pandas`).
+    - C code errors (e.g., `fopen` NULL checks, `cmpfloat` function corruption leading to segfaults and compiler errors).
+- **Automation**: Creation of utility scripts like `run_all_sbatch.sh` and `run_autograder.sh` was managed during execution.
 
-## Surf Sense
-Ontop of the current sourcing, surf sense was used more as a generalized explainer rather than giving answers for robust problems. Surf Sense was hosted on a docker container, with an exposed port on my home server, using tailscale to connect to the endpoint. Several connectors were used to gather information from the following sources
-- Obsidan
-- Unraid
-- outlook
-- google notebook
-- My github
+### Verification
+Verification was a continuous and critical process, often driving subsequent execution and debugging cycles.
+- **Autograder Runs**: Gemini facilitated repeated execution of the Python autograder to validate the correctness and performance of each MPI implementation.
+- **Error Analysis**: When autograder tests failed, Gemini analyzed the output, pinpointed root causes (e.g., compiler errors, runtime segfaults, incorrect output), and proposed fixes.
+- **Documentation Updates**: This involved updating `README.md`, `.planning/STATE.md`, and phase summary documents to accurately reflect project status, completed tasks, and key changes.
 
-These sources are then used during query and write time to generate quick answers. Surf Sense is generally used as a search feature to find any pre-exisitng sources I may have on a topic in order to help gemni+GSD run better.
+The interactive nature of the Gemini CLI with the GSD workflow allowed for a structured, iterative approach to problem-solving, enabling rapid identification and resolution of issues encountered during the implementation and testing of the parallel MPI algorithms.
