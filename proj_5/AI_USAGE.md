@@ -9,6 +9,13 @@ The primary use of AI in this project was through the Gemini CLI, leveraging its
 
 The Gemini CLI, powered by the `gsd-opencode` model, was instrumental in structuring and automating various aspects of this MPI project. It provided a framework for breaking down complex tasks, tracking progress, and interactively developing solutions.
 
+### Role of Agents and Skills
+Within the Gemini CLI, tasks are handled by a system of agents and skills. Gemini itself acts as an orchestrating agent, delegating specific parts of a task to specialized sub-agents. Skills, on the other hand, represent activated domains of expertise or specific workflows that provide procedural guidance and tools for the duration of a task.
+
+In the context of this project:
+-   **Agents**: I, as the interactive CLI agent, delegated tasks to various internal capabilities. For instance, the GSD workflow is managed by several `gsd-*` sub-agents (e.g., `gsd_planner`, `gsd_executor` (which is often the orchestrating agent itself when directly performing file modifications or running commands), `gsd_assumptions_analyzer`). When you asked for code modifications or file operations, I utilized my core mandates and available tools (`read_file`, `replace`, `run_shell_command`) acting as the primary agent responsible for executing those tasks.
+-   **Skills**: While no explicit skills were "activated" by name during this specific project interaction (other than my core mandates), the GSD workflow itself can be thought of as a complex skill providing a structured approach. The specialized instructions given at the start of the session (e.g., project mandates in `GEMINI.md`) effectively function as a custom skill, guiding my behavior and priorities throughout the project. The ability to use tools like `write_todos` is a capability provided by my underlying agent framework.
+
 ### Initialization (`/gsd-new-project`)
 This phase involved setting up the project's foundational structure and understanding initial requirements.
 - **Initial Questions**: Gemini facilitated clarifying project scope, constraints (e.g., Slurm environment, MPI limitations), and specific requirements for each problem.
