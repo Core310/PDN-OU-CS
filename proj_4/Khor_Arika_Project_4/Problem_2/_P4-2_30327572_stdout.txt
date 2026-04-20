@@ -1,4 +1,0 @@
-clear 
-[3;J[H[2Jmake
-make[1]: Entering directory `/home/oucspdn089/git/PDN-OU-CS/proj_4/Khor_Arika_Project_4/Problem_2'
-make[1]: Leaving directory `/home/oucspdn089/git/PDN-OU-CS/proj_4/Khor_Arika_Project_4/Problem_2'

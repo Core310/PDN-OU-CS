@@ -1,0 +1,5 @@
+# Ignore previous projects
+prev_projs/
+proj_4/Khor_Arika_Project_4/
+__pycache__/
+.idea/

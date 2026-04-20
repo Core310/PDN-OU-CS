@@ -1,6 +1,0 @@
-clear 
-[3;J[H[2Jmake
-make[1]: Entering directory `/home/oucspdn089/git/PDN-OU-CS/proj_4/Khor_Arika_Project_4/Problem_1'
-make[1]: Nothing to be done for `default'.
-make[1]: Leaving directory `/home/oucspdn089/git/PDN-OU-CS/proj_4/Khor_Arika_Project_4/Problem_1'
-./gpu_mining_starter debug_1k.csv 1000 5000 _out_1k_5k.csv _time_1k_5k.csv

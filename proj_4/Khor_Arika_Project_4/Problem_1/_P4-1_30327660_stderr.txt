@@ -1,2 +1,0 @@
-ERROR: could not read the transaction file.
-make: *** [run] Error 255
