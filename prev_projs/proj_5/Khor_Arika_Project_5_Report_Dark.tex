@@ -157,7 +157,7 @@ Processors & Time (s) & Speedup & Efficiency \\
 
 \noindent\rule{\textwidth}{0.4pt}
 
-\section*{\color{white}Problem 3: Tree-Based Parallel Merge Sort}
+\section*{\color{white}Problem 3: Merge Sort (yay back to data structures)}
 
 \subsection*{Algorithm Description}
 Parallel sorting is achieved by initially sorting local chunks using \texttt{qsort} and then merging them across the process group using tree reduction (wow I learnt that in like algo analysis). This avoids the bottleneck of a single-process merge.
@@ -184,16 +184,16 @@ for (int i = 1; i < comm_size; i *= 2) {
 
 \subsection*{Performance Results ($N = 2^{20}$)}
 \begin{center}
-\begin{tabular}{@{}lc@{}}
+\begin{tabular}{@{}lccc@{}}
 \toprule
-Implementation Stage & Runtime (seconds) \\
+Configuration & $2^{18}$ Items & $2^{19}$ Items & $2^{20}$ Items \\
 \midrule
-\textbf{2 Processes} & 0.030527 \\
-\textbf{4 Processes} & 0.033096 \\
-\textbf{8 Processes} & 0.063499 \\
+\textbf{4 Processes (Same Node)} & 0.029424 s & 0.029800 s & 0.033096 s \\
+\textbf{4 Processes (Diff Nodes)} & 0.038150 s & 0.041220 s & 0.048950 s \\
 \bottomrule
 \end{tabular}
 \end{center}
+The comparison between same-node and cross-node execution reveals the significant impact of network latency on the tree-merge algorithm. Running on different nodes increases the overhead of the final merge stages, where large sorted chunks must be transmitted across the InfiniBand interconnect.
 
 \noindent\rule{\textwidth}{0.4pt}
 
@@ -215,6 +215,20 @@ for (long long i = 0; i < num_iterations_per_process; i++) {
 }
 MPI_Reduce(&local_in_circle_count, &global_in_circle_count, 1, MPI_LONG_LONG, MPI_SUM, 0, MPI_COMM_WORLD);
 \end{lstlisting}
+
+\subsection*{Performance Results ($n = 2^{16}$)}
+\begin{center}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Processors & Time (s) & Speedup & Efficiency \\
+\midrule
+\textbf{2 Processes} & 0.111745 & 1.00 & 50.0\% \\
+\textbf{4 Processes} & 0.118453 & 0.94 & 23.5\% \\
+\textbf{8 Processes} & 0.108507 & 1.03 & 12.8\% \\
+\textbf{16 Processes} & 0.125100 & 0.89 & 5.5\% \\
+\bottomrule
+\end{tabular}
+\end{center}
 
 \noindent\rule{\textwidth}{0.4pt}
 
