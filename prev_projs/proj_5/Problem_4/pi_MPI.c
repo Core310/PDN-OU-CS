@@ -25,8 +25,13 @@ int main(int argc, char* argv[]) {
         return EXIT_FAILURE;
     }
 
-    // Seed the random number generator to get different results for each process
-    srand48(time(NULL) + world_rank);
+    /* 
+     * Seeding the random number generator. 
+     * Using time(NULL) + rank is common but weak if all processes start in the same second.
+     * Incorporating a hash of the rank or higher-resolution time would be better.
+     * (Project_5_Instructions.pdf, Page 11: Choose a different seed value for each process)
+     */
+    srand48(time(NULL) * (world_rank + 1));
 
     long long TOTAL_POINTS = 1 << 16; // Fixed total points for the problem
     long long num_iterations_per_process = TOTAL_POINTS / world_size;
@@ -37,9 +42,10 @@ int main(int argc, char* argv[]) {
     start_time = MPI_Wtime();
 
     for (long long i = 0; i < num_iterations_per_process; i++) {
-        double x = drand48();
-        double y = drand48();
-        if (x * x + y * y < 1.0) {
+        double x = drand48(); // [0.0, 1.0)
+        double y = drand48(); // [0.0, 1.0)
+        /* (Project_5_Instructions.pdf, Page 11: Circle in the first quadrant if x^2 + y^2 <= 1) */
+        if (x * x + y * y <= 1.0) {
             local_in_circle_count++;
         }
     }
@@ -47,8 +53,9 @@ int main(int argc, char* argv[]) {
     end_time = MPI_Wtime();
     elapsed_time = end_time - start_time;
 
-
-    printf("Process %d local in circle count: %lld\n", world_rank, local_in_circle_count);
+    if (world_rank == 0) {
+        printf("Problem 4 Debug: Total Points = %lld, Procs = %d, Iterations/Proc = %lld\n", TOTAL_POINTS, world_size, num_iterations_per_process);
+    }
 
     long long global_in_circle_count;
     long long total_points;

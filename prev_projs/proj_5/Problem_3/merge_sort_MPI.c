@@ -30,16 +30,36 @@ int main (int argc, char *argv[])
     MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
     MPI_Comm_size(MPI_COMM_WORLD, &comm_size);
 
+    /* 
+     * Requirement Check: Ensure comm_size is a power of 2 for the tree merge.
+     * (Project_5_Instructions.pdf, Page 8: Tree reduction pattern illustrated for 8 processes)
+     */
+    if ((comm_size & (comm_size - 1)) != 0) {
+        if (my_rank == 0) {
+            printf("ERROR: This implementation requires a power-of-2 number of processes (2, 4, 8, etc.)\n");
+        }
+        MPI_Finalize();
+        return EXIT_FAILURE;
+    }
+
     // arrays to use
     float* arr = NULL;
     int local_n = n_items / comm_size;
     float* local_arr = (float*)malloc(local_n * sizeof(float));
+    if (local_arr == NULL) {
+        fprintf(stderr, "Process %d: Failed to allocate local_arr\n", my_rank);
+        MPI_Abort(MPI_COMM_WORLD, 1);
+    }
 
     // get start time
     double local_start, local_finish, local_elapsed, elapsed;
     
     if (my_rank == 0) {
         arr = read_input(inputFile, n_items);
+        if (arr == NULL) {
+            fprintf(stderr, "Process 0: Failed to read input file\n");
+            MPI_Abort(MPI_COMM_WORLD, 1);
+        }
     }
 
     MPI_Barrier(MPI_COMM_WORLD);
@@ -52,43 +72,48 @@ int main (int argc, char *argv[])
     qsort(local_arr, local_n, sizeof(float), cmpfloat);
 
     // Tree-based merge
-    for (int i = comm_size / 2; i > 0; i /= 2) {
-        if (my_rank < i) {
-            // Receive from partner
+    for (int i = 1; i < comm_size; i *= 2) {
+        if (my_rank % (2 * i) == 0) {
             int partner_rank = my_rank + i;
-            int received_size;
-            MPI_Status status;
-            MPI_Probe(partner_rank, 0, MPI_COMM_WORLD, &status);
-            MPI_Get_count(&status, MPI_FLOAT, &received_size);
+            if (partner_rank < comm_size) {
+                int received_size;
+                MPI_Status status;
+                MPI_Probe(partner_rank, 0, MPI_COMM_WORLD, &status);
+                MPI_Get_count(&status, MPI_FLOAT, &received_size);
 
-            float* received_arr = (float*)malloc(received_size * sizeof(float));
-            MPI_Recv(received_arr, received_size, MPI_FLOAT, partner_rank, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+                float* received_arr = (float*)malloc(received_size * sizeof(float));
+                if (received_arr == NULL) { MPI_Abort(MPI_COMM_WORLD, 1); }
+                
+                MPI_Recv(received_arr, received_size, MPI_FLOAT, partner_rank, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 
-            // Merge
-            float* merged_arr = (float*)malloc((local_n + received_size) * sizeof(float));
-            int k = 0, j = 0, m = 0;
-            while (k < local_n && j < received_size) {
-                if (local_arr[k] < received_arr[j]) {
+                // Merge
+                float* merged_arr = (float*)malloc((local_n + received_size) * sizeof(float));
+                if (merged_arr == NULL) { MPI_Abort(MPI_COMM_WORLD, 1); }
+
+                int k = 0, j = 0, m = 0;
+                while (k < local_n && j < received_size) {
+                    if (local_arr[k] < received_arr[j]) {
+                        merged_arr[m++] = local_arr[k++];
+                    } else {
+                        merged_arr[m++] = received_arr[j++];
+                    }
+                }
+                while (k < local_n) {
                     merged_arr[m++] = local_arr[k++];
-                } else {
+                }
+                while (j < received_size) {
                     merged_arr[m++] = received_arr[j++];
                 }
+                
+                free(local_arr);
+                local_arr = merged_arr;
+                local_n += received_size;
+                free(received_arr);
             }
-            while (k < local_n) {
-                merged_arr[m++] = local_arr[k++];
-            }
-            while (j < received_size) {
-                merged_arr[m++] = received_arr[j++];
-            }
-            
-            free(local_arr);
-            local_arr = merged_arr;
-            local_n += received_size;
-            free(received_arr);
-        } else if (my_rank < i * 2) {
-            // Send to partner
+        } else if (my_rank % i == 0) {
             int partner_rank = my_rank - i;
             MPI_Send(local_arr, local_n, MPI_FLOAT, partner_rank, 0, MPI_COMM_WORLD);
+            break; // This process is done after sending its data
         }
     }
 

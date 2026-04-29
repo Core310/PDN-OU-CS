@@ -1,0 +1,6 @@
+{
+  "workflow": "standard",
+  "auto_mode": false,
+  "preferred_shell": "bash",
+  "python_env": ".venv"
+}
