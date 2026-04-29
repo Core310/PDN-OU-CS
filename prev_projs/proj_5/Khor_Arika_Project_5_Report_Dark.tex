@@ -200,7 +200,7 @@ Implementation Stage & Runtime (seconds) \\
 \section*{\color{white}Problem 4: Monte Carlo Pi Estimation}
 
 \subsection*{Algorithm Description}
-A classic embarrassingly parallel problem where each process generates independent random samples within a unit square to estimate the area of a circle. 
+Parallel problem where each process generates independent random samples within a unit square to estimate the area of a circle. 
 
 \subsection*{Implementation: Independent RNG Seeding}
 To ensure statistical independence, each MPI process is seeded with a unique value derived from its rank and system time.
@@ -218,14 +218,14 @@ MPI_Reduce(&local_in_circle_count, &global_in_circle_count, 1, MPI_LONG_LONG, MP
 
 \noindent\rule{\textwidth}{0.4pt}
 
-\section*{\color{white}Deep Performance Analysis and MPI Bottlenecks}
+\section*{\color{white}Performance and MPI Bottlenecks}
 
 \subsection*{The Strong Scaling Wall}
-The project demonstrated that for problem sizes up to $N = 2^{20}$, communication overhead is the primary bottleneck. As processors increase, the "computation-to-communication" ratio drops significantly.
+The project demonstrated that for problem sizes up to $N = 2^{20}$, communication overhead is the primary bottleneck. As processors increase, the computation to communication ratio drops significantly.
 \begin{itemize}
     \item \textbf{Collective Overhead:} In the Dot Product, the cost of \texttt{MPI\_Scatter} for 8 processes is higher than the sequential compute time.
     \item \textbf{Serialization:} In Merge Sort, the final merge stage on Rank 0 remains an $O(N)$ sequential bottleneck, limiting the theoretical speedup according to Amdahl's Law.
-    \item \textbf{Initialization Noise:} In Monte Carlo ($N=2^{16}$), the ~110ms execution time is dominated by MPI process spawning rather than the negligible computation.
+    \item \textbf{Initialization Noise:} In Monte Carlo 110ms execution time is dominated by MPI process spawning rather than the negligible computation.
 \end{itemize}
 
 \noindent\rule{\textwidth}{0.4pt}
