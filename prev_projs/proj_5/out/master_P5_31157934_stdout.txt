@@ -1,0 +1,44 @@
+--- Master Execution Script for Project 5 ---
+Wed Apr 29 19:50:07 CDT 2026
+Working directory: /home/oucspdn089/PDN-OU-CS/prev_projs/proj_5
+
+--- Phase 1: Compiling all problems ---
+make: Entering directory `/home/oucspdn089/PDN-OU-CS/prev_projs/proj_5/Problem_1'
+rm -f pingpong_MPI
+make: Leaving directory `/home/oucspdn089/PDN-OU-CS/prev_projs/proj_5/Problem_1'
+make: Entering directory `/home/oucspdn089/PDN-OU-CS/prev_projs/proj_5/Problem_1'
+mpicc -g -Wall -o pingpong_MPI pingpong_MPI.c
+make: Leaving directory `/home/oucspdn089/PDN-OU-CS/prev_projs/proj_5/Problem_1'
+make: Entering directory `/home/oucspdn089/PDN-OU-CS/prev_projs/proj_5/Problem_2'
+rm -f dot_product_MPI
+make: Leaving directory `/home/oucspdn089/PDN-OU-CS/prev_projs/proj_5/Problem_2'
+make: Entering directory `/home/oucspdn089/PDN-OU-CS/prev_projs/proj_5/Problem_2'
+mpicc -g -Wall -o dot_product_MPI dot_product_MPI.c
+make: Leaving directory `/home/oucspdn089/PDN-OU-CS/prev_projs/proj_5/Problem_2'
+make: Entering directory `/home/oucspdn089/PDN-OU-CS/prev_projs/proj_5/Problem_3'
+rm -f merge_sort_MPI
+make: Leaving directory `/home/oucspdn089/PDN-OU-CS/prev_projs/proj_5/Problem_3'
+make: Entering directory `/home/oucspdn089/PDN-OU-CS/prev_projs/proj_5/Problem_3'
+mpicc -g -Wall -o merge_sort_MPI merge_sort_MPI.c
+make: Leaving directory `/home/oucspdn089/PDN-OU-CS/prev_projs/proj_5/Problem_3'
+make: Entering directory `/home/oucspdn089/PDN-OU-CS/prev_projs/proj_5/Problem_4'
+rm -f pi_MPI
+make: Leaving directory `/home/oucspdn089/PDN-OU-CS/prev_projs/proj_5/Problem_4'
+make: Entering directory `/home/oucspdn089/PDN-OU-CS/prev_projs/proj_5/Problem_4'
+mpicc -g -Wall -o pi_MPI pi_MPI.c
+make: Leaving directory `/home/oucspdn089/PDN-OU-CS/prev_projs/proj_5/Problem_4'
+
+--- Phase 2: Running Benchmarks ---
+Problem 1: Ping-Pong (Same Node)
+Problem 2: Dot Product
+Could not open file tests/Project_5_Tests/test_data/Vectors/vec1_2^20.csv
+Problem 3: Merge Sort
+Problem 4: Monte Carlo Pi
+Problem 4 Debug: Total Points = 65536, Procs = 8, Iterations/Proc = 8192
+Estimated Pi: 3.1489868164
+
+--- Phase 3: Running Autograder ---
+Warning: venv not found. Attempting to run with system python.
+
+--- Master Execution Finished ---
+Wed Apr 29 19:51:10 CDT 2026
