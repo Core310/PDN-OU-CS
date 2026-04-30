@@ -1,0 +1,57 @@
+--- Comprehensive Master Execution Script for Project 5 ---
+Thu Apr 30 00:47:46 CDT 2026
+Working directory: /home/oucspdn089/PDN-OU-CS/prev_projs/proj_5
+
+--- Phase 1: Compiling all problems ---
+make: Entering directory `/home/oucspdn089/PDN-OU-CS/prev_projs/proj_5/Problem_1'
+rm -f pingpong_MPI
+make: Leaving directory `/home/oucspdn089/PDN-OU-CS/prev_projs/proj_5/Problem_1'
+make: Entering directory `/home/oucspdn089/PDN-OU-CS/prev_projs/proj_5/Problem_1'
+mpicc -g -Wall -o pingpong_MPI pingpong_MPI.c
+make: Leaving directory `/home/oucspdn089/PDN-OU-CS/prev_projs/proj_5/Problem_1'
+make: Entering directory `/home/oucspdn089/PDN-OU-CS/prev_projs/proj_5/Problem_2'
+rm -f dot_product_MPI
+make: Leaving directory `/home/oucspdn089/PDN-OU-CS/prev_projs/proj_5/Problem_2'
+make: Entering directory `/home/oucspdn089/PDN-OU-CS/prev_projs/proj_5/Problem_2'
+mpicc -g -Wall -o dot_product_MPI dot_product_MPI.c
+make: Leaving directory `/home/oucspdn089/PDN-OU-CS/prev_projs/proj_5/Problem_2'
+make: Entering directory `/home/oucspdn089/PDN-OU-CS/prev_projs/proj_5/Problem_3'
+rm -f merge_sort_MPI
+make: Leaving directory `/home/oucspdn089/PDN-OU-CS/prev_projs/proj_5/Problem_3'
+make: Entering directory `/home/oucspdn089/PDN-OU-CS/prev_projs/proj_5/Problem_3'
+mpicc -g -Wall -o merge_sort_MPI merge_sort_MPI.c
+make: Leaving directory `/home/oucspdn089/PDN-OU-CS/prev_projs/proj_5/Problem_3'
+make: Entering directory `/home/oucspdn089/PDN-OU-CS/prev_projs/proj_5/Problem_4'
+rm -f pi_MPI
+make: Leaving directory `/home/oucspdn089/PDN-OU-CS/prev_projs/proj_5/Problem_4'
+make: Entering directory `/home/oucspdn089/PDN-OU-CS/prev_projs/proj_5/Problem_4'
+mpicc -g -Wall -o pi_MPI pi_MPI.c
+make: Leaving directory `/home/oucspdn089/PDN-OU-CS/prev_projs/proj_5/Problem_4'
+
+--- Phase 2: Running Benchmarks ---
+Problem 1: Ping-Pong (Same Node & Different Nodes)
+Problem 2: Dot Product (Full Suite)
+Could not open file tests/Project_5_Tests/test_data/Vectors/vec1_2^18.csv
+Could not open file tests/Project_5_Tests/test_data/Vectors/vec1_2^18.csv
+Could not open file tests/Project_5_Tests/test_data/Vectors/vec1_2^18.csv
+Could not open file tests/Project_5_Tests/test_data/Vectors/vec1_2^19.csv
+Could not open file tests/Project_5_Tests/test_data/Vectors/vec1_2^19.csv
+Could not open file tests/Project_5_Tests/test_data/Vectors/vec1_2^19.csv
+Could not open file tests/Project_5_Tests/test_data/Vectors/vec1_2^20.csv
+Could not open file tests/Project_5_Tests/test_data/Vectors/vec1_2^20.csv
+Could not open file tests/Project_5_Tests/test_data/Vectors/vec1_2^20.csv
+Problem 3: Merge Sort (Including Same vs Diff Node comparison)
+Problem 4: Monte Carlo Pi (Up to 16 Processes)
+Problem 4 Debug: Total Points = 65536, Procs = 2, Iterations/Proc = 32768
+Estimated Pi: 3.1311035156
+Problem 4 Debug: Total Points = 65536, Procs = 4, Iterations/Proc = 16384
+Estimated Pi: 3.1318359375
+Problem 4 Debug: Total Points = 65536, Procs = 8, Iterations/Proc = 8192
+Estimated Pi: 3.1461791992
+Problem 4 Debug: Total Points = 65536, Procs = 16, Iterations/Proc = 4096
+Estimated Pi: 3.1386718750
+
+--- Phase 3: Running Autograder ---
+
+--- Master Execution Finished ---
+Thu Apr 30 00:50:11 CDT 2026
