@@ -227,28 +227,30 @@ Processors & Time (s) & Speedup & Efficiency \\
 
 \section*{Performance and MPI Bottlenecks}
 
-\subsection*{The Strong Scaling Wall}
+\subsection*{Scaling}
 The project demonstrated that for problem sizes up to $N = 2^{20}$, communication overhead is the primary bottleneck. As processors increase, the computation to communication ratio drops significantly.
 \begin{itemize}
     \item \textbf{Collective Overhead:} In the Dot Product, the cost of \texttt{MPI\_Scatter} for 8 processes is higher than the sequential compute time.
     \item \textbf{Serialization:} In Merge Sort, the final merge stage on Rank 0 remains an $O(N)$ sequential bottleneck, limiting the theoretical speedup according to Amdahl's Law.
-    \item \textbf{Initialization Noise:} In Monte Carlo 110ms execution time is dominated by MPI process spawning rather than the negligible computation.
+    \item \textbf{Initialization Noise:} In Monte Carlo 110ms execution time is dominated by MPI process spawning (in comparsion to computation speed).
 \end{itemize}
 
 \noindent\rule{\textwidth}{0.4pt}
 
 \section*{AI Usage and Software Engineering Workflow}
 
-\subsection*{Gemini CLI \& GSD}
-This project was developed using the \textbf{Gemini CLI} environment. Unlike standard LLMs, this agent operates directly on the Linux filesystem, executing shell commands to compile MPI code, submitting \texttt{sbatch} jobs, and performing surgical refactoring of LaTeX templates.
+\subsection*{Gemini CLI \& GSD }
+This project was developed using the \textbf{Gemini CLI} environment. Unlike standard LLMs, this agent operates directly on the Linux filesystem, executing shell commands to compile MPI code, and any refactoring required.
 
 \subsection*{The GSD (Get Shit Done) Framework}
-The development followed the **GSD (Get Shit Done)** lifecycle:
+GSD: A light-weight and powerful meta-prompting, context engineering and spec-driven development system for Claude Code by TÂCHES.
+
+The development followed a typical GSD workflow:
 \begin{enumerate}[label=\alph*.]
     \item \textbf{Research:} Profiling interconnect bandwidth using Problem 1.
     \item \textbf{Strategy:} Moving from point-to-point to collective MPI calls for efficiency.
     \item \textbf{Execution:} Iterative "Plan-Act-Validate" cycles confirmed by the autograder.
-    \item \textbf{Harden:} Adding power-of-2 safety checks to the tree-merge logic.
+    \item \textbf{Verify:} Adding power-of-2 safety checks to the tree-merge logic and look at all the autograder outputs.
 \end{enumerate}
 
 \noindent\rule{\textwidth}{0.4pt}
