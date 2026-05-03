@@ -30,18 +30,6 @@ int main (int argc, char *argv[])
     MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
     MPI_Comm_size(MPI_COMM_WORLD, &comm_size);
 
-    /* 
-     * Requirement Check: Ensure comm_size is a power of 2 for the tree merge.
-     * (Project_5_Instructions.pdf, Page 8: Tree reduction pattern illustrated for 8 processes)
-     */
-    if ((comm_size & (comm_size - 1)) != 0) {
-        if (my_rank == 0) {
-            printf("ERROR: This implementation requires a power-of-2 number of processes (2, 4, 8, etc.)\n");
-        }
-        MPI_Finalize();
-        return EXIT_FAILURE;
-    }
-
     // arrays to use
     float* arr = NULL;
     int local_n = n_items / comm_size;
@@ -179,8 +167,6 @@ float* read_input(FILE* inputFile, int n_items) {
 int cmpfloat(const void* a, const void* b) {
     float fa = *(const float*)a;
     float fb = *(const float*)b;
-    if (fa < fb) return -1;
-    if (fa > fb) return 1;
-    return 0;
+    return (fa > fb) - (fa < fb);
 } // Cmp Int //
 
