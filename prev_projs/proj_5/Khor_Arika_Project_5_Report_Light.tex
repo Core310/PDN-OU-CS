@@ -138,7 +138,7 @@ MPI_Reduce(&local_dot_product, &global_dot_product, 1, MPI_DOUBLE, MPI_SUM, 0, M
 \subsection*{Performance Results}
 
 \begin{center}
-\textbf{Table 2.1: Wall-Clock Time (seconds)}
+\textbf{Table 2.1: Wall-Clock Time (seconds)} \\
 \begin{tabular}{@{}lccc@{}}
 \toprule
 Processors & $2^{18}$ Items & $2^{19}$ Items & $2^{20}$ Items \\
@@ -151,7 +151,7 @@ Processors & $2^{18}$ Items & $2^{19}$ Items & $2^{20}$ Items \\
 \end{center}
 
 \begin{center}
-\textbf{Table 2.2: Speedup}
+\textbf{Table 2.2: Speedup} \\
 \begin{tabular}{@{}lccc@{}}
 \toprule
 Processors & $2^{18}$ Items & $2^{19}$ Items & $2^{20}$ Items \\
@@ -164,7 +164,7 @@ Processors & $2^{18}$ Items & $2^{19}$ Items & $2^{20}$ Items \\
 \end{center}
 
 \begin{center}
-\textbf{Table 2.3: Efficiency}
+\textbf{Table 2.3: Efficiency} \\
 \begin{tabular}{@{}lccc@{}}
 \toprule
 Processors & $2^{18}$ Items & $2^{19}$ Items & $2^{20}$ Items \\
@@ -206,7 +206,7 @@ for (int i = 1; i < comm_size; i *= 2) {
 \subsection*{Performance Results (4 Processes)}
 
 \begin{center}
-\textbf{Table 3.1: Wall-Clock Time (seconds)}
+\textbf{Table 3.1: Wall-Clock Time (seconds)} \\
 \begin{tabular}{@{}lccc@{}}
 \toprule
 Configuration & $2^{18}$ Items & $2^{19}$ Items & $2^{20}$ Items \\
@@ -218,7 +218,7 @@ Configuration & $2^{18}$ Items & $2^{19}$ Items & $2^{20}$ Items \\
 \end{center}
 
 \begin{center}
-\textbf{Table 3.2: Speedup (relative to 2p same node)}
+\textbf{Table 3.2: Speedup (relative to 2p same node)} \\
 \begin{tabular}{@{}lccc@{}}
 \toprule
 Configuration & $2^{18}$ Items & $2^{19}$ Items & $2^{20}$ Items \\
@@ -230,7 +230,7 @@ Configuration & $2^{18}$ Items & $2^{19}$ Items & $2^{20}$ Items \\
 \end{center}
 
 \begin{center}
-\textbf{Table 3.3: Efficiency}
+\textbf{Table 3.3: Efficiency} \\
 \begin{tabular}{@{}lccc@{}}
 \toprule
 Configuration & $2^{18}$ Items & $2^{19}$ Items & $2^{20}$ Items \\
@@ -265,7 +265,7 @@ MPI_Reduce(&local_in_circle_count, &global_in_circle_count, 1, MPI_LONG_LONG, MP
 \subsection*{Performance Results ($n = 2^{16}$)}
 
 \begin{center}
-\textbf{Table 4.1: Wall-Clock Time (seconds)}
+\textbf{Table 4.1: Wall-Clock Time (seconds)} \\
 \begin{tabular}{@{}lc@{}}
 \toprule
 Processors & Time (s) \\
@@ -279,7 +279,7 @@ Processors & Time (s) \\
 \end{center}
 
 \begin{center}
-\textbf{Table 4.2: Speedup}
+\textbf{Table 4.2: Speedup} \\
 \begin{tabular}{@{}lc@{}}
 \toprule
 Processors & Speedup \\
@@ -293,7 +293,7 @@ Processors & Speedup \\
 \end{center}
 
 \begin{center}
-\textbf{Table 4.3: Efficiency}
+\textbf{Table 4.3: Efficiency} \\
 \begin{tabular}{@{}lc@{}}
 \toprule
 Processors & Efficiency \\
