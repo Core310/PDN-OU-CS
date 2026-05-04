@@ -51,7 +51,7 @@
 \fancyhf{}
 \lhead{\color{textgrey}Project 5}
 \chead{\color{textgrey}MPI Distributed Programming}
-\rhead{\color{textgrey}Semester: SPRING 2026}
+\rhead{\color{textgrey}May 1, 2026}
 \lfoot{\color{textgrey}Arika Khor}
 \cfoot{}
 \rfoot{\color{textgrey}Page \thepage\ of \pageref{LastPage}}
@@ -59,7 +59,7 @@
 \begin{document}
 
 \begin{center}
-    {\Large \textbf{\color{white}Project 5 Report: Distributed Memory Parallelism with MPI}}\\
+    {\Large \textbf{\color{white}Project 5 Report: Distributed Memory Parallelism}}\\
     \vspace{0.5em}
     Author: Arika Khor
 \end{center}
@@ -185,7 +185,7 @@ Processors & $2^{18}$ Items & $2^{19}$ Items & $2^{20}$ Items \\
 
 \noindent\rule{\textwidth}{0.4pt}
 
-\section*{\color{white}Problem 3: Merge Sort (yay back to data structures)}
+\section*{\color{white}Problem 3: Parallel Merge Sort}
 
 \subsection*{Algorithm Description}
 Parallel sorting is achieved by initially sorting local chunks using \texttt{qsort} and then merging them across the process group using tree reduction. This avoids the bottleneck of a single-process merge.
